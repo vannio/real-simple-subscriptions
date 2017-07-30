@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import data from './data';
 
 export const SimpleIcon = ({ name }) => {
@@ -14,6 +15,10 @@ export const SimpleIcon = ({ name }) => {
       <path d={iconData.path}/>
     </svg>
   );
+};
+
+SimpleIcon.propTypes = {
+  name: PropTypes.string.isRequired
 };
 
 export const LoadingIcon = () => (
