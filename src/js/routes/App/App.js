@@ -4,8 +4,9 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
+import logo from './logo.svg';
+import SettingsForm from '../../components/SettingsForm/SettingsForm';
 
 const App = () => (
   <Router>
@@ -23,7 +24,7 @@ const App = () => (
           <p>To get started, edit <code>src/App.js</code> and save to reload.</p>
         )} />
         <Route path="/settings" render={() => (
-          <p>Settings here</p>
+          <SettingsForm />
         )} />
       </div>
     </div>
