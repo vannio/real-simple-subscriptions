@@ -4,9 +4,8 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import SettingsForm from '../../components/SettingsForm/SettingsForm';
-import SubscriptionsForm from '../../components/SubscriptionsForm/SubscriptionsForm';
-import SubscriptionsList from '../../components/SubscriptionsList/SubscriptionsList';
+import SettingsGeneral from '../../components/SettingsGeneral/SettingsGeneral';
+import SettingsSubscriptions from '../../components/SettingsSubscriptions/SettingsSubscriptions';
 import './App.css';
 
 const App = () => (
@@ -25,9 +24,8 @@ const App = () => (
         <Route path="/settings" render={() => (
           <div>
             <h2>Settings</h2>
-            <SettingsForm />
-            <SubscriptionsForm />
-            <SubscriptionsList />
+            <SettingsGeneral />
+            <SettingsSubscriptions />
           </div>
         )} />
       </div>

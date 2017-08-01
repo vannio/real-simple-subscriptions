@@ -9,3 +9,9 @@ export const addSubscription = subscription => ({
   type: ADD_SUBSCRIPTION,
   subscription
 });
+
+export const UPDATE_SUBSCRIPTION = 'UPDATE_SUBSCRIPTION';
+export const updateSubscription = subscription => ({
+  type: UPDATE_SUBSCRIPTION,
+  subscription
+});
