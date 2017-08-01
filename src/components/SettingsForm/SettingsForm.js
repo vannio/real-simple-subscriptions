@@ -36,7 +36,6 @@ const enhance = compose(
 
 const SettingsForm = props => (
   <div className="settings-form__form">
-    <h2>Settings</h2>
     <h3>General</h3>
     {props.isEditable ? (
       <form onSubmit={props.onSubmitForm}>

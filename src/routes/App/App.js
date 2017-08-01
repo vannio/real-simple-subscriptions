@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import SettingsForm from '../../components/SettingsForm/SettingsForm';
+import SubscriptionsForm from '../../components/SubscriptionsForm/SubscriptionsForm';
 import './App.css';
 
 const App = () => (
@@ -21,7 +22,11 @@ const App = () => (
           <p>To get started, edit <code>src/App.js</code> and save to reload.</p>
         )} />
         <Route path="/settings" render={() => (
-          <SettingsForm />
+          <div>
+            <h2>Settings</h2>
+            <SettingsForm />
+            <SubscriptionsForm />
+          </div>
         )} />
       </div>
     </div>
