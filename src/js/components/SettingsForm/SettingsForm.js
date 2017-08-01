@@ -3,18 +3,33 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 const enhance = compose(
+  connect(
+    state => ({
+      maxCount: state.settings.maxCount,
+      readOnOpen: state.settings.readOnOpen,
+      accentColour: state.settings.accentColour,
+    }),
+    { updateSettings: actions.updateSettings }
+  ),
   withState('isEditable', 'setIsEditable', false),
-  withState('maxCount', 'setMaxCount', 3),
-  withState('accentColour', 'setAccentColour', 'pink'),
-  withState('readOnOpen', 'setReadOnOpen', true),
+  withState('maxCount', 'setMaxCount', props => props.maxCount),
+  withState('accentColour', 'setAccentColour', props => props.accentColour),
+  withState('readOnOpen', 'setReadOnOpen', props => props.readOnOpen),
   withHandlers({
     onToggleEdit: props => () => props.setIsEditable(!props.isEditable),
     onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 16)),
     onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
     onAccentColourChange: props => e => props.setAccentColour(e.target.value),
-    onSubmitForm: props => e => e.preventDefault()
+    onSubmitForm: props => e => {
+      e.preventDefault();
+      var { maxCount, readOnOpen, accentColour } = props;
+      props.updateSettings({ maxCount, readOnOpen, accentColour });
+      props.setIsEditable(false);
+    }
   })
 );
 
