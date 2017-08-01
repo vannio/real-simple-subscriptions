@@ -5,6 +5,7 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+const colours = ['Pink', 'Purple', 'Blue', 'Green', 'Yellow', 'Orange', 'Red', 'Black', 'White'];
 
 const enhance = compose(
   connect(
@@ -50,9 +51,9 @@ const SettingsForm = props => (
         <div>
           <label htmlFor="accentColour">Accent Colour</label>
           <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
-            <option value="pink">Pink</option>
-            <option value="purple">Purple</option>
-            <option value="blue">Blue</option>
+            {colours.map(colour => (
+              <option value={colour} key={colour}>{colour}</option>
+            ))}
           </select>
         </div>
         <button className="settings-form__button" type="submit">update</button>
@@ -79,7 +80,7 @@ SettingsForm.propTypes = {
   onAccentColourChange: PropTypes.func,
   maxCount: PropTypes.number,
   readOnOpen: PropTypes.bool,
-  accentColour: PropTypes.oneOf(['pink', 'purple', 'blue'])
+  accentColour: PropTypes.oneOf(colours)
 };
 
 export default enhance(SettingsForm);
