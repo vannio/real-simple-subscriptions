@@ -5,15 +5,15 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
 const enhance = compose(
-  withState('feedTitle', 'setFeedTitle', ''),
-  withState('feedUrl', 'setFeedUrl', ''),
+  withState('feedTitle', 'setFeedTitle', props => props.subscription ? props.subscription.title : ''),
+  withState('feedUrl', 'setFeedUrl', props => props.subscription ? props.subscription.url : ''),
   withHandlers({
     onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
     onFeedUrlChange: props => e => props.setFeedUrl(e.target.value),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { feedTitle, feedUrl } = props;
-      props.handleSubmit({ title: feedTitle, url: feedUrl });
+      var { feedTitle, feedUrl, subscription } = props;
+      props.handleSubmit({ title: feedTitle, url: feedUrl, id: subscription && subscription.id });
       props.setFeedTitle('');
       props.setFeedUrl('');
     }
@@ -29,7 +29,7 @@ export const SubscriptionsForm = props => (
       <label htmlFor="feedUrl">URL</label>
       <input type="url" id="feedUrl" onChange={props.onFeedUrlChange} value={props.feedUrl} required />
     </div>
-    <button type="submit">subscribe</button>
+    <button type="submit">{props.cta || 'subscribe'}</button>
   </form>
 );
 
@@ -40,6 +40,7 @@ SubscriptionsForm.propTypes = {
   onFeedUrlChange: PropTypes.func,
   feedTitle: PropTypes.string,
   feedUrl: PropTypes.string,
+  cta: PropTypes.string
 };
 
 export default enhance(SubscriptionsForm);
