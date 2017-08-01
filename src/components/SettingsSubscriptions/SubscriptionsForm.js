@@ -5,42 +5,54 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
 const enhance = compose(
-  withState('feedTitle', 'setFeedTitle', props => props.subscription ? props.subscription.title : ''),
-  withState('feedUrl', 'setFeedUrl', props => props.subscription ? props.subscription.url : ''),
+  withState('subscriptionTitle', 'setSubscriptionTitle', props => props.subscription ? props.subscription.title : ''),
+  withState('subscriptionUrl', 'setSubscriptionUrl', props => props.subscription ? props.subscription.url : ''),
   withHandlers({
-    onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
-    onFeedUrlChange: props => e => props.setFeedUrl(e.target.value),
+    onSubscriptionTitleChange: props => e => props.setSubscriptionTitle(e.target.value),
+    onSubscriptionUrlChange: props => e => props.setSubscriptionUrl(e.target.value),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { feedTitle, feedUrl, subscription } = props;
-      props.handleSubmit({ title: feedTitle, url: feedUrl, id: subscription && subscription.id });
-      props.setFeedTitle('');
-      props.setFeedUrl('');
+      var { subscriptionTitle, subscriptionUrl, subscriptionId } = props;
+      props.handleSubmit({
+        id: subscriptionId,
+        title: subscriptionTitle,
+        url: subscriptionUrl
+      });
+      props.setSubscriptionTitle('');
+      props.setSubscriptionUrl('');
     }
   })
 );
 export const SubscriptionsForm = props => (
   <form onSubmit={props.onSubmitForm}>
     <div>
-      <label htmlFor="feedTitle">Title</label>
-      <input type="text" id="feedTitle" onChange={props.onFeedTitleChange} value={props.feedTitle} required />
+      <label htmlFor="subscriptionTitle">Title</label>
+      <input type="text"
+        id="subscriptionTitle"
+        onChange={props.onSubscriptionTitleChange}
+        value={props.subscriptionTitle} required />
     </div>
     <div>
-      <label htmlFor="feedUrl">URL</label>
-      <input type="url" id="feedUrl" onChange={props.onFeedUrlChange} value={props.feedUrl} required />
+      <label htmlFor="subscriptionUrl">URL</label>
+      <input type="url"
+        id="subscriptionUrl"
+        onChange={props.onSubscriptionUrlChange}
+        value={props.subscriptionUrl} required />
     </div>
-    <button type="submit">{props.cta || 'subscribe'}</button>
+    <button type="submit">{props.cta || 'submit'}</button>
+    {props.children}
   </form>
 );
 
 SubscriptionsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmitForm: PropTypes.func,
-  onFeedTitleChange: PropTypes.func,
-  onFeedUrlChange: PropTypes.func,
-  feedTitle: PropTypes.string,
-  feedUrl: PropTypes.string,
-  cta: PropTypes.string
+  onSubscriptionTitleChange: PropTypes.func,
+  onSubscriptionUrlChange: PropTypes.func,
+  subscriptionTitle: PropTypes.string,
+  subscriptionUrl: PropTypes.string,
+  cta: PropTypes.string,
+  children: PropTypes.node
 };
 
 export default enhance(SubscriptionsForm);

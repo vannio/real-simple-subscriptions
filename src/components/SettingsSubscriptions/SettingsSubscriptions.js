@@ -10,10 +10,7 @@ import SubscriptionsList from './SubscriptionsList';
 const enhance = compose(
   connect(
     null,
-    {
-      addSubscription: actions.addSubscription,
-      updateSubscription: actions.updateSubscription
-    }
+    { addSubscription: actions.addSubscription }
   ),
   withHandlers({
     onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
@@ -26,7 +23,7 @@ const enhance = compose(
 export const SettingsSubscriptions = props => (
   <div className="settings-subscriptions">
     <SubscriptionsForm handleSubmit={props.handleAddSubscription} />
-    <SubscriptionsList handleSubmit={props.handleUpdateSubscription} />
+    <SubscriptionsList />
   </div>
 );
 

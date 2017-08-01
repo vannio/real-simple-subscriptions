@@ -4,22 +4,22 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import SubscriptionsForm from './SubscriptionsForm';
 
 const enhance = compose(
   connect(
     state => ({
       subscriptions: state.subscriptions
-    })
+    }),
+    { updateSubscription: actions.updateSubscription }
   ),
-  withState('editableId', 'setIsEditable', ''),
+  withState('editableId', 'setEditableId', ''),
   withHandlers({
-    onToggleEdit: props => e => props.setIsEditable(e.target.id),
-    onSubmitForm: props => e => {
-      e.preventDefault();
-      var { feedTitle, feedUrl } = props;
-      props.handleSubmit({ title: feedTitle, url: feedUrl });
-      props.setIsEditable(false);
+    onToggleEdit: props => e => props.setEditableId(e.target.id),
+    onSubmitForm: props => subscription => {
+      props.updateSubscription(subscription);
+      props.setEditableId('');
     }
   })
 );
@@ -27,32 +27,35 @@ const enhance = compose(
 const SubscriptionsList = props => (
   <div className="subscriptions-list">
     <ul>
-      {props.subscriptions.map(subscription => (
-        <li key={subscription.id}>
-          {props.editableId === subscription.id ? (
-            <SubscriptionsForm
-              handleSubmit={() => {}}
-              subscription={subscription}
-              cta="update" />
-          ) : (
-            <div onClick={props.onToggleEdit} id={subscription.id}>
-              <strong>{subscription.title}</strong>
-              {subscription.url}
-            </div>
-          )}
-        </li>
-      ))}
+      {Object.keys(props.subscriptions).map(id => {
+        const subscription = props.subscriptions[id];
+        return (
+          <li key={id}>
+            {props.editableId === id ? (
+              <SubscriptionsForm
+                handleSubmit={props.onSubmitForm}
+                subscription={subscription}
+                subscriptionId={id}
+                cta="update" />
+            ) : (
+              <div onClick={props.onToggleEdit} id={id}>
+                <strong>{subscription.title}</strong>
+                {subscription.url}
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
 
 SubscriptionsList.propTypes = {
-  subscriptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      url: PropTypes.string
-    })
-  ),
+  subscriptions: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    url: PropTypes.string
+  }),
   editableId: PropTypes.string,
   onToggleEdit: PropTypes.func
 };
