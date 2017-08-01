@@ -32,11 +32,11 @@ export const SubscriptionsForm = props => (
     <form onSubmit={props.onSubmitForm}>
       <div>
         <label htmlFor="feedTitle">Title</label>
-        <input type="text" id="feedTitle" onChange={props.onFeedTitleChange} value={props.feedTitle} />
+        <input type="text" id="feedTitle" onChange={props.onFeedTitleChange} value={props.feedTitle} required />
       </div>
       <div>
         <label htmlFor="feedUrl">URL</label>
-        <input type="text" id="feedUrl" onChange={props.onFeedUrlChange} value={props.feedUrl} />
+        <input type="url" id="feedUrl" onChange={props.onFeedUrlChange} value={props.feedUrl} required />
       </div>
       <button type="submit">subscribe</button>
     </form>

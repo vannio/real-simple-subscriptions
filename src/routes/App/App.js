@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import SettingsForm from '../../components/SettingsForm/SettingsForm';
 import SubscriptionsForm from '../../components/SubscriptionsForm/SubscriptionsForm';
+import SubscriptionsList from '../../components/SubscriptionsList/SubscriptionsList';
 import './App.css';
 
 const App = () => (
@@ -26,6 +27,7 @@ const App = () => (
             <h2>Settings</h2>
             <SettingsForm />
             <SubscriptionsForm />
+            <SubscriptionsList />
           </div>
         )} />
       </div>
