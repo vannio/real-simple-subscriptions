@@ -1,14 +1,17 @@
+import uuidv4 from 'uuid/v4';
+import uuidv5 from 'uuid/v5';
+
 const getNodeValue = (node, selectors) => {
 	node = node.querySelectorAll(selectors)[0];
-	var nodeValue = node && node.firstChild ? node.firstChild.nodeValue : '';
-	var firstParagraph = nodeValue.match(/.+?(<\/p>)/);
+	const nodeValue = node && node.firstChild ? node.firstChild.nodeValue : '';
+	const firstParagraph = nodeValue.match(/.+?(<\/p>)/);
 	return firstParagraph ? firstParagraph[0] : nodeValue;
 };
 
 const getFeedLink = entryNode => {
-  var links = entryNode.getElementsByTagName('link');
+  const links = entryNode.getElementsByTagName('link');
   if (links.length === 0) {
-    var guids = entryNode.getElementsByTagName('guid');
+    const guids = entryNode.getElementsByTagName('guid');
     if (
       guids.length === 0 ||
       guids[0].getAttribute('ispermalink') === 'false'
@@ -19,7 +22,7 @@ const getFeedLink = entryNode => {
   }
 
   for (var i = 0; i < links.length; i++) {
-    var link = links[i];
+    const link = links[i];
     if (
       link.getAttribute('href') != null &&
       (
@@ -44,12 +47,13 @@ const getFeedLink = entryNode => {
 };
 
 const transformXML = xml => {
-  var xmlResponse = (new DOMParser()).parseFromString(xml, 'text/xml');
-  var entryNodes = Array.prototype.slice.call(
+  const xmlResponse = (new DOMParser()).parseFromString(xml, 'text/xml');
+  const entryNodes = Array.prototype.slice.call(
     xmlResponse.querySelectorAll('item, entry'), 0
   );
 
   return entryNodes.map(entryNode => ({
+    id: uuidv5(getFeedLink(entryNode), uuidv4()),
   	url: getFeedLink(entryNode),
   	title: getNodeValue(entryNode, 'title'),
   	content: getNodeValue(entryNode, 'description, content'),

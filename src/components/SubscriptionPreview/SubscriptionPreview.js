@@ -35,7 +35,7 @@ export const SubscriptionPreview = props => (
     </div>
     <ul className="subscription-preview__list">
       {props.feedItems.slice(0, props.maxCount).map(item => (
-        <ListItem key={item.timeStamp} item={item} />
+        <ListItem key={item.id} item={item} />
       ))}
     </ul>
   </div>
@@ -48,6 +48,7 @@ SubscriptionPreview.propTypes = {
   }),
   feedItems: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       title: PropTypes.string,
       content: PropTypes.string,
       date: PropTypes.number,
