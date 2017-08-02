@@ -4,7 +4,7 @@ import SettingsSubscriptions from '../../components/SettingsSubscriptions/Settin
 
 const Settings = () => (
   <div>
-    <h2>Settings</h2>
+    <h1>Settings</h1>
     <SettingsGeneral />
     <SettingsSubscriptions />
   </div>

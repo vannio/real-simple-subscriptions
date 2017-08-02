@@ -36,19 +36,19 @@ const enhance = compose(
 
 const SettingsForm = props => (
   <div className="settings-form__form">
-    <h3>General</h3>
+    <h2>General</h2>
     {props.isEditable ? (
       <form onSubmit={props.onSubmitForm}>
         <div>
-          <label htmlFor="maxCount">Front Page items per feed</label>
-          <input type="number" id="maxCount" onChange={props.onMaxCountChange} value={props.maxCount} />
+          <label htmlFor="maxCount"><strong>Front Page items per feed</strong></label>
+          <input type="number" id="maxCount" onChange={props.onMaxCountChange} value={props.maxCount} min={1} />
         </div>
         <div>
-          <label htmlFor="readOnOpen">Read on open</label>
+          <label htmlFor="readOnOpen"><strong>Read on open</strong></label>
           <input type="checkbox" id="readOnOpen" onChange={props.onToggleReadOnOpen} checked={props.readOnOpen} />
         </div>
         <div>
-          <label htmlFor="accentColour">Accent Colour</label>
+          <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
           <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
             {colours.map(colour => (
               <option value={colour} key={colour}>{colour}</option>
@@ -59,13 +59,13 @@ const SettingsForm = props => (
         <button className="settings-form__button" type="button" onClick={props.onToggleEdit}>close</button>
       </form>
     ) : (
-      <ul
+      <div
         onClick={props.onToggleEdit}
         className="settings-form__list">
-        <li><strong>Front Page items per feed</strong>{props.maxCount}</li>
-        <li><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</li>
-        <li><strong>Accent Colour</strong>{props.accentColour}</li>
-      </ul>
+        <div><strong>Front Page items per feed</strong>{props.maxCount}</div>
+        <div><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</div>
+        <div><strong>Accent Colour</strong>{props.accentColour}</div>
+      </div>
     )}
   </div>
 );

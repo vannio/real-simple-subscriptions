@@ -10,13 +10,10 @@ const enhance = connect(
 );
 
 const Sidebar = ({ subscriptions }) => (
-  <ul>
-    {['Subscriptions', 'Settings'].map(route => (
-      <li key={route}>
-        <NavLink to={`/${route.toLowerCase()}`} activeClassName="active">{route}</NavLink>
-      </li>
-    ))}
+  <ul className="sidebar-list">
+    <li><NavLink to={'/settings'} activeClassName="active">Settings</NavLink></li>
     <hr />
+    <li><NavLink to={'/subscriptions'} activeClassName="active">All</NavLink></li>
     {Object.keys(subscriptions).map(id => (
       <li key={id}>
         <NavLink to={`/subscriptions/${id.toLowerCase()}`} activeClassName="active">

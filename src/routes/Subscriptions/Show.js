@@ -10,10 +10,7 @@ const enhance = connect(
 );
 
 const Show = ({ subscriptions, match }) => (
-  <div>
-    <h1>{subscriptions[match.params.id].title}</h1>
-    <SubscriptionPreview id={match.params.id} />
-  </div>
+  <SubscriptionPreview id={match.params.id} />
 );
 
 Show.propTypes = {
