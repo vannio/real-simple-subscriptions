@@ -7,14 +7,20 @@ import ListItem from './ListItem';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions';
 import { LoadingIcon } from '../Icon/Icon';
+import {
+  getSubscription,
+  getFeedItems,
+  isFeedItemsFetching,
+  getFeedItemsFetchError
+} from './ducks';
 
 const enhance = compose(
   connect(
     (state, ownProps) => ({
-      subscription: state.subscriptions[ownProps.id],
-      feedItems: state.feedItems[ownProps.id] || [],
-      isFetching: state.feedItems.fetching,
-      fetchError: state.feedItems.error
+      subscription: getSubscription(state, ownProps.id),
+      feedItems: getFeedItems(state, ownProps.id),
+      isFetching: isFeedItemsFetching(state, ownProps.id),
+      fetchError: getFeedItemsFetchError(state, ownProps.id)
     }),
     { fetchFeedItems: actions.fetchFeedItems }
   ),

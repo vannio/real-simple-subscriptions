@@ -24,6 +24,18 @@ export const deleteSubscription = subscriptionId => ({
   subscriptionId
 });
 
+export const MARK_FEEDITEM_READ = 'MARK_FEEDITEM_READ';
+export const markAsRead = feedItemId => ({
+  type: MARK_FEEDITEM_READ,
+  feedItemId
+});
+
+export const MARK_ALL_FEEDITEMS_READ = 'MARK_ALL_FEEDITEMS_READ';
+export const markAllFeedItemsRead = subscriptionID => ({
+  type: MARK_ALL_FEEDITEMS_READ,
+  subscriptionID
+});
+
 export const FETCH_FEEDITEMS_REQUEST = 'FETCH_FEEDITEMS_REQUEST';
 export const fetchFeedItemsRequest = (subscriptionId, url) => ({
   type: FETCH_FEEDITEMS_REQUEST,
