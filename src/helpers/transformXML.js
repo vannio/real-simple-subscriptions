@@ -43,20 +43,18 @@ const getFeedLink = entryNode => {
   return '';
 };
 
-const getFeedObject = entryNode => ({
-	url: getFeedLink(entryNode),
-	title: getNodeValue(entryNode, 'title'),
-	content: getNodeValue(entryNode, 'description, content'),
-	date: getNodeValue(entryNode, 'pubDate, updated')
-});
-
 const transformXML = xml => {
   var xmlResponse = (new DOMParser()).parseFromString(xml, 'text/xml');
   var entryNodes = Array.prototype.slice.call(
     xmlResponse.querySelectorAll('item, entry'), 0
   );
 
-  return entryNodes.map(entryNode => getFeedObject(entryNode));
+  return entryNodes.map(entryNode => ({
+  	url: getFeedLink(entryNode),
+  	title: getNodeValue(entryNode, 'title'),
+  	content: getNodeValue(entryNode, 'description, content'),
+  	date: getNodeValue(entryNode, 'pubDate, updated')
+  }));
 };
 
 export default transformXML;

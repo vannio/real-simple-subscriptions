@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Icon from '../Icon/Icon';
 
 const enhance = connect(
   state => ({
@@ -11,7 +12,7 @@ const enhance = connect(
 
 const Sidebar = ({ subscriptions }) => (
   <ul className="sidebar-list">
-    <li><NavLink to={'/settings'} activeClassName="active">Settings</NavLink></li>
+    <li><NavLink to={'/settings'} activeClassName="active"><Icon name="settings" /></NavLink></li>
     <hr />
     <li><NavLink to={'/subscriptions'} activeClassName="active">All</NavLink></li>
     {Object.keys(subscriptions).map(id => (

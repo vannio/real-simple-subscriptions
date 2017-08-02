@@ -16,7 +16,7 @@ ListItem.propTypes = {
   item:  PropTypes.shape({
     title: PropTypes.string,
     content: PropTypes.string,
-    date: PropTypes.number,
+    date: PropTypes.string,
     url: PropTypes.string
   })
 };

@@ -2,35 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
-import fetchData from '../../helpers/fetchData';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../../actions';
+import { LoadingIcon } from '../Icon/Icon';
 
 const enhance = compose(
   connect(
     (state, ownProps) => ({
-      subscription: state.subscriptions[ownProps.id]
-    })
+      subscription: state.subscriptions[ownProps.id],
+      feedItems: state.feedItems[ownProps.id] || [],
+      isFetching: state.feedItems.fetching,
+      fetchError: state.feedItems.error
+    }),
+    { fetchFeedItems: actions.fetchFeedItems }
   ),
-  withState('feedItems', 'setFeedItems', []),
   withHandlers({
-    fetchData: props => () => {
-      console.log('fetching', props.subscription.url);
-      fetchData(props.subscription.url).then(data => {
-        console.log('XML response ----------\n', data);
-        props.setFeedItems(data);
-      });
-    }
+    fetchData: props => () => props.fetchFeedItems(props.id, props.subscription.url)
   })
 );
 
-export const SubscriptionPreview = ({ subscription, feedItems, fetchData }) => (
+export const SubscriptionPreview = props => (
   <div className="subscription-preview">
-    <h1>{subscription.title}</h1>
-    <button onClick={fetchData}>Fetch data</button>
+    <h1>{props.subscription.title}</h1>
+    <button onClick={props.fetchData} disabled={props.isFetching} className="subscription-preview__fetch-button">
+      Refresh
+    </button>
+    <div className="subscription-preview__notifications">
+      {props.isFetching && <LoadingIcon />}
+      {props.fetchError && props.fetchError}
+    </div>
     <ul className="subscription-preview__list">
-      {feedItems.map(item => (
+      {props.feedItems.slice(0, props.maxCount).map(item => (
         <ListItem key={item.timeStamp} item={item} />
       ))}
     </ul>
@@ -50,7 +54,10 @@ SubscriptionPreview.propTypes = {
       url: PropTypes.string
     })
   ),
-  fetchData: PropTypes.func
+  fetchData: PropTypes.func,
+  maxCount: PropTypes.number,
+  isFetching: PropTypes.bool,
+  fetchError: PropTypes.string
 };
 
-export default enhance(SubscriptionPreview);
+export default withRouter(enhance(SubscriptionPreview));
