@@ -21,7 +21,7 @@
 		"http://*/",
 		"https://*/",
 		"tabs",
-		"bookmarks",
+		"history",
 		"alarms"
 	],
 	"chrome_url_overrides": {
