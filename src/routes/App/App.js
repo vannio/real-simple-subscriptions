@@ -1,27 +1,24 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Redirect,
+  Route
 } from 'react-router-dom';
-import Homepage from '../Homepage/Homepage';
+import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import './App.css';
 
 const App = () => (
   <Router>
     <div className="app">
-      <div className="app-header">
-        <ul>
-          {['Homepage', 'Settings'].map(route => (
-            <li key={route}>
-              <Link to={route === 'Homepage' ? '/' : route.toLowerCase()}>{route}</Link>
-            </li>
-          ))}
-        </ul>
+      <div className="app-sidebar">
+        <Sidebar />
       </div>
       <div className="app-content">
-        <Route exact path="/" component={Homepage} />
+        <Route exact path="/" render={() => <Redirect to='/subscriptions'/>} />
+        <Route exact path="/subscriptions" component={Subscriptions.index} />
+        <Route path="/subscriptions/:id" component={Subscriptions.show} />
         <Route path="/settings" component={Settings} />
       </div>
     </div>

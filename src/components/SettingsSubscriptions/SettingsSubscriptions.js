@@ -20,9 +20,9 @@ const enhance = compose(
   })
 );
 
-export const SettingsSubscriptions = props => (
+export const SettingsSubscriptions = ({ handleAddSubscription }) => (
   <div className="settings-subscriptions">
-    <SubscriptionsForm handleSubmit={props.handleAddSubscription} />
+    <SubscriptionsForm handleSubmit={handleAddSubscription} />
     <SubscriptionsList />
   </div>
 );
