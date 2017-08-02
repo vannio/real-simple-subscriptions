@@ -1,15 +1,30 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "manifest_version": 2,
+  "name": "RSS v2",
+  "version": "0.0.1",
+  "description": "Lightweight RSS feed for new tabs",
+	"icons": {
+		"240": "icons/icon-240.png",
+		"32": "icons/icon-32.png"
+	},
+  "browser_action": {
+		"default_title": "RSS"
+	},
+	"background": {
+		"scripts": [
+			"chrome.js"
+		],
+		"persistent": false
+	},
+	"options_page"	: "index.html",
+  "permissions": [
+		"http://*/",
+		"https://*/",
+		"tabs",
+		"bookmarks",
+		"alarms"
+	],
+	"chrome_url_overrides": {
+		"newtab": "index.html"
+	}
 }
