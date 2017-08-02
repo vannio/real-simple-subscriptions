@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
@@ -13,11 +13,10 @@ const App = () => (
       </div>
       <div className="app-content">
         <Switch>
-          <Route exact path="/" render={() => <Redirect to='/subscriptions'/>} />
           <Route exact path="/subscriptions" component={Subscriptions.index} />
           <Route path="/subscriptions/:id" component={Subscriptions.show} />
           <Route path="/settings" component={Settings} />
-          <Route reder={() => ('Nothing to show!')}/>
+          <Route component={Subscriptions.index} />
         </Switch>
       </div>
     </div>

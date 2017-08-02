@@ -27,7 +27,7 @@ const subscriptions = (state = {}, action) => {
       }
       return state;
     case DELETE_SUBSCRIPTION:
-      delete state[action.id];
+      delete state[action.subscriptionId];
       return state;
     default:
       return state;

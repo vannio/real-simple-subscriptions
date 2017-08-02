@@ -2,35 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
-import fetchData from '../../helpers/fetchData';
+import * as actions from '../../actions';
 
 const enhance = compose(
   connect(
     (state, ownProps) => ({
-      subscription: state.subscriptions[ownProps.id]
-    })
+      subscription: state.subscriptions[ownProps.id],
+      feedItems: state.feedItems[ownProps.id]
+    }),
+    { fetchFeedItems: actions.fetchFeedItems }
   ),
-  withState('feedItems', 'setFeedItems', []),
   withHandlers({
-    fetchData: props => () => {
-      console.log('fetching', props.subscription.url);
-      fetchData(props.subscription.url).then(data => {
-        console.log('XML response ----------\n', data);
-        props.setFeedItems(data);
-      });
-    }
+    fetchData: props => () => props.fetchFeedItems(props.id, props.subscription.url)
   })
 );
 
-export const SubscriptionPreview = ({ subscription, feedItems, fetchData }) => (
+export const SubscriptionPreview = props => (
   <div className="subscription-preview">
-    <h1>{subscription.title}</h1>
-    <button onClick={fetchData}>Fetch data</button>
+    <h1>{props.subscription.title}</h1>
+    <button onClick={props.fetchData}>Manually fetch data</button>
     <ul className="subscription-preview__list">
-      {feedItems.map(item => (
+      {props.feedItems && props.feedItems.slice(0, props.maxCount).map(item => (
         <ListItem key={item.timeStamp} item={item} />
       ))}
     </ul>
@@ -50,7 +44,8 @@ SubscriptionPreview.propTypes = {
       url: PropTypes.string
     })
   ),
-  fetchData: PropTypes.func
+  fetchData: PropTypes.func,
+  maxCount: PropTypes.number
 };
 
 export default enhance(SubscriptionPreview);
