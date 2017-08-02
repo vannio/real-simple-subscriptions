@@ -5,35 +5,35 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 
 const enhance = compose(
-  withState('subscriptionTitle', 'setSubscriptionTitle', props => props.subscription ? props.subscription.title : ''),
-  withState('subscriptionUrl', 'setSubscriptionUrl', props => props.subscription ? props.subscription.url : ''),
+  withState('title', 'setTitle', props => props.subscription ? props.subscription.title : ''),
+  withState('url', 'setUrl', props => props.subscription ? props.subscription.url : ''),
   withHandlers({
-    onSubscriptionTitleChange: props => e => props.setSubscriptionTitle(e.target.value),
-    onSubscriptionUrlChange: props => e => props.setSubscriptionUrl(e.target.value),
+    onTitleChange: props => e => props.setTitle(e.target.value),
+    onUrlChange: props => e => props.setUrl(e.target.value),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { subscriptionTitle, subscriptionUrl } = props;
-      props.handleSubmit({ title: subscriptionTitle, url: subscriptionUrl });
-      props.setSubscriptionTitle('');
-      props.setSubscriptionUrl('');
+      var { title, url } = props;
+      props.handleSubmit({ title: title, url: url });
+      props.setTitle('');
+      props.setUrl('');
     }
   })
 );
 export const SubscriptionsForm = props => (
   <form onSubmit={props.onSubmitForm}>
     <div>
-      <label htmlFor="subscriptionTitle">Title</label>
+      <label htmlFor="title">Title</label>
       <input type="text"
-        id="subscriptionTitle"
-        onChange={props.onSubscriptionTitleChange}
-        value={props.subscriptionTitle} required />
+        id="title"
+        onChange={props.onTitleChange}
+        value={props.title} required />
     </div>
     <div>
-      <label htmlFor="subscriptionUrl">URL</label>
+      <label htmlFor="url">URL</label>
       <input type="url"
-        id="subscriptionUrl"
-        onChange={props.onSubscriptionUrlChange}
-        value={props.subscriptionUrl} required />
+        id="url"
+        onChange={props.onUrlChange}
+        value={props.url} required />
     </div>
     <button type="submit">{props.cta || 'submit'}</button>
     {props.children}
@@ -43,10 +43,10 @@ export const SubscriptionsForm = props => (
 SubscriptionsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmitForm: PropTypes.func,
-  onSubscriptionTitleChange: PropTypes.func,
-  onSubscriptionUrlChange: PropTypes.func,
-  subscriptionTitle: PropTypes.string,
-  subscriptionUrl: PropTypes.string,
+  onTitleChange: PropTypes.func,
+  onUrlChange: PropTypes.func,
+  title: PropTypes.string,
+  url: PropTypes.string,
   cta: PropTypes.string,
   children: PropTypes.node
 };
