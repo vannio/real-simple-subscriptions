@@ -27,7 +27,8 @@ const enhance = compose(
     onDeleteSubscription: props => id => {
       props.deleteSubscription(id);
       props.setEditableId('');
-    }
+    },
+    onStopEditing: props => () => props.setEditableId('')
   })
 );
 
@@ -39,10 +40,11 @@ const SubscriptionsList = props => (
         <li key={id}>
           {props.editableId === id ? (
             <SubscriptionsForm
-              handleSubmit={props.onSubmitForm.bind(null, id)}
               subscription={subscription}
-              cta="update">
+              cta="update"
+              handleSubmit={props.onSubmitForm.bind(null, id)}>
               <button type="button" onClick={props.onDeleteSubscription.bind(null, id)}>delete</button>
+              <button type="button" onClick={props.onStopEditing}>close</button>
             </SubscriptionsForm>
           ) : (
             <div onClick={props.onToggleEdit.bind(null, id)}>
