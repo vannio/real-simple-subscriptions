@@ -1,5 +1,5 @@
-import { ADD_SUBSCRIPTION, UPDATE_SUBSCRIPTION } from '../actions';
 import uuid from 'uuid/v4';
+import { ADD_SUBSCRIPTION, UPDATE_SUBSCRIPTION, DELETE_SUBSCRIPTION } from '../actions';
 
 const subscriptions = (state = {}, action) => {
   switch (action.type) {
@@ -25,6 +25,9 @@ const subscriptions = (state = {}, action) => {
           }
         };
       }
+      return state;
+    case DELETE_SUBSCRIPTION:
+      delete state[action.id];
       return state;
     default:
       return state;

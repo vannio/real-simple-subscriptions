@@ -15,3 +15,9 @@ export const updateSubscription = subscription => ({
   type: UPDATE_SUBSCRIPTION,
   subscription
 });
+
+export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION';
+export const deleteSubscription = id => ({
+  type: DELETE_SUBSCRIPTION,
+  id
+});

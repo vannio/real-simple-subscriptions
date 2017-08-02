@@ -12,42 +12,48 @@ const enhance = compose(
     state => ({
       subscriptions: state.subscriptions
     }),
-    { updateSubscription: actions.updateSubscription }
+    {
+      updateSubscription: actions.updateSubscription,
+      deleteSubscription: actions.deleteSubscription
+    }
   ),
   withState('editableId', 'setEditableId', ''),
   withHandlers({
-    onToggleEdit: props => e => props.setEditableId(e.target.id),
-    onSubmitForm: props => subscription => {
-      props.updateSubscription(subscription);
+    onToggleEdit: props => id => props.setEditableId(id),
+    onSubmitForm: props => (id, subscription) => {
+      props.updateSubscription({ ...subscription, id});
+      props.setEditableId('');
+    },
+    onDeleteSubscription: props => id => {
+      props.deleteSubscription(id);
       props.setEditableId('');
     }
   })
 );
 
 const SubscriptionsList = props => (
-  <div className="subscriptions-list">
-    <ul>
-      {Object.keys(props.subscriptions).map(id => {
-        const subscription = props.subscriptions[id];
-        return (
-          <li key={id}>
-            {props.editableId === id ? (
-              <SubscriptionsForm
-                handleSubmit={props.onSubmitForm}
-                subscription={subscription}
-                subscriptionId={id}
-                cta="update" />
-            ) : (
-              <div onClick={props.onToggleEdit} id={id}>
-                <strong>{subscription.title}</strong>
-                {subscription.url}
-              </div>
-            )}
-          </li>
-        );
-      })}
-    </ul>
-  </div>
+  <ul className="subscriptions-list">
+    {Object.keys(props.subscriptions).map(id => {
+      const subscription = props.subscriptions[id];
+      return (
+        <li key={id}>
+          {props.editableId === id ? (
+            <SubscriptionsForm
+              handleSubmit={props.onSubmitForm.bind(null, id)}
+              subscription={subscription}
+              cta="update">
+              <button type="button" onClick={props.onDeleteSubscription.bind(null, id)}>delete</button>
+            </SubscriptionsForm>
+          ) : (
+            <div onClick={props.onToggleEdit.bind(null, id)}>
+              <strong>{subscription.title}</strong>
+              {subscription.url}
+            </div>
+          )}
+        </li>
+      );
+    })}
+  </ul>
 );
 
 SubscriptionsList.propTypes = {

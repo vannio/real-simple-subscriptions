@@ -12,12 +12,8 @@ const enhance = compose(
     onSubscriptionUrlChange: props => e => props.setSubscriptionUrl(e.target.value),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { subscriptionTitle, subscriptionUrl, subscriptionId } = props;
-      props.handleSubmit({
-        id: subscriptionId,
-        title: subscriptionTitle,
-        url: subscriptionUrl
-      });
+      var { subscriptionTitle, subscriptionUrl } = props;
+      props.handleSubmit({ title: subscriptionTitle, url: subscriptionUrl });
       props.setSubscriptionTitle('');
       props.setSubscriptionUrl('');
     }
