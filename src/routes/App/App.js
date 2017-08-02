@@ -4,8 +4,8 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import SettingsGeneral from '../../components/SettingsGeneral/SettingsGeneral';
-import SettingsSubscriptions from '../../components/SettingsSubscriptions/SettingsSubscriptions';
+import Homepage from '../Homepage/Homepage';
+import Settings from '../Settings/Settings';
 import './App.css';
 
 const App = () => (
@@ -13,21 +13,16 @@ const App = () => (
     <div className="app">
       <div className="app-header">
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/settings">Settings</Link></li>
+          {['Homepage', 'Settings'].map(route => (
+            <li key={route}>
+              <Link to={route === 'Homepage' ? '/' : route.toLowerCase()}>{route}</Link>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="app-content">
-        <Route exact path="/" render={() => (
-          <p>To get started, edit <code>src/App.js</code> and save to reload.</p>
-        )} />
-        <Route path="/settings" render={() => (
-          <div>
-            <h2>Settings</h2>
-            <SettingsGeneral />
-            <SettingsSubscriptions />
-          </div>
-        )} />
+        <Route exact path="/" component={Homepage} />
+        <Route path="/settings" component={Settings} />
       </div>
     </div>
   </Router>
