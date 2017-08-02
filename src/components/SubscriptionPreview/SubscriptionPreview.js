@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions';
+import { LoadingIcon } from '../Icon/Icon';
 
 const enhance = compose(
   connect(
     (state, ownProps) => ({
       subscription: state.subscriptions[ownProps.id],
-      feedItems: state.feedItems[ownProps.id]
+      feedItems: state.feedItems[ownProps.id] || [],
+      isFetching: state.feedItems.fetching,
+      fetchError: state.feedItems.error
     }),
     { fetchFeedItems: actions.fetchFeedItems }
   ),
@@ -22,9 +26,15 @@ const enhance = compose(
 export const SubscriptionPreview = props => (
   <div className="subscription-preview">
     <h1>{props.subscription.title}</h1>
-    <button onClick={props.fetchData}>Manually fetch data</button>
+    <button onClick={props.fetchData} disabled={props.isFetching} className="subscription-preview__fetch-button">
+      Refresh
+    </button>
+    <div className="subscription-preview__notifications">
+      {props.isFetching && <LoadingIcon />}
+      {props.fetchError && props.fetchError}
+    </div>
     <ul className="subscription-preview__list">
-      {props.feedItems && props.feedItems.slice(0, props.maxCount).map(item => (
+      {props.feedItems.slice(0, props.maxCount).map(item => (
         <ListItem key={item.timeStamp} item={item} />
       ))}
     </ul>
@@ -45,7 +55,9 @@ SubscriptionPreview.propTypes = {
     })
   ),
   fetchData: PropTypes.func,
-  maxCount: PropTypes.number
+  maxCount: PropTypes.number,
+  isFetching: PropTypes.bool,
+  fetchError: PropTypes.string
 };
 
-export default enhance(SubscriptionPreview);
+export default withRouter(enhance(SubscriptionPreview));

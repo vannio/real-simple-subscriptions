@@ -1,4 +1,4 @@
-import transformXML from '../helpers/transformXML';
+import fetchData from '../helpers/fetchData';
 
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 export const updateSettings = settings => ({
@@ -45,24 +45,10 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
   error
 });
 
-export function fetchFeedItems(id, url) {
-  return function (dispatch) {
-    // First dispatch: the app state is updated to inform
-    // that the API call is starting.
-
+export const fetchFeedItems = (id, url) =>
+  dispatch => {
     dispatch(fetchFeedItemsRequest(url));
-
-    // The function called by the thunk middleware can return a value,
-    // that is passed on as the return value of the dispatch method.
-
-    // In this case, we return a promise to wait for.
-    // This is not required by thunk middleware, but it is convenient for us.
-    return fetch(url)
-      .then(response => response.text())
-      .then(xml => transformXML(xml))
-      .then(data =>
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
+    return fetchData(url).then(data =>
         dispatch(fetchFeedItemsSuccess(id, data))
       )
       .catch(error => {
@@ -71,4 +57,3 @@ export function fetchFeedItems(id, url) {
         dispatch(fetchFeedItemsFailure(id, err));
       });
   };
-}

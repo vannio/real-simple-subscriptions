@@ -1,13 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
 import './App.css';
 
-const App = () => (
+const colours = ['Pink', 'Purple', 'Blue', 'Green', 'Yellow', 'Orange', 'Red', 'Black', 'White'];
+
+const enhance =  connect(
+  state => ({
+    accentColour: state.settings.accentColour,
+  })
+);
+
+const App = ({ accentColour }) => (
   <Router>
-    <div className="app">
+    <div className={`app app--${accentColour && accentColour.toLowerCase()}`}>
       <div className="app-sidebar">
         <SidebarList />
       </div>
@@ -23,4 +33,8 @@ const App = () => (
   </Router>
 );
 
-export default App;
+App.propTypes = {
+  accentColour: PropTypes.oneOf(colours)
+};
+
+export default enhance(App);
