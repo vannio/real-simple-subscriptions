@@ -4,8 +4,8 @@ import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import SubscriptionsForm from './SubscriptionsForm';
-import SubscriptionsList from './SubscriptionsList';
+import Form from './Form';
+import List from './List';
 
 const enhance = compose(
   connect(
@@ -20,10 +20,11 @@ const enhance = compose(
   })
 );
 
-export const SettingsSubscriptions = props => (
+export const SettingsSubscriptions = ({ handleAddSubscription }) => (
   <div className="settings-subscriptions">
-    <SubscriptionsForm handleSubmit={props.handleAddSubscription} />
-    <SubscriptionsList />
+    <h2>Subscriptions</h2>
+    <Form handleSubmit={handleAddSubscription} />
+    <List />
   </div>
 );
 

@@ -5,7 +5,7 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import SubscriptionsForm from './SubscriptionsForm';
+import Form from './Form';
 
 const enhance = compose(
   connect(
@@ -32,20 +32,20 @@ const enhance = compose(
   })
 );
 
-const SubscriptionsList = props => (
-  <ul className="subscriptions-list">
+const List = props => (
+  <ul className="settings-subscriptions__list">
     {Object.keys(props.subscriptions).map(id => {
       const subscription = props.subscriptions[id];
       return (
         <li key={id}>
           {props.editableId === id ? (
-            <SubscriptionsForm
+            <Form
               subscription={subscription}
               cta="update"
               handleSubmit={props.onSubmitForm.bind(null, id)}>
               <button type="button" onClick={props.onDeleteSubscription.bind(null, id)}>delete</button>
               <button type="button" onClick={props.onStopEditing}>close</button>
-            </SubscriptionsForm>
+            </Form>
           ) : (
             <div onClick={props.onToggleEdit.bind(null, id)}>
               <strong>{subscription.title}</strong>
@@ -58,7 +58,7 @@ const SubscriptionsList = props => (
   </ul>
 );
 
-SubscriptionsList.propTypes = {
+List.propTypes = {
   subscriptions: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
@@ -68,4 +68,4 @@ SubscriptionsList.propTypes = {
   onToggleEdit: PropTypes.func
 };
 
-export default enhance(SubscriptionsList);
+export default enhance(List);

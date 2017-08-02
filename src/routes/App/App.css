@@ -1,11 +1,19 @@
 .app {
   text-align: center;
+  display: flex;
 }
 
-.app-header {
-  background-color: #222;
+.app-sidebar {
+  border-right: solid 1px #000;
+}
+
+.app-content {
+  flex-grow: 1;
+}
+
+.app-sidebar,
+.app-content {
   padding: 20px;
-  color: white;
 }
 
 .app-intro {

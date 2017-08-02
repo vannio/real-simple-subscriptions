@@ -19,8 +19,8 @@ const enhance = compose(
     }
   })
 );
-export const SubscriptionsForm = props => (
-  <form onSubmit={props.onSubmitForm}>
+export const Form = props => (
+  <form className="settings-subscriptions__form" onSubmit={props.onSubmitForm}>
     <div>
       <label htmlFor="title">Title</label>
       <input type="text"
@@ -40,7 +40,7 @@ export const SubscriptionsForm = props => (
   </form>
 );
 
-SubscriptionsForm.propTypes = {
+Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmitForm: PropTypes.func,
   onTitleChange: PropTypes.func,
@@ -51,4 +51,4 @@ SubscriptionsForm.propTypes = {
   children: PropTypes.node
 };
 
-export default enhance(SubscriptionsForm);
+export default enhance(Form);
