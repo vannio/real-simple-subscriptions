@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import withProps from 'recompose/withProps';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
+import fetchData from '../../helpers/fetchData';
 
 const enhance = compose(
   connect(
@@ -11,25 +13,22 @@ const enhance = compose(
       subscription: state.subscriptions[ownProps.id]
     })
   ),
-  withProps({
-    feedItems: [
-      {
-        title: 'Breaking news',
-        description: 'News just in - water is wet',
-        timeStamp: Date.now()
-      },
-      {
-        title: 'Regular news',
-        description: 'The sky is blue',
-        timeStamp: 1501669041425
-      }
-    ]
+  withState('feedItems', 'setFeedItems', []),
+  withHandlers({
+    fetchData: props => () => {
+      console.log('fetching', props.subscription.url);
+      fetchData(props.subscription.url).then(data => {
+        console.log('XML response ----------\n', data);
+        props.setFeedItems(data);
+      });
+    }
   })
 );
 
-export const SubscriptionPreview = ({ subscription, feedItems }) => (
+export const SubscriptionPreview = ({ subscription, feedItems, fetchData }) => (
   <div className="subscription-preview">
     <h1>{subscription.title}</h1>
+    <button onClick={fetchData}>Fetch data</button>
     <ul className="subscription-preview__list">
       {feedItems.map(item => (
         <ListItem key={item.timeStamp} item={item} />
@@ -46,10 +45,12 @@ SubscriptionPreview.propTypes = {
   feedItems: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      description: PropTypes.string,
-      timeStamp: PropTypes.number
+      content: PropTypes.string,
+      date: PropTypes.number,
+      url: PropTypes.string
     })
-  )
+  ),
+  fetchData: PropTypes.func
 };
 
 export default enhance(SubscriptionPreview);
