@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import data from './data';
 import './styles.css';
 
-export const SimpleIcon = ({ name }) => {
+export const SimpleIcon = ({ name, size = 'large' }) => {
   var iconData = data[name] ? data[name] : {};
 
   return (
     <svg
-      className={`icon icon-${name}`}
+      className={`icon icon-${name} icon--${size}`}
       xmlns="http://www.w3.org/2000/svg"
       width={iconData.width}
       height={iconData.height}
@@ -19,7 +19,8 @@ export const SimpleIcon = ({ name }) => {
 };
 
 SimpleIcon.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(['small', 'large'])
 };
 
 export const LoadingIcon = () => (

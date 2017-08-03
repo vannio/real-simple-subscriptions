@@ -18,6 +18,10 @@
 .app-content {
   flex-grow: 1;
   overflow-y: scroll;
+
+  .container {
+    padding-bottom: $base-spacer * 5;
+  }
 }
 
 .app-sidebar,
