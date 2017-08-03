@@ -13,6 +13,7 @@ import {
   isFeedItemsFetching,
   getFeedItemsFetchError
 } from '../../ducks';
+import './styles.css';
 
 const enhance = compose(
   connect(

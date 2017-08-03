@@ -7,7 +7,7 @@ import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
 import { COLOURS } from '../../data';
-import './App.css';
+import './styles.css';
 
 const enhance = compose(
   connect(
