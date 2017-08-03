@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import omit from 'lodash/fp/omit';
 import { ADD_SUBSCRIPTION, UPDATE_SUBSCRIPTION, DELETE_SUBSCRIPTION } from '../actions';
 
 const subscriptions = (state = {}, action) => {
@@ -27,8 +28,7 @@ const subscriptions = (state = {}, action) => {
       }
       return state;
     case DELETE_SUBSCRIPTION:
-      delete state[action.subscriptionId];
-      return state;
+      return omit(action.subscriptionId)(state);
     default:
       return state;
   }

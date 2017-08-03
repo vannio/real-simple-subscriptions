@@ -10,10 +10,12 @@ import reducers from './reducers';
 import App from './routes/App/App';
 import registerServiceWorker from './helpers/registerServiceWorker';
 import { loadState, saveState } from './helpers/localStorage';
-import throttle from 'lodash/throttle';
+import throttle from 'lodash/fp/throttle';
 import thunk from 'redux-thunk';
 import registerChromeListeners from './helpers/chrome';
 import './styles/manifest.css';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = () => {
   const store = createStore(
@@ -22,14 +24,12 @@ const configureStore = () => {
       ...loadState(),
       ...loadState('cachedData')
     },
-    compose(
+    composeEnhancers(
       applyMiddleware(thunk),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
-    // applyMiddleware(thunk)
   );
   store.subscribe(
-    throttle(
+    throttle(1000)(
       () => {
         saveState({
           settings: store.getState().settings,
@@ -40,8 +40,7 @@ const configureStore = () => {
         saveState({
           feedItems: store.getState().feedItems
         }, 'cachedData');
-      },
-      1000
+      }
     )
   );
   return store;
