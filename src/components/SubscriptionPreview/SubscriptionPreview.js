@@ -12,7 +12,7 @@ import {
   getFeedItems,
   isFeedItemsFetching,
   getFeedItemsFetchError
-} from './ducks';
+} from '../../ducks';
 
 const enhance = compose(
   connect(

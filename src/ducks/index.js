@@ -1,3 +1,6 @@
+export const getSubscriptionKeys = subscriptions =>
+  Object.keys(subscriptions);
+
 export const getSubscription = (state, subscriptionId) =>
   state.subscriptions[subscriptionId];
 
