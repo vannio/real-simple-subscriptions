@@ -27,11 +27,11 @@ const enhance = compose(
     onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 16)),
     onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
     onAccentColourChange: props => e => props.setAccentColour(e.target.value),
-    onFetchIntervalChange: props => e => props.setFetchInterval(e.target.value),
+    onFetchIntervalChange: props => e => props.setFetchInterval(parseInt(e.target.value, 16)),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { maxCount, readOnOpen, accentColour } = props;
-      props.updateSettings({ maxCount, readOnOpen, accentColour });
+      var { maxCount, readOnOpen, fetchInterval, accentColour } = props;
+      props.updateSettings({ maxCount, readOnOpen, fetchInterval, accentColour });
       props.setIsEditable(false);
     }
   })
@@ -42,41 +42,50 @@ const SettingsForm = props => (
     <h2>General</h2>
     {props.isEditable ? (
       <form onSubmit={props.onSubmitForm}>
-        <div>
-          <label htmlFor="maxCount"><strong>Front Page items per feed</strong></label>
-          <input type="number" id="maxCount" onChange={props.onMaxCountChange} value={props.maxCount} min={1} />
-        </div>
-        <div>
-          <label htmlFor="readOnOpen"><strong>Read on open</strong></label>
-          <input type="checkbox" id="readOnOpen" onChange={props.onToggleReadOnOpen} checked={props.readOnOpen} />
-        </div>
-        <div>
-          <label htmlFor="fetchInterval"><strong>Fetch interval</strong></label>
-          <input type="number"
-            id="fetchInterval"
-            onChange={props.onFetchIntervalChange}
-            value={props.fetchInterval} min={1} /> minutes
-        </div>
-        <div>
-          <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
-          <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
-            {COLOURS.map(colour => (
-              <option value={colour} key={colour}>{colour}</option>
-            ))}
-          </select>
-        </div>
-        <button className="settings-form__button" type="submit">update</button>
-        <button className="settings-form__button" type="button" onClick={props.onToggleEdit}>close</button>
+        <ul className="unstyled-list">
+          <li>
+            <label htmlFor="maxCount"><strong>Front Page items per feed</strong></label>
+            <input type="number"
+              id="maxCount"
+              onChange={props.onMaxCountChange}
+              value={props.maxCount} min={1}
+              className="text-input" />
+          </li>
+          <li>
+            <label htmlFor="readOnOpen"><strong>Read on open</strong></label>
+            <input type="checkbox"
+              id="readOnOpen"
+              onChange={props.onToggleReadOnOpen}
+              checked={props.readOnOpen} />
+          </li>
+          <li>
+            <label htmlFor="fetchInterval"><strong>Fetch interval</strong></label>
+            <input type="number"
+              id="fetchInterval"
+              onChange={props.onFetchIntervalChange}
+              value={props.fetchInterval} min={1}
+              className="text-input" /> minutes
+          </li>
+          <li>
+            <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
+            <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
+              {COLOURS.map(colour => (
+                <option value={colour} key={colour}>{colour}</option>
+              ))}
+            </select>
+          </li>
+        </ul>
+        <button className="button" type="submit">Update</button>
+        <button className="button" type="button" onClick={props.onToggleEdit}>Close</button>
       </form>
     ) : (
-      <div
-        onClick={props.onToggleEdit}
-        className="settings-form__list">
-        <div><strong>Front Page items per feed</strong>{props.maxCount}</div>
-        <div><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</div>
-        <div><strong>Fetch interval</strong>{props.fetchInterval} minutes</div>
-        <div><strong>Accent Colour</strong>{props.accentColour}</div>
-      </div>
+      <ul onClick={props.onToggleEdit}
+        className="unstyled-list">
+        <li><strong>Front Page items per feed</strong>{props.maxCount}</li>
+        <li><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Fetch interval</strong>{props.fetchInterval} minutes</li>
+        <li><strong>Accent Colour</strong>{props.accentColour}</li>
+      </ul>
     )}
   </div>
 );

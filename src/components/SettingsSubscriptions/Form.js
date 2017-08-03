@@ -20,22 +20,26 @@ const enhance = compose(
   })
 );
 export const Form = props => (
-  <form className="settings-subscriptions__form" onSubmit={props.onSubmitForm}>
+  <form onSubmit={props.onSubmitForm}>
     <div>
       <label htmlFor="title"><strong>Title</strong></label>
       <input type="text"
         id="title"
         onChange={props.onTitleChange}
-        value={props.title} required />
+        value={props.title}
+        className="text-input"
+        required />
     </div>
     <div>
       <label htmlFor="url"><strong>URL</strong></label>
       <input type="url"
         id="url"
         onChange={props.onUrlChange}
-        value={props.url} required />
+        value={props.url}
+        className="text-input"
+        required />
     </div>
-    <button type="submit">{props.cta || 'submit'}</button>
+    <button type="submit" className="button">{props.cta || 'Submit'}</button>
     {props.children}
   </form>
 );

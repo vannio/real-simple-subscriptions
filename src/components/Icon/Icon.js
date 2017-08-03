@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import data from './data';
+import './styles.css';
 
 export const SimpleIcon = ({ name }) => {
   var iconData = data[name] ? data[name] : {};

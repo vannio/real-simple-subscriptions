@@ -1,26 +1,26 @@
-@import 'styles/mixins/_accent-colour';
+@import 'styles/variables/_base-values';
 
 .app {
+  background-color: white;
   display: flex;
+  height: 100%;
+}
 
-  .app-sidebar {
-    border-right: solid 2px #000;
-  }
+.app-sidebar {
+  font-family: $base-heading-font;
+  font-weight: 700;
 
-  .app-content {
-    flex-grow: 1;
-    overflow-y: scroll;
-  }
-
-  .app-sidebar,
-  .app-content {
-    padding: 20px;
-  }
-
-  .app-intro {
-    font-size: large;
+  a {
+    white-space: nowrap;
   }
 }
 
-@include accent-colour('.app-sidebar', border-color);
-@include accent-colour('a:visited', color);
+.app-content {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.app-sidebar,
+.app-content {
+  padding: $base-spacer;
+}

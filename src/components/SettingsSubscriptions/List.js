@@ -35,7 +35,7 @@ const enhance = compose(
 );
 
 const List = props => (
-  <ul className="settings-subscriptions__list">
+  <ul className="unstyled-list">
     {props.subscriptionIds.map(id => {
       const subscription = props.subscriptions[id];
       return (
@@ -43,10 +43,18 @@ const List = props => (
           {props.editableId === id ? (
             <Form
               subscription={subscription}
-              cta="update"
+              cta="Update"
               handleSubmit={props.onSubmitForm.bind(null, id)}>
-              <button type="button" onClick={props.onDeleteSubscription.bind(null, id)}>delete</button>
-              <button type="button" onClick={props.onStopEditing}>close</button>
+              <button type="button"
+                onClick={props.onDeleteSubscription.bind(null, id)}
+                className="button">
+                Delete
+              </button>
+              <button type="button"
+                onClick={props.onStopEditing}
+                className="button">
+                Close
+              </button>
             </Form>
           ) : (
             <div onClick={props.onToggleEdit.bind(null, id)}>

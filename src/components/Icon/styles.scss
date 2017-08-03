@@ -1,0 +1,11 @@
+@import 'styles/mixins/_accent-colour';
+@import 'styles/variables/_base-values';
+@include accent-colour('.icon:hover', fill);
+
+.icon {
+  fill: darken(white, 25%);
+
+  path {
+    transition: fill $base-animation-duration ease-in-out;
+  }
+}

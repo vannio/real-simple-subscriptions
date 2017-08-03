@@ -11,7 +11,11 @@ $colours: (
   yellow: #FFB300,
   orange: orange,
   red: red,
-  black: black,
+  black: #424242,
   grey: #424242,
   white: white
 );
+
+$base-color: map-get($colours, grey);
+$base-text-color: $base-color;
+$base-background-color: map-get($colours, white);

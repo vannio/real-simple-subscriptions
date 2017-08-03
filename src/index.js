@@ -13,7 +13,7 @@ import { loadState, saveState } from './helpers/localStorage';
 import throttle from 'lodash/throttle';
 import thunk from 'redux-thunk';
 import registerChromeListeners from './helpers/chrome';
-import './styles/index.css';
+import './styles/manifest.css';
 
 const configureStore = () => {
   const store = createStore(
