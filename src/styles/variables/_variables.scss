@@ -1,0 +1,15 @@
+@import 'styles/_colours';
+@import 'styles/_breakpoints';
+
+$base-color: map-get($colours, grey);
+$base-text-color: $base-color;
+$base-background-color: map-get($colours, white);
+
+$base-line-height: 1.8;
+$base-spacer: 0.5rem;
+
+$base-heading-font: 'Merriweather', serif;
+$base-text-font: 'Lato', sans-serif;
+
+$base-border-radius: 2px;
+$base-animation-duration: 0.15s;

@@ -1,4 +1,4 @@
-@import 'styles/_variables.scss';
+@import 'styles/mixins/_accent-colour';
 
 .app {
   display: flex;
@@ -20,16 +20,7 @@
   .app-intro {
     font-size: large;
   }
-
-  @each $name, $colour in $colours {
-    &.app--#{$name} {
-      .app-sidebar {
-        border-color: $colour;
-      }
-
-      a:visited {
-        color: $colour;
-      }
-    }
-  }
 }
+
+@include accent-colour('.app-sidebar', border-color);
+@include accent-colour('a:visited', color);
