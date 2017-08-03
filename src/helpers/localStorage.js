@@ -1,19 +1,32 @@
-export const loadState = key => {
+export const defaultState = {
+  state: {
+    subscriptions: {},
+    settings: {
+      maxCount: 3,
+      readOnOpen: true,
+      fetchInterval: 30,
+      accentColour: 'Pink'
+    }
+  },
+  cachedData: {}
+};
+
+export const loadState = (key = 'state') => {
   try {
-    const serializedState = localStorage.getItem(key || 'state');
+    const serializedState = localStorage.getItem(key);
     if (serializedState === null) {
-      return undefined;
+      return defaultState[key];
     }
     return JSON.parse(serializedState);
   } catch (err) {
-    return undefined;
+    return defaultState;
   }
 };
 
-export const saveState = (state, key) => {
+export const saveState = (state, key = 'state') => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(key || 'state', serializedState);
+    localStorage.setItem(key, serializedState);
   } catch (err) {
     console.log(err);
   }

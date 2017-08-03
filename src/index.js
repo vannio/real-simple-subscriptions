@@ -1,5 +1,3 @@
-/* global chrome */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -15,7 +13,7 @@ import registerServiceWorker from './helpers/registerServiceWorker';
 import { loadState, saveState } from './helpers/localStorage';
 import throttle from 'lodash/throttle';
 import thunk from 'redux-thunk';
-import { fetchFeedItems } from './actions';
+import registerChromeListeners from './helpers/chrome';
 
 const configureStore = () => {
   const store = createStore(
@@ -49,7 +47,7 @@ const configureStore = () => {
   return store;
 };
 
-const store = configureStore();
+export const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -59,26 +57,4 @@ ReactDOM.render(
 );
 
 registerServiceWorker();
-
-const fetchAllFeedItems = () => {
-  const subscriptions = loadState().subscriptions;
-  Object.keys(subscriptions).forEach(id => {
-    console.log('Fetching data for', subscriptions[id].url);
-    const action = fetchFeedItems(id, subscriptions[id].url);
-    action(store.dispatch);
-  });
-};
-
-fetchAllFeedItems();
-
-chrome.browserAction.onClicked.addListener(function(){
-  fetchAllFeedItems();
-	chrome.tabs.create({ url: 'index.html' });
-});
-
-chrome.alarms.create('checkForUpdates', { 'periodInMinutes': 60 });
-chrome.alarms.onAlarm.addListener(alarm => {
-	if (alarm.name === 'checkForUpdates') {
-    fetchAllFeedItems();
-  }
-});
+registerChromeListeners();

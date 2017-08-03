@@ -6,11 +6,13 @@ import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import Form from './Form';
+import { getSubscriptionKeys } from '../../ducks';
 
 const enhance = compose(
   connect(
     state => ({
-      subscriptions: state.subscriptions
+      subscriptions: state.subscriptions,
+      subscriptionIds: getSubscriptionKeys(state.subscriptions)
     }),
     {
       updateSubscription: actions.updateSubscription,
@@ -34,7 +36,7 @@ const enhance = compose(
 
 const List = props => (
   <ul className="settings-subscriptions__list">
-    {Object.keys(props.subscriptions).map(id => {
+    {props.subscriptionIds.map(id => {
       const subscription = props.subscriptions[id];
       return (
         <li key={id}>
@@ -64,6 +66,7 @@ List.propTypes = {
     title: PropTypes.string,
     url: PropTypes.string
   }),
+  subscriptionIds: PropTypes.array,
   editableId: PropTypes.string,
   onToggleEdit: PropTypes.func
 };

@@ -5,19 +5,21 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-const colours = ['Pink', 'Purple', 'Blue', 'Green', 'Yellow', 'Orange', 'Red', 'Black', 'White'];
+import { COLOURS } from '../../data';
 
 const enhance = compose(
   connect(
     state => ({
       maxCount: state.settings.maxCount,
       readOnOpen: state.settings.readOnOpen,
-      accentColour: state.settings.accentColour,
+      fetchInterval: state.settings.fetchInterval,
+      accentColour: state.settings.accentColour
     }),
     { updateSettings: actions.updateSettings }
   ),
   withState('isEditable', 'setIsEditable', false),
   withState('maxCount', 'setMaxCount', props => props.maxCount),
+  withState('fetchInterval', 'setFetchInterval', props => props.fetchInterval),
   withState('accentColour', 'setAccentColour', props => props.accentColour),
   withState('readOnOpen', 'setReadOnOpen', props => props.readOnOpen),
   withHandlers({
@@ -25,6 +27,7 @@ const enhance = compose(
     onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 16)),
     onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
     onAccentColourChange: props => e => props.setAccentColour(e.target.value),
+    onFetchIntervalChange: props => e => props.setFetchInterval(e.target.value),
     onSubmitForm: props => e => {
       e.preventDefault();
       var { maxCount, readOnOpen, accentColour } = props;
@@ -48,9 +51,16 @@ const SettingsForm = props => (
           <input type="checkbox" id="readOnOpen" onChange={props.onToggleReadOnOpen} checked={props.readOnOpen} />
         </div>
         <div>
+          <label htmlFor="fetchInterval"><strong>Fetch interval</strong></label>
+          <input type="number"
+            id="fetchInterval"
+            onChange={props.onFetchIntervalChange}
+            value={props.fetchInterval} min={1} /> minutes
+        </div>
+        <div>
           <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
           <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
-            {colours.map(colour => (
+            {COLOURS.map(colour => (
               <option value={colour} key={colour}>{colour}</option>
             ))}
           </select>
@@ -64,6 +74,7 @@ const SettingsForm = props => (
         className="settings-form__list">
         <div><strong>Front Page items per feed</strong>{props.maxCount}</div>
         <div><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</div>
+        <div><strong>Fetch interval</strong>{props.fetchInterval} minutes</div>
         <div><strong>Accent Colour</strong>{props.accentColour}</div>
       </div>
     )}
@@ -76,10 +87,12 @@ SettingsForm.propTypes = {
   onSubmitForm: PropTypes.func,
   onMaxCountChange: PropTypes.func,
   onToggleReadOnOpen: PropTypes.func,
+  onFetchIntervalChange: PropTypes.func,
   onAccentColourChange: PropTypes.func,
   maxCount: PropTypes.number,
   readOnOpen: PropTypes.bool,
-  accentColour: PropTypes.oneOf(colours)
+  fetchInterval: PropTypes.number,
+  accentColour: PropTypes.oneOf(COLOURS)
 };
 
 export default enhance(SettingsForm);

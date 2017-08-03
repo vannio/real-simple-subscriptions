@@ -1,6 +1,8 @@
-export const FETCH_FEEDITEMS_REQUEST = 'FETCH_FEEDITEMS_REQUEST';
-export const FETCH_FEEDITEMS_SUCCESS = 'FETCH_FEEDITEMS_SUCCESS';
-export const FETCH_FEEDITEMS_FAILURE = 'FETCH_FEEDITEMS_FAILURE';
+import {
+  FETCH_FEEDITEMS_REQUEST,
+  FETCH_FEEDITEMS_SUCCESS,
+  FETCH_FEEDITEMS_FAILURE }
+from '../actions';
 
 const feedItems = (state = {}, action) => {
   switch (action.type) {

@@ -6,9 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
+import { COLOURS } from '../../data';
 import './App.css';
-
-const colours = ['Pink', 'Purple', 'Blue', 'Green', 'Yellow', 'Orange', 'Red', 'Black', 'White'];
 
 const enhance = compose(
   connect(
@@ -37,7 +36,7 @@ const App = ({ accentColour }) => (
 );
 
 App.propTypes = {
-  accentColour: PropTypes.oneOf(colours)
+  accentColour: PropTypes.oneOf(COLOURS)
 };
 
 export default enhance(App);

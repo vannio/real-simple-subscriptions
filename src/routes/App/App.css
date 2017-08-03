@@ -105,6 +105,12 @@ strong {
   margin-right: 1rem;
 }
 
+button {
+  border: solid #000 1px;
+  border-radius: 2px;
+  background-color: transparent;
+}
+
 form button {
   margin-top: 0.5rem;
 }
