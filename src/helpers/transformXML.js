@@ -1,5 +1,4 @@
-import uuidv4 from 'uuid/v4';
-import uuidv5 from 'uuid/v5';
+import uuid from 'uuid/v5';
 
 const getNodeValue = (node, selectors) => {
 	node = node.querySelectorAll(selectors)[0];
@@ -53,7 +52,7 @@ const transformXML = xml => {
   );
 
   return entryNodes.map(entryNode => ({
-    id: uuidv5(getFeedLink(entryNode), uuidv4()),
+    id: uuid(getFeedLink(entryNode), uuid.URL),
   	url: getFeedLink(entryNode),
   	title: getNodeValue(entryNode, 'title'),
   	content: getNodeValue(entryNode, 'description, content'),

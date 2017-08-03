@@ -8,7 +8,8 @@ export const defaultState = {
       accentColour: 'Pink'
     }
   },
-  cachedData: {}
+  cachedData: {},
+  markedFeedItems: []
 };
 
 export const loadState = (key = 'state') => {

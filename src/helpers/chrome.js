@@ -14,17 +14,20 @@ export const fetchAllFeedItems = () => {
 export default () => {
   fetchAllFeedItems();
 
-  if (chrome.browserAction) {
-    chrome.browserAction.onClicked.addListener(function(){
-      fetchAllFeedItems();
-    	chrome.tabs.create({ url: 'index.html' });
+  if (typeof chrome.browserAction !== 'undefined') {
+    chrome.browserAction.onClicked.addListener(
+      () => {
+        fetchAllFeedItems();
+      	chrome.tabs.create({ url: 'index.html' });
+      }
+    );
+
+    chrome.alarms.create('updatedFeedItems', {
+      'periodInMinutes': loadState().settings.fetchInterval
     });
 
-    chrome.alarms.create('checkForUpdates', { 'periodInMinutes': loadState().fetchInterval });
-    chrome.alarms.onAlarm.addListener(alarm => {
-    	if (alarm.name === 'checkForUpdates') {
-        fetchAllFeedItems();
-      }
-    });
+    chrome.alarms.onAlarm.addListener(
+      alarm => alarm.name === 'updatedFeedItems' && fetchAllFeedItems()
+    );
   }
 };

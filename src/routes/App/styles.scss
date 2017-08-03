@@ -6,13 +6,14 @@
   height: 100%;
 }
 
+.app-sidebar,
+.app-content {
+  padding: $base-spacer ($base-spacer * 2);
+}
+
 .app-sidebar {
   font-family: $base-heading-font;
   font-weight: 700;
-
-  a {
-    white-space: nowrap;
-  }
 }
 
 .app-content {
@@ -22,9 +23,4 @@
   .container {
     padding-bottom: $base-spacer * 5;
   }
-}
-
-.app-sidebar,
-.app-content {
-  padding: $base-spacer;
 }

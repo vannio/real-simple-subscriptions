@@ -1,3 +1,6 @@
+@include accent-colour('a:hover', color);
+@include accent-colour('a:hover::after', border-color);
+
 body {
   font-family: $base-text-font;
   color: $base-text-color;
@@ -23,7 +26,6 @@ a {
   transition: color $base-animation-duration ease-in-out;
 
   &::after {
-    transition: background-color $base-animation-duration ease-in-out, width $base-animation-duration cubic-bezier(0.28, 0.93, 0.47, 1.61);
     content: '';
     height: 0;
     width: 80%;
@@ -31,15 +33,13 @@ a {
     bottom: -1px;
     left: 0;
     border-bottom: 1px dotted $base-text-color;
+    transition:
+      background-color $base-animation-duration ease-in-out,
+      width $base-animation-duration cubic-bezier(0.28, 0.93, 0.47, 1.61);
   }
 
-  &:hover {
-    color: $base-color;
-
-    &::after {
-      border-color: $base-color;
-      width: 60%;
-    }
+  &:hover::after {
+    width: 60%;
   }
 }
 

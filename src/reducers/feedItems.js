@@ -1,8 +1,10 @@
+import omit from 'lodash/fp/omit';
 import {
   FETCH_FEEDITEMS_REQUEST,
   FETCH_FEEDITEMS_SUCCESS,
-  FETCH_FEEDITEMS_FAILURE }
-from '../actions';
+  FETCH_FEEDITEMS_FAILURE,
+  DELETE_SUBSCRIPTION
+} from '../actions';
 
 const feedItems = (state = {}, action) => {
   switch (action.type) {
@@ -35,6 +37,8 @@ const feedItems = (state = {}, action) => {
           error: action.error
         }
       };
+    case DELETE_SUBSCRIPTION:
+      return omit(action.subscriptionId)(state);
     default:
       return state;
   }

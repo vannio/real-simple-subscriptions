@@ -25,15 +25,9 @@ export const deleteSubscription = subscriptionId => ({
 });
 
 export const MARK_FEEDITEM_READ = 'MARK_FEEDITEM_READ';
-export const markAsRead = feedItemId => ({
+export const markAsRead = ids => ({
   type: MARK_FEEDITEM_READ,
-  feedItemId
-});
-
-export const MARK_ALL_FEEDITEMS_READ = 'MARK_ALL_FEEDITEMS_READ';
-export const markAllFeedItemsRead = subscriptionID => ({
-  type: MARK_ALL_FEEDITEMS_READ,
-  subscriptionID
+  ids
 });
 
 export const FETCH_FEEDITEMS_REQUEST = 'FETCH_FEEDITEMS_REQUEST';
@@ -57,15 +51,15 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
   error
 });
 
-export const fetchFeedItems = (id, url) =>
+export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
     dispatch(fetchFeedItemsRequest(url));
-    return fetchData(url).then(data =>
-        dispatch(fetchFeedItemsSuccess(id, data))
+    return fetchData(url)
+      .then(items =>
+        dispatch(fetchFeedItemsSuccess(subscriptionId, items))
       )
       .catch(error => {
         var err = error.toString();
-        console.log('An error occured.', err);
-        dispatch(fetchFeedItemsFailure(id, err));
+        dispatch(fetchFeedItemsFailure(subscriptionId, err));
       });
   };

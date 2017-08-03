@@ -17,9 +17,13 @@
     display: inline-block;
   }
 
-  .settings-link {
+  .home-link,
+  .settings-link,
+  .check-button,
+  .reload-button {
     margin-bottom: $base-spacer;
     margin-right: $base-spacer;
+    display: inline-block;
 
     &::after {
       display: none;
