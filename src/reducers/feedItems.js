@@ -12,28 +12,23 @@ const feedItems = (state = {}, action) => {
       return {
         ...state,
         [action.subscriptionId]: {
-          ...state[action.subscriptionId],
-          fetching: true,
-          error: null
+          ...omit('error')(state[action.subscriptionId]),
+          fetching: true
         }
       };
     case FETCH_FEEDITEMS_SUCCESS:
       return {
         ...state,
         [action.subscriptionId]: {
-          ...state[action.subscriptionId],
-          items: action.items,
-          fetching: false,
-          error: null
+          ...omit(['error', 'fetching'])(state[action.subscriptionId]),
+          items: action.items
         }
       };
     case FETCH_FEEDITEMS_FAILURE:
       return {
         ...state,
         [action.subscriptionId]: {
-          ...state[action.subscriptionId],
-          items: action.items,
-          fetching: false,
+          ...omit('fetching')(state[action.subscriptionId]),
           error: action.error
         }
       };

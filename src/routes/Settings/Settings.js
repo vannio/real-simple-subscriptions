@@ -6,6 +6,7 @@ const Settings = () => (
   <div>
     <h1>Settings</h1>
     <SettingsGeneral />
+    <hr />
     <SettingsSubscriptions />
   </div>
 );
