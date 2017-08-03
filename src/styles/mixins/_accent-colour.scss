@@ -1,0 +1,13 @@
+@import 'styles/variables/_colours';
+
+@mixin accent-colour($selector, $properties) {
+  @each $name, $colour in $colours {
+    .app.app--#{$name} {
+      #{$selector} {
+        @each $property in $properties {
+          #{$property}: $colour
+        }
+      }
+    }
+  }
+}
