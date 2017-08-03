@@ -1,0 +1,35 @@
+@import 'styles/_variables.scss';
+
+.app {
+  display: flex;
+
+  .app-sidebar {
+    border-right: solid 2px #000;
+  }
+
+  .app-content {
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
+
+  .app-sidebar,
+  .app-content {
+    padding: 20px;
+  }
+
+  .app-intro {
+    font-size: large;
+  }
+
+  @each $name, $colour in $colours {
+    &.app--#{$name} {
+      .app-sidebar {
+        border-color: $colour;
+      }
+
+      a:visited {
+        color: $colour;
+      }
+    }
+  }
+}

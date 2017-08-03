@@ -7,13 +7,13 @@ import {
   // compose
 } from 'redux';
 import reducers from './reducers';
-import './index.css';
 import App from './routes/App/App';
 import registerServiceWorker from './helpers/registerServiceWorker';
 import { loadState, saveState } from './helpers/localStorage';
 import throttle from 'lodash/throttle';
 import thunk from 'redux-thunk';
 import registerChromeListeners from './helpers/chrome';
+import './styles/index.css';
 
 const configureStore = () => {
   const store = createStore(
