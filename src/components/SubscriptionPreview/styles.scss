@@ -1,20 +1,11 @@
 @import 'styles/variables/_breakpoints';
 @import 'styles/variables/_base-values';
-@import 'styles/mixins/_accent-colour';
-@include accent-colour('.subscription-preview__fetch-button .icon:hover', fill);
 
 .subscription-preview {
   margin-bottom: $base-spacer * 2;
 
   .fetch-button {
-    border: none;
-    background-color: transparent;
-    padding: 0;
     margin-left: $base-spacer * 2;
-
-    &:focus {
-      outline: none;
-    }
   }
 
   .list {
@@ -68,13 +59,14 @@
       margin: 0.5rem auto;
     }
 
-    .icon {
-      width: 16px;
-      margin-right: 0.5rem;
+    .list-item__link {
+      &::after {
+        display: none;
+      }
     }
 
-    .icon path {
-      fill: darken(white, 15%);
+    .icon {
+      margin-right: 0.5rem;
     }
   }
 }

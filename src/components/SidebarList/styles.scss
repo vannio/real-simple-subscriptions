@@ -5,12 +5,28 @@
 .sidebar-list {
   margin-right: $base-spacer * 2;
 
+  li {
+    white-space: nowrap;
+
+    &:first-child {
+      margin-bottom: $base-spacer * 2;
+    }
+  }
+
+  .icon {
+    display: inline-block;
+  }
+
   .settings-link {
-    display: block;
     margin-bottom: $base-spacer;
+    margin-right: $base-spacer;
 
     &::after {
       display: none;
     }
+  }
+
+  .navigation-link {
+    margin-right: $base-spacer;
   }
 }

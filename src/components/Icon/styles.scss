@@ -1,6 +1,6 @@
 @import 'styles/mixins/_accent-colour';
 @import 'styles/variables/_base-values';
-@include accent-colour('.icon:hover', fill);
+@include accent-colour('.icon:hover path', fill);
 
 .icon {
   fill: darken(white, 25%);
@@ -8,4 +8,9 @@
   path {
     transition: fill $base-animation-duration ease-in-out;
   }
+}
+
+.icon--small {
+  width: 16px;
+  height: 16px;
 }

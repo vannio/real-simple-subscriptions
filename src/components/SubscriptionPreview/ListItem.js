@@ -22,8 +22,16 @@ export const ListItem = ({ item, onCheckClick }) => (
       />
     </h3>
     <p className="list-item__description" dangerouslySetInnerHTML={{__html: item.content}} />
-    <Icon name="check" />
-    <Icon name="link" />
+    <button className="unstyled-button">
+      <Icon name="check" size="small" />
+    </button>
+    <a href={item.url}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="list-item__link"
+      onClick={this.handleClickText}>
+      <Icon name="link" size="small" />
+    </a>
   </li>
 );
 
