@@ -1,3 +1,5 @@
+/* global chrome */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -58,14 +60,25 @@ ReactDOM.render(
 
 registerServiceWorker();
 
-// Expose a function to fetch new entries so
-// that the chrome extension scripts have access
-if (typeof window !== 'undefined') {
-  window.chrome.fetchFeedItems = () => {
-    const subscriptions = loadState().subscriptions;
-    Object.keys(subscriptions).forEach(id => {
-      const action = fetchFeedItems(id, subscriptions[id].url);
-      action(store.dispatch);
-    });
-  };
-}
+const fetchAllFeedItems = () => {
+  const subscriptions = loadState().subscriptions;
+  Object.keys(subscriptions).forEach(id => {
+    console.log('Fetching data for', subscriptions[id].url);
+    const action = fetchFeedItems(id, subscriptions[id].url);
+    action(store.dispatch);
+  });
+};
+
+fetchAllFeedItems();
+
+chrome.browserAction.onClicked.addListener(function(){
+  fetchAllFeedItems();
+	chrome.tabs.create({ url: 'index.html' });
+});
+
+chrome.alarms.create('checkForUpdates', { 'periodInMinutes': 60 });
+chrome.alarms.onAlarm.addListener(alarm => {
+	if (alarm.name === 'checkForUpdates') {
+    fetchAllFeedItems();
+  }
+});

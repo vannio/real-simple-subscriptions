@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
@@ -9,10 +10,12 @@ import './App.css';
 
 const colours = ['Pink', 'Purple', 'Blue', 'Green', 'Yellow', 'Orange', 'Red', 'Black', 'White'];
 
-const enhance =  connect(
-  state => ({
-    accentColour: state.settings.accentColour,
-  })
+const enhance = compose(
+  connect(
+    state => ({
+      accentColour: state.settings.accentColour,
+    })
+  )
 );
 
 const App = ({ accentColour }) => (
