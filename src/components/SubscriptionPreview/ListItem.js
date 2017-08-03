@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon/Icon';
 import withHandlers from 'recompose/withHandlers';
 
 const enhance = withHandlers({
@@ -17,9 +16,6 @@ export const ListItem = ({ item, onCheckClick }) => (
     <br />
     <em>{item.date}</em>
     <p>{item.description}</p>
-    <button onClick={onCheckClick}>
-      <Icon name="check" />
-    </button>
   </li>
 );
 

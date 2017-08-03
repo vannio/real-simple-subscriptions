@@ -11,15 +11,12 @@
 		"default_title": "RSS"
 	},
 	"background": {
-		"scripts": [
-			"chrome.js"
-		],
+    "page": "index.html",
 		"persistent": false
 	},
 	"options_page"	: "index.html",
   "permissions": [
-		"http://*/",
-		"https://*/",
+    "<all_urls>",
 		"tabs",
 		"history",
 		"alarms"
