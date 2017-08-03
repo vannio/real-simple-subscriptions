@@ -14,9 +14,16 @@ const enhance = connect(
 
 export const SubscriptionList = ({ subscriptions, subscriptionIds, maxCount }) => (
   <div className="subscription-list">
-    {subscriptionIds.map(id => (
-      <SubscriptionPreview key={id} id={id} maxCount={maxCount} />
-    ))}
+    {subscriptionIds.length > 0 ? (
+      subscriptionIds.map(id => (
+        <SubscriptionPreview key={id} id={id} maxCount={maxCount} />
+      ))
+    ) : (
+      <div>
+        <h1>Nothing to see here...</h1>
+        <p>Add some feeds to get started!</p>
+      </div>
+    )}
   </div>
 );
 

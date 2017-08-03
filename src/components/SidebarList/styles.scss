@@ -1,0 +1,16 @@
+@import 'styles/mixins/_accent-colour';
+@import 'styles/variables/_base-values';
+@include accent-colour('.sidebar-list a:hover', color);
+
+.sidebar-list {
+  margin-right: $base-spacer * 2;
+
+  .settings-link {
+    display: block;
+    margin-bottom: $base-spacer;
+
+    &::after {
+      display: none;
+    }
+  }
+}

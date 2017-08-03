@@ -8,9 +8,10 @@
 
 # production
 /build
-/src/**/*.css
 
 # misc
+/src/**/*.css
+/public/xml
 .DS_Store
 .env.local
 .env.development.local

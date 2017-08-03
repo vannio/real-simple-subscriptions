@@ -6,7 +6,7 @@ import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions';
-import { LoadingIcon } from '../Icon/Icon';
+import Icon, { LoadingIcon } from '../Icon/Icon';
 import {
   getSubscription,
   getFeedItems,
@@ -32,19 +32,25 @@ const enhance = compose(
 
 export const SubscriptionPreview = props => (
   <div className="subscription-preview">
-    <h1>{props.subscription.title}</h1>
-    <button onClick={props.fetchData} disabled={props.isFetching} className="subscription-preview__fetch-button">
-      Refresh
-    </button>
-    <div className="subscription-preview__notifications">
+    <h1>
+      {props.subscription.title}
+      <button
+        onClick={props.fetchData}
+        disabled={props.isFetching}
+        className="fetch-button">
+        <Icon name="reload" />
+      </button>
+    </h1>
+    <div className="notifications">
       {props.isFetching && <LoadingIcon />}
       {props.fetchError && props.fetchError}
     </div>
-    <ul className="subscription-preview__list">
+    <ul className="list unstyled-list">
       {props.feedItems.slice(0, props.maxCount).map(item => (
         <ListItem key={item.id} item={item} />
       ))}
     </ul>
+    <hr />
   </div>
 );
 
@@ -58,7 +64,7 @@ SubscriptionPreview.propTypes = {
       id: PropTypes.string,
       title: PropTypes.string,
       content: PropTypes.string,
-      date: PropTypes.number,
+      date: PropTypes.string,
       url: PropTypes.string
     })
   ),

@@ -1,0 +1,56 @@
+form {
+  label {
+    display: block;
+    line-height: $base-line-height;
+  }
+
+  button {
+    margin-top: 0.5rem;
+  }
+}
+
+.button {
+  box-shadow: 0px 2px 0px 0px $base-color;
+  margin-bottom: 2px;
+  display: inline-block;
+  padding: $base-spacer / 2 $base-spacer;
+  background-color: darken(map-get($colours, white), 15%);
+  border: solid 1px transparent;
+  margin-right: $base-spacer / 2;
+  border-radius: $base-border-radius;
+  font-size: 1em;
+  outline: none;
+  font-family: $base-text-font;
+  text-transform: lowercase;
+
+  &:hover,
+  &:active,
+  &focus {
+    position: relative;
+    top: 2px;
+    box-shadow: none;
+  }
+
+  &:active {
+    background-color: lighten($base-color, 20%);
+  }
+}
+
+.text-input {
+  color: $base-text-color;
+  display: block;
+  padding: $base-spacer;
+  margin-bottom: $base-spacer;
+  width: 100%;
+  font-size: 1em;
+  font-family: $base-text-font;
+  outline: none;
+  border: solid 2px lighten($base-color, 25%);
+  background-color: $base-background-color;
+  max-width: 600px;
+
+  &:focus,
+  &:active {
+    border: solid 2px $base-color;
+  }
+}
