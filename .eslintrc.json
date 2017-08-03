@@ -3,29 +3,17 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "ecmaFeatures": { "jsx": true }
   },
   "rules": {
     "camelcase": [
-      2,
-      {
-        "properties": "never"
-      }
+      2, { "properties": "never" }
     ],
     "dot-notation": [
-      2,
-      {
-        "allowKeywords": true
-      }
+      2, { "allowKeywords": true }
     ],
     "quotes": [
-      2,
-      "single",
-      {
-        "allowTemplateLiterals": true
-      }
+      2, "single", { "allowTemplateLiterals": true }
     ],
     "semi": 2,
     "curly": [2, "all"],
@@ -34,7 +22,6 @@
     "no-use-before-define": [2, "nofunc"],
     "max-len": [2, 120, 2],
     "no-nested-ternary": 2,
-    "no-underscore-dangle": 0,
     "react/jsx-key": 2,
     "react/jsx-curly-spacing": [2, "never"],
     "react/jsx-indent-props": [2, 2],

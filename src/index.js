@@ -22,7 +22,8 @@ const configureStore = () => {
     reducers,
     {
       ...loadState(),
-      ...loadState('cachedData')
+      ...loadState('cachedData'),
+      ...loadState('markedFeedItems')
     },
     composeEnhancers(
       applyMiddleware(thunk),
@@ -40,6 +41,10 @@ const configureStore = () => {
         saveState({
           feedItems: store.getState().feedItems
         }, 'cachedData');
+
+        saveState({
+          markedFeedItems: store.getState().markedFeedItems
+        }, 'markedFeedItems');
       }
     )
   );

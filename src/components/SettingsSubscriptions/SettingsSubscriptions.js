@@ -9,10 +9,7 @@ import List from './List';
 import './styles.css';
 
 const enhance = compose(
-  connect(
-    null,
-    { addSubscription: actions.addSubscription }
-  ),
+  connect(null, { addSubscription: actions.addSubscription }),
   withHandlers({
     onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
     onFeedUrlChange: props => e => props.setFeedUrl(e.target.value),
