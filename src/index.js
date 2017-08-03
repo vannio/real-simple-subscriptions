@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import {
   createStore,
   applyMiddleware,
-  // compose
+  compose
 } from 'redux';
 import reducers from './reducers';
 import App from './routes/App/App';
@@ -22,11 +22,11 @@ const configureStore = () => {
       ...loadState(),
       ...loadState('cachedData')
     },
-    // compose(
-    //   applyMiddleware(thunk),
-    //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    // )
-    applyMiddleware(thunk)
+    compose(
+      applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+    // applyMiddleware(thunk)
   );
   store.subscribe(
     throttle(

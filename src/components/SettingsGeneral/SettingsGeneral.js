@@ -6,6 +6,7 @@ import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { COLOURS } from '../../data';
+import './styles.css';
 
 const enhance = compose(
   connect(
@@ -38,7 +39,7 @@ const enhance = compose(
 );
 
 const SettingsForm = props => (
-  <div className="settings-form__form">
+  <div className="settings-form">
     <h2>General</h2>
     {props.isEditable ? (
       <form onSubmit={props.onSubmitForm}>
