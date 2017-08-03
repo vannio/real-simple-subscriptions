@@ -17,8 +17,20 @@ export default () => {
   if (typeof chrome.browserAction !== 'undefined') {
     chrome.browserAction.onClicked.addListener(
       () => {
-        fetchAllFeedItems();
-      	chrome.tabs.create({ url: 'index.html' });
+        chrome.tabs.query(
+          {
+            url: 'chrome://newtab/',
+            title: 'RSS | Really Simple Subscriptions',
+            lastFocusedWindow: true
+          },
+          tabs => {
+            if (tabs.length > 0) {
+              chrome.tabs.update(tabs[0].id, { active: true, pinned: true });
+            } else {
+              chrome.tabs.create({ pinned: true });
+            }
+          }
+        );
       }
     );
 

@@ -1,27 +1,27 @@
 {
   "manifest_version": 2,
-  "name": "RSS v2",
+  "name": "Really Simple Subscriptions",
   "version": "0.0.1",
   "description": "Lightweight RSS feed for new tabs",
-	"icons": {
-		"240": "icons/icon-240.png",
-		"32": "icons/icon-32.png"
-	},
-  "browser_action": {
-		"default_title": "RSS"
-	},
-	"background": {
+  "icons": {
+    "240": "icons/icon-240.png",
+    "32": "icons/icon-32.png"
+  },
+    "browser_action": {
+    "default_title": "RSS"
+  },
+    "background": {
     "page": "index.html",
-		"persistent": false
-	},
-	"options_page"	: "index.html",
+    "persistent": false
+  },
+  "options_page"	: "index.html",
   "permissions": [
     "<all_urls>",
-		"tabs",
-		"history",
-		"alarms"
-	],
-	"chrome_url_overrides": {
-		"newtab": "index.html"
-	}
+    "tabs",
+    "history",
+    "alarms"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
 }

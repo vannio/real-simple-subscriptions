@@ -8,9 +8,10 @@ export const getFeedItemObject = (state, subscriptionId) =>
   state.feedItems[subscriptionId] || {};
 
 export const getFeedItems = (state, subscriptionId) =>
-  getFeedItemObject(state, subscriptionId)
-    .items
-    .filter(item => state.markedFeedItems.indexOf(item.id) < 0) || [];
+  getFeedItemObject(state, subscriptionId).items || [];
+
+export const filterFeedItems = (state, subscriptionId) =>
+  getFeedItems(state, subscriptionId).filter(item => state.markedFeedItems.indexOf(item.id) < 0);
 
 export const isFeedItemsFetching = (state, subscriptionId) =>
   getFeedItemObject(state, subscriptionId).fetching;

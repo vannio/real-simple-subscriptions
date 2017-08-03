@@ -24,7 +24,7 @@ const enhance = compose(
     onMarkAsReadClick: props => () => {
       const ids = props.subscriptionIds.reduce(
         (array, id) => array.concat(
-          props.allFeedItems[id].items.map(item => item.id)
+          props.allFeedItems[id].error ? [] : props.allFeedItems[id].items.map(item => item.id)
         ), []
       );
       props.markAsRead(ids);

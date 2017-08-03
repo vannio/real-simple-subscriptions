@@ -7,7 +7,7 @@ import ListItem from './ListItem';
 import Icon, { LoadingIcon } from '../Icon/Icon';
 import {
   getSubscription,
-  getFeedItems,
+  filterFeedItems,
   isFeedItemsFetching,
   getFeedItemsFetchError
 } from '../../ducks';
@@ -18,7 +18,7 @@ const enhance = compose(
   connect(
     (state, ownProps) => ({
       subscription: getSubscription(state, ownProps.id),
-      feedItems: getFeedItems(state, ownProps.id),
+      feedItems: filterFeedItems(state, ownProps.id),
       isFetching: isFeedItemsFetching(state, ownProps.id),
       fetchError: getFeedItemsFetchError(state, ownProps.id)
     }),
