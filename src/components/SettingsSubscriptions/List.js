@@ -27,8 +27,8 @@ const enhance = compose(
       props.setEditableId('');
     },
     onDeleteSubscription: props => id => {
-      props.deleteSubscription(id);
       props.setEditableId('');
+      props.deleteSubscription(id);
     },
     onStopEditing: props => () => props.setEditableId('')
   })
@@ -38,7 +38,7 @@ const List = props => (
   <ul className="unstyled-list">
     {props.subscriptionIds.map(id => {
       const subscription = props.subscriptions[id];
-      return (
+      return subscription ? (
         <li key={id}>
           {props.editableId === id ? (
             <Form
@@ -63,6 +63,8 @@ const List = props => (
             </div>
           )}
         </li>
+      ) : (
+        null
       );
     })}
   </ul>
