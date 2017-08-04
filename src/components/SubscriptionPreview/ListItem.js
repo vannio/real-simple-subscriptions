@@ -14,30 +14,43 @@ const enhance = compose(
   ),
   withHandlers({
     onMarkAsReadClick: props => () => props.markAsRead(props.item.id),
-    onClickLink: props => e => props.readOnOpen && props.markAsRead(props.item.id)
+    onClickLink: props => e => props.readOnOpen && props.markAsRead(props.item.id),
+    onOpenLinksInNewTab: props => e => {
+      e.preventDefault();
+      
+      if (e.target.href) {
+        window.open(e.target.href, '_blank');
+      }
+
+      if (e.target.parentNode.href) {
+        window.open(e.target.parentNode.href, '_blank');
+      }
+    }
   })
 );
 
-export const ListItem = ({ item, onMarkAsReadClick, onClickLink }) => (
+export const ListItem = props => (
   <li className="list-item">
-    <span className="list-item__date">{formatDate(item.date)}</span>
+    <span className="list-item__date">{formatDate(props.item.date)}</span>
     <h3 className="list-item__title">
-      <a href={item.url}
+      <a href={props.item.url}
         target="_blank"
         rel="noreferrer noopener"
-        onClick={onClickLink}
-        dangerouslySetInnerHTML={{__html: item.title}}
+        onClick={props.onClickLink}
+        dangerouslySetInnerHTML={{__html: props.item.title}}
       />
     </h3>
-    <p className="list-item__description" dangerouslySetInnerHTML={{__html: item.content}} />
-    <button className="unstyled-button" onClick={onMarkAsReadClick}>
+    <p className="list-item__description"
+      onClick={props.onOpenLinksInNewTab}
+      dangerouslySetInnerHTML={{__html: props.item.content}} />
+    <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
       <Icon name="check" size="small" />
     </button>
-    <a href={item.url}
+    <a href={props.item.url}
       target="_blank"
       rel="noreferrer noopener"
       className="list-item__link"
-      onClick={onClickLink}>
+      onClick={props.onClickLink}>
       <Icon name="link" size="small" />
     </a>
   </li>
@@ -45,6 +58,7 @@ export const ListItem = ({ item, onMarkAsReadClick, onClickLink }) => (
 
 ListItem.propTypes = {
   onMarkAsReadClick: PropTypes.func,
+  onOpenLinksInNewTab: PropTypes.func,
   onClickLink: PropTypes.func,
   item: PropTypes.shape({
     title: PropTypes.string,
