@@ -1,63 +1,58 @@
 import uuid from 'uuid/v5';
+const parser = new DOMParser();
 
-const getNodeValue = (node, selectors) => {
-	node = node.querySelectorAll(selectors)[0];
-	const nodeValue = node && node.firstChild ? node.firstChild.nodeValue : '';
-	const firstParagraph = nodeValue.match(/.+?(<\/p>)/);
-	return firstParagraph ? firstParagraph[0] : nodeValue;
+const getNodeText = (node, selectors) => {
+  const selected = node.querySelector(selectors);
+
+  if (!selected) {
+    return '';
+  }
+
+  return selected.firstChild ? selected.firstChild.nodeValue : '';
 };
 
 const getFeedLink = entryNode => {
   const links = entryNode.getElementsByTagName('link');
+
   if (links.length === 0) {
     const guids = entryNode.getElementsByTagName('guid');
-    if (
-      guids.length === 0 ||
-      guids[0].getAttribute('ispermalink') === 'false'
-    ) {
+
+    if (guids.length === 0 || guids[0].getAttribute('ispermalink') === 'false') {
       return '';
     };
-    return getNodeValue(guids[0], '');
+
+    return getNodeText(guids[0], '');
   }
 
   for (var i = 0; i < links.length; i++) {
     const link = links[i];
-    if (
-      link.getAttribute('href') != null &&
-      (
-        link.getAttribute('rel') === 'alternate' ||
-        link.getAttribute('rel') === null
-      )
-    ) {
-      return link.getAttribute('href');
+    const href = link.getAttribute('href');
+    const rel = link.getAttribute('rel');
+    const childNodes = link.childNodes;
+
+    if (href !== null && (rel === 'alternate' || rel === null)) {
+      return href;
     }
 
-    if (
-      link.childNodes.length === 1 &&
-      (
-        link.childNodes[0].nodeType === 3 ||
-        link.childNodes[0].nodeType === 4
-      )
-    ) {
-      return link.childNodes[0].nodeValue;
+    if (childNodes.length === 1 && (childNodes[0].nodeType === 3 || childNodes[0].nodeType === 4)) {
+      return childNodes[0].nodeValue;
     }
   }
+  
   return '';
 };
 
 const transformXML = xml => {
-  const xmlResponse = (new DOMParser()).parseFromString(xml, 'text/xml');
-  const entryNodes = Array.prototype.slice.call(
-    xmlResponse.querySelectorAll('item, entry'), 0
-  );
+  const parsedXML = parser.parseFromString(xml, 'text/xml');
+  const entryNodes = Array.from(parsedXML.querySelectorAll('item, entry'));
 
   return entryNodes.map(entryNode => ({
     id: uuid(getFeedLink(entryNode), uuid.URL),
-  	url: getFeedLink(entryNode),
-  	title: getNodeValue(entryNode, 'title'),
-  	content: getNodeValue(entryNode, 'description, content'),
-    media: getNodeValue(entryNode, 'image, media'),
-  	date: getNodeValue(entryNode, 'pubDate, updated')
+    url: getFeedLink(entryNode),
+    title: getNodeText(entryNode, 'title'),
+    description: getNodeText(entryNode, 'description, summary'),
+    content: getNodeText(entryNode, 'content'),
+    date: getNodeText(entryNode, 'pubDate, updated')
   }));
 };
 

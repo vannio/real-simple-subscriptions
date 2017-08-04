@@ -6,6 +6,7 @@ import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { COLOURS } from '../../data';
+import pick from 'lodash/fp/pick';
 import './styles.css';
 
 const enhance = compose(
@@ -14,7 +15,11 @@ const enhance = compose(
       maxCount: state.settings.maxCount,
       readOnOpen: state.settings.readOnOpen,
       fetchInterval: state.settings.fetchInterval,
-      accentColour: state.settings.accentColour
+      accentColour: state.settings.accentColour,
+      showSummary: state.settings.showSummary,
+      showContent: state.settings.showContent,
+      showImages: state.settings.showImages,
+      settingsFields: Object.keys(state.settings)
     }),
     { saveSettings: actions.saveSettings }
   ),
@@ -23,18 +28,22 @@ const enhance = compose(
   withState('fetchInterval', 'setFetchInterval', props => props.fetchInterval),
   withState('accentColour', 'setAccentColour', props => props.accentColour),
   withState('readOnOpen', 'setReadOnOpen', props => props.readOnOpen),
+  withState('showSummary', 'setShowSummary', props => props.showSummary),
+  withState('showContent', 'setShowContent', props => props.showContent),
+  withState('showImages', 'setShowImages', props => props.showImages),
   withHandlers({
     onToggleEdit: props => () => props.setIsEditable(!props.isEditable),
     onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 10)),
     onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
-    onAccentColourChange: props => e => {
-      props.setAccentColour(e.target.value);
-    },
+    onAccentColourChange: props => e => props.setAccentColour(e.target.value),
     onFetchIntervalChange: props => e => props.setFetchInterval(parseInt(e.target.value, 10)),
+    onToggleShowSummary: props => e => props.setShowSummary(e.target.checked),
+    onToggleShowContent: props => e => props.setShowContent(e.target.checked),
+    onToggleShowImages: props => e => props.setShowImages(e.target.checked),
     onSubmitForm: props => e => {
       e.preventDefault();
-      var { maxCount, readOnOpen, fetchInterval, accentColour } = props;
-      props.saveSettings({ maxCount, readOnOpen, fetchInterval, accentColour });
+      const settings = pick(props.settingsFields)(props);
+      props.saveSettings(settings);
       props.setIsEditable(false);
     }
   })
@@ -93,11 +102,25 @@ const SettingsForm = props => (
               checked={props.readOnOpen} />
           </li>
           <li>
-            <label htmlFor="readOnOpen"><strong>Show images</strong></label>
+            <label htmlFor="showSummary"><strong>Show summary</strong></label>
             <input type="checkbox"
-              id="readOnOpen"
-              onChange={props.onToggleReadOnOpen}
-              checked={props.readOnOpen} />
+              id="showSummary"
+              onChange={props.onToggleShowSummary}
+              checked={props.showSummary} />
+          </li>
+          <li>
+            <label htmlFor="showContent"><strong>Show content</strong></label>
+            <input type="checkbox"
+              id="showContent"
+              onChange={props.onToggleShowContent}
+              checked={props.showContent} />
+          </li>
+          <li>
+            <label htmlFor="showImages"><strong>Show images</strong></label>
+            <input type="checkbox"
+              id="showImages"
+              onChange={props.onToggleShowImages}
+              checked={props.showImages} />
           </li>
         </ul>
         <button className="button" type="submit">Update</button>
@@ -112,7 +135,9 @@ const SettingsForm = props => (
         <li><strong>Accent Colour</strong>{props.accentColour}</li>
         <li><strong>Mark read after title click</strong>{props.readOnOpen ? '✔' : '✘'}</li>
         <li><strong>Remove when viewed</strong>{props.readOnOpen ? '✔' : '✘'}</li>
-        <li><strong>Show images</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Show summary</strong>{props.showSummary ? '✔' : '✘'}</li>
+        <li><strong>Show content</strong>{props.showContent ? '✔' : '✘'}</li>
+        <li><strong>Show images</strong>{props.showImages ? '✔' : '✘'}</li>
       </ul>
     )}
   </div>
@@ -126,10 +151,16 @@ SettingsForm.propTypes = {
   onToggleReadOnOpen: PropTypes.func,
   onFetchIntervalChange: PropTypes.func,
   onAccentColourChange: PropTypes.func,
+  onToggleShowSummary: PropTypes.func,
+  onToggleShowContent: PropTypes.func,
+  onToggleShowImages: PropTypes.func,
   maxCount: PropTypes.number,
   readOnOpen: PropTypes.bool,
   fetchInterval: PropTypes.number,
-  accentColour: PropTypes.oneOf(COLOURS)
+  accentColour: PropTypes.oneOf(COLOURS),
+  showSummary: PropTypes.bool,
+  showContent: PropTypes.bool,
+  showImages: PropTypes.bool
 };
 
 export default enhance(SettingsForm);

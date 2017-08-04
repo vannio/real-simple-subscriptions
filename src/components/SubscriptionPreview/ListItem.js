@@ -9,7 +9,12 @@ import * as actions from '../../actions';
 
 const enhance = compose(
   connect(
-    state => ({ readOnOpen: state.settings.readOnOpen }),
+    state => ({
+      readOnOpen: state.settings.readOnOpen,
+      showSummary: state.settings.showSummary,
+      showContent: state.settings.showContent,
+      showImages: state.settings.showImages
+    }),
     { markAsRead: actions.markAsRead }
   ),
   withHandlers({
@@ -40,9 +45,16 @@ export const ListItem = props => (
         dangerouslySetInnerHTML={{__html: props.item.title}}
       />
     </h3>
-    <p className="list-item__description"
-      onClick={props.onOpenLinksInNewTab}
-      dangerouslySetInnerHTML={{__html: props.item.content}} />
+    {props.showSummary && (
+      <p className="list-item__description"
+        onClick={props.onOpenLinksInNewTab}
+        dangerouslySetInnerHTML={{__html: props.item.description}} />
+    )}
+    {props.showContent && (
+      <p className="list-item__content"
+        onClick={props.onOpenLinksInNewTab}
+        dangerouslySetInnerHTML={{__html: props.item.content}} />
+    )}
     <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
       <Icon name="check" size="small" />
     </button>
@@ -62,12 +74,13 @@ ListItem.propTypes = {
   onClickLink: PropTypes.func,
   item: PropTypes.shape({
     title: PropTypes.string,
-    summary: PropTypes.string,
+    description: PropTypes.string,
     content: PropTypes.string,
     date: PropTypes.string,
-    media: PropTypes.string,
     url: PropTypes.string
-  })
+  }),
+  showSummary: PropTypes.bool,
+  showContent: PropTypes.bool
 };
 
 export default enhance(ListItem);
