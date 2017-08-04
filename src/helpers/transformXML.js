@@ -56,6 +56,7 @@ const transformXML = xml => {
   	url: getFeedLink(entryNode),
   	title: getNodeValue(entryNode, 'title'),
   	content: getNodeValue(entryNode, 'description, content'),
+    media: getNodeValue(entryNode, 'image, media'),
   	date: getNodeValue(entryNode, 'pubDate, updated')
   }));
 };

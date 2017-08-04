@@ -11,38 +11,66 @@ import './styles.css';
 
 const enhance = compose(
   connect(null, { addSubscription: actions.addSubscription }),
-  withState('isFormExpanded', 'setIsFormExpanded', false),
+  withState('isFormNewExpanded', 'setIsFormNewExpanded', false),
+  withState('isFormBookmarkExpanded', 'setIsFormBookmarkExpanded', false),
   withHandlers({
-    onToggleFormExpanded: props => id => props.setIsFormExpanded(!props.isFormExpanded),
+    onToggleFormNewExpanded: props => () => props.setIsFormNewExpanded(!props.isFormNewExpanded),
+    onToggleBookmarkFormExpanded: props => () => props.setIsFormBookmarkExpanded(!props.isFormBookmarkExpanded),
     onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
     onFeedUrlChange: props => e => props.setFeedUrl(e.target.value),
-    handleAddSubscription: props => subscription => {
+    onAddSubscription: props => subscription => {
       props.addSubscription(subscription);
-      props.setIsFormExpanded(false);
+      props.setIsFormNewExpanded(false);
     },
-    handleUpdateSubscription: props => subscription => props.updateSubscription(subscription),
+    onUpdateSubscription: props => subscription => props.updateSubscription(subscription),
+    onSaveBookmarksFolder: props => () => {
+      props.setIsFormBookmarkExpanded(false);
+    }
   })
 );
 
 export const SettingsSubscriptions = props => (
   <div className="settings-subscriptions">
-    <h2>Subscriptions</h2>
-    {props.isFormExpanded ? (
-      <Form handleSubmit={props.handleAddSubscription} />
-    ) : (
-      <button className="button" onClick={props.onToggleFormExpanded}>
-        Add subscription
-      </button>
-    )}
-    <List />
+    <h1>Subscriptions</h1>
+    <div className="settings-subscriptions__group">
+      {props.isFormBookmarkExpanded ? (
+        <div>
+          <strong>Import from bookmarks folder</strong>
+          <select onChange={props.onSaveBookmarksFolder}>
+            <option>---</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </div>
+      ) : (
+        <div onClick={props.onToggleBookmarkFormExpanded}>
+          <strong>Import from bookmarks folder</strong>
+          folder name
+        </div>
+      )}
+    </div>
+    <div className="settings-subscriptions__group">
+      {props.isFormNewExpanded ? (
+        <Form handleSubmit={props.onAddSubscription} />
+      ) : (
+        <button className="button" onClick={props.onToggleFormNewExpanded}>
+          Add subscription
+        </button>
+      )}
+      <List />
+    </div>
   </div>
 );
 
 SettingsSubscriptions.propTypes = {
-  handleAddSubscription: PropTypes.func,
-  handleUpdateSubscription: PropTypes.func,
-  isFormExpanded: PropTypes.bool,
-  onToggleFormExpanded: PropTypes.func
+  onAddSubscription: PropTypes.func,
+  onUpdateSubscription: PropTypes.func,
+  isFormNewExpanded: PropTypes.bool,
+  onToggleFormNewExpanded: PropTypes.func,
+  onToggleBookmarkFormExpanded: PropTypes.func,
+  isFormBookmarkExpanded: PropTypes.bool,
+  onSaveBookmarksFolder: PropTypes.func
 };
 
 export default enhance(SettingsSubscriptions);

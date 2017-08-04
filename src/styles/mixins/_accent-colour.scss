@@ -2,7 +2,7 @@
 
 @mixin accent-colour($selector, $properties) {
   @each $name, $colour in $colours {
-    .#{$name} {
+    [data-colour="#{$name}"] {
       #{$selector} {
         @each $property in $properties {
           #{$property}: $colour

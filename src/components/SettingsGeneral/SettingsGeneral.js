@@ -16,7 +16,7 @@ const enhance = compose(
       fetchInterval: state.settings.fetchInterval,
       accentColour: state.settings.accentColour
     }),
-    { updateSettings: actions.updateSettings }
+    { saveSettings: actions.saveSettings }
   ),
   withState('isEditable', 'setIsEditable', false),
   withState('maxCount', 'setMaxCount', props => props.maxCount),
@@ -25,14 +25,16 @@ const enhance = compose(
   withState('readOnOpen', 'setReadOnOpen', props => props.readOnOpen),
   withHandlers({
     onToggleEdit: props => () => props.setIsEditable(!props.isEditable),
-    onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 16)),
+    onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 10)),
     onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
-    onAccentColourChange: props => e => props.setAccentColour(e.target.value),
-    onFetchIntervalChange: props => e => props.setFetchInterval(parseInt(e.target.value, 16)),
+    onAccentColourChange: props => e => {
+      props.setAccentColour(e.target.value);
+    },
+    onFetchIntervalChange: props => e => props.setFetchInterval(parseInt(e.target.value, 10)),
     onSubmitForm: props => e => {
       e.preventDefault();
       var { maxCount, readOnOpen, fetchInterval, accentColour } = props;
-      props.updateSettings({ maxCount, readOnOpen, fetchInterval, accentColour });
+      props.saveSettings({ maxCount, readOnOpen, fetchInterval, accentColour });
       props.setIsEditable(false);
     }
   })
@@ -40,7 +42,6 @@ const enhance = compose(
 
 const SettingsForm = props => (
   <div className="settings-form">
-    <h2>General</h2>
     {props.isEditable ? (
       <form onSubmit={props.onSubmitForm}>
         <ul className="unstyled-list">
@@ -53,19 +54,21 @@ const SettingsForm = props => (
               className="text-input" />
           </li>
           <li>
-            <label htmlFor="readOnOpen"><strong>Read on open</strong></label>
-            <input type="checkbox"
-              id="readOnOpen"
-              onChange={props.onToggleReadOnOpen}
-              checked={props.readOnOpen} />
-          </li>
-          <li>
-            <label htmlFor="fetchInterval"><strong>Fetch interval</strong></label>
+            <label htmlFor="fetchInterval"><strong>Fetch interval (minutes)</strong></label>
             <input type="number"
               id="fetchInterval"
               onChange={props.onFetchIntervalChange}
               value={props.fetchInterval} min={1}
-              className="text-input" /> minutes
+              className="text-input" />
+          </li>
+          <li>
+            <label htmlFor="readOnOpen"><strong>Show unread count</strong></label>
+            <select>
+              <option>Toolbar & Tab</option>
+              <option>Toolbar only</option>
+              <option>Tab only</option>
+              <option>None</option>
+            </select>
           </li>
           <li>
             <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
@@ -75,6 +78,27 @@ const SettingsForm = props => (
               ))}
             </select>
           </li>
+          <li>
+            <label htmlFor="readOnOpen"><strong>Mark read after title click</strong></label>
+            <input type="checkbox"
+              id="readOnOpen"
+              onChange={props.onToggleReadOnOpen}
+              checked={props.readOnOpen} />
+          </li>
+          <li>
+            <label htmlFor="readOnOpen"><strong>Remove when viewed</strong></label>
+            <input type="checkbox"
+              id="readOnOpen"
+              onChange={props.onToggleReadOnOpen}
+              checked={props.readOnOpen} />
+          </li>
+          <li>
+            <label htmlFor="readOnOpen"><strong>Show images</strong></label>
+            <input type="checkbox"
+              id="readOnOpen"
+              onChange={props.onToggleReadOnOpen}
+              checked={props.readOnOpen} />
+          </li>
         </ul>
         <button className="button" type="submit">Update</button>
         <button className="button" type="button" onClick={props.onToggleEdit}>Close</button>
@@ -83,9 +107,12 @@ const SettingsForm = props => (
       <ul onClick={props.onToggleEdit}
         className="unstyled-list">
         <li><strong>Front Page items per feed</strong>{props.maxCount}</li>
-        <li><strong>Read on open</strong>{props.readOnOpen ? '✔' : '✘'}</li>
         <li><strong>Fetch interval</strong>{props.fetchInterval} minutes</li>
+        <li><strong>Show unread count</strong>{props.readOnOpen ? '✔' : '✘'}</li>
         <li><strong>Accent Colour</strong>{props.accentColour}</li>
+        <li><strong>Mark read after title click</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Remove when viewed</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Show images</strong>{props.readOnOpen ? '✔' : '✘'}</li>
       </ul>
     )}
   </div>

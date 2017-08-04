@@ -22,6 +22,8 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [ ] Bookmark items to read later *
 - [ ] Chrome badge with unread items count *
 - [ ] Unmark as read
+- [ ] Look for `type="application/rss+xml"` in a website to pull its _actual_ feed address
+- [ ] Memoize
 
 **Config Options**
 
@@ -35,6 +37,8 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [ ] Group / Tag subscriptions
 - [ ] Block images and iframes from being displayed *
 - [ ] Grey out _or_ hide read items *
+- [ ] Per subscription config for displaying images, summary, content etc.
+- [ ] Random accent colour
 
 ---
 

@@ -9,16 +9,14 @@ import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
 import { COLOURS } from '../../data';
 import './styles.css';
+import * as actions from '../../actions';
 
 const enhance = compose(
-  connect(
-    state => ({
-      accentColour: state.settings.accentColour,
-    })
-  ),
+  connect(state => ({ settings: state.settings }), { saveSettings: actions.saveSettings }),
   lifecycle({
     componentDidMount() {
-      window.document.documentElement.classList.add(this.props.accentColour.toLowerCase());
+      var { settings, saveSettings } = this.props;
+      saveSettings(settings);
     }
   })
 );
