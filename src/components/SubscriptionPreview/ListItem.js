@@ -17,7 +17,7 @@ const enhance = compose(
     onClickLink: props => e => props.readOnOpen && props.markAsRead(props.item.id),
     onOpenLinksInNewTab: props => e => {
       e.preventDefault();
-      
+
       if (e.target.href) {
         window.open(e.target.href, '_blank');
       }
@@ -62,8 +62,10 @@ ListItem.propTypes = {
   onClickLink: PropTypes.func,
   item: PropTypes.shape({
     title: PropTypes.string,
+    summary: PropTypes.string,
     content: PropTypes.string,
     date: PropTypes.string,
+    media: PropTypes.string,
     url: PropTypes.string
   })
 };

@@ -51,6 +51,12 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
   error
 });
 
+export const saveSettings = settings =>
+  dispatch => {
+    dispatch(updateSettings(settings));
+    window.document.documentElement.dataset.colour = settings.accentColour.toLowerCase();
+  };
+
 export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
     dispatch(fetchFeedItemsRequest(url));

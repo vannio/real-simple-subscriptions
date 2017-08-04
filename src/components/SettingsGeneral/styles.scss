@@ -4,4 +4,14 @@
   strong {
     margin-right: $base-spacer * 2;
   }
+
+  label {
+    display: inline-block;
+  }
+
+  label + input[type="number"],
+  label + input[type="text"],
+  label + textarea {
+    display: block;
+  }
 }
