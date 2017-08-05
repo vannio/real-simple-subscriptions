@@ -29,7 +29,11 @@ export const defaultState = {
       accentColour: 'Pink',
       showSummary: false,
       showContent: false,
-      showImages: false
+      showImages: false,
+      subscriptionFolder: {
+        id: '-1',
+        title: '---'
+      }
     }
   },
   cachedData: {},

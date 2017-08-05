@@ -19,7 +19,8 @@
     "<all_urls>",
     "tabs",
     "history",
-    "alarms"
+    "alarms",
+    "bookmarks"
   ],
   "chrome_url_overrides": {
     "newtab": "index.html"
