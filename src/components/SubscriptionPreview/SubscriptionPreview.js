@@ -25,7 +25,8 @@ const enhance = compose(
     { markAsRead: actions.markAsRead }
   ),
   withHandlers({
-    onMarkAsReadClick: props => () => props.markAsRead(props.feedItems.map(feedItem => feedItem.id))
+    onMarkAsReadClick: props => () =>
+      props.markAsRead(props.id, props.feedItems.map(feedItem => feedItem.id))
   })
 );
 
@@ -43,7 +44,7 @@ export const SubscriptionPreview = props => (
     </div>
     <ul className="list unstyled-list">
       {props.feedItems.slice(0, props.maxCount).map(item => (
-        <ListItem key={item.id} item={item} />
+        <ListItem key={item.id} item={item} subscriptionId={props.id} />
       ))}
     </ul>
     <hr />
@@ -67,7 +68,8 @@ SubscriptionPreview.propTypes = {
   maxCount: PropTypes.number,
   isFetching: PropTypes.bool,
   fetchError: PropTypes.string,
-  onMarkAsReadClick: PropTypes.func
+  onMarkAsReadClick: PropTypes.func,
+  id: PropTypes.string
 };
 
 export default enhance(SubscriptionPreview);

@@ -34,8 +34,9 @@ export const deleteSubscription = subscriptionId => ({
 
 // FEED ITEMS
 export const MARK_FEEDITEM_READ = 'MARK_FEEDITEM_READ';
-export const markAsRead = ids => ({
+export const markAsRead = (subscriptionId, ids) => ({
   type: MARK_FEEDITEM_READ,
+  subscriptionId,
   ids
 });
 
@@ -68,7 +69,7 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
 
 export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
-    dispatch(fetchFeedItemsRequest(url));
+    dispatch(fetchFeedItemsRequest(subscriptionId));
     return fetchData(url)
       .then(items =>
         dispatch(fetchFeedItemsSuccess(subscriptionId, items))

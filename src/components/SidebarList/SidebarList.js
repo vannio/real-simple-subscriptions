@@ -22,12 +22,14 @@ const enhance = compose(
   withHandlers({
     fetchAllFeedItems: () => () => fetchAllFeedItems(),
     onMarkAsReadClick: props => () => {
-      const ids = props.subscriptionIds.reduce(
-        (array, id) => array.concat(
-          props.allFeedItems[id].error ? [] : props.allFeedItems[id].items.map(item => item.id)
-        ), []
+      props.subscriptionIds.forEach(
+        subscriptionId => {
+          if (!props.subscriptions[subscriptionId].error) {
+            const itemIDs = props.allFeedItems[subscriptionId].items.map(item => item.id);
+            props.markAsRead(subscriptionId, itemIDs);
+          }
+        }
       );
-      props.markAsRead(ids);
     }
   })
 );

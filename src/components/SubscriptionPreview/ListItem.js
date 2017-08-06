@@ -18,7 +18,7 @@ const enhance = compose(
     { markAsRead: actions.markAsRead }
   ),
   withHandlers({
-    onMarkAsReadClick: props => () => props.markAsRead(props.item.id),
+    onMarkAsReadClick: props => () => props.markAsRead(props.subscriptionId, props.item.id),
     onClickLink: props => e => props.readOnOpen && props.markAsRead(props.item.id),
     onOpenLinksInNewTab: props => e => {
       e.preventDefault();
