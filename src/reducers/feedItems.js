@@ -1,9 +1,11 @@
 import omit from 'lodash/fp/omit';
+import uniq from 'lodash/fp/uniq';
 import {
   FETCH_FEEDITEMS_REQUEST,
   FETCH_FEEDITEMS_SUCCESS,
   FETCH_FEEDITEMS_FAILURE,
   DELETE_SUBSCRIPTION,
+  MARK_FEEDITEM_READ,
   UPDATE_UNREAD_COUNT
 } from '../actions';
 
@@ -35,10 +37,19 @@ const feedItems = (state = {}, action) => {
       };
     case DELETE_SUBSCRIPTION:
       return omit(action.subscriptionId)(state);
-    default:
-      return state;
+    case MARK_FEEDITEM_READ:
+      const readItems = state[action.subscriptionId].markedAsRead || [];
+      return {
+        ...state,
+        [action.subscriptionId]: {
+          ...state[action.subscriptionId],
+          markedAsRead: uniq(readItems.concat(action.ids))
+        }
+      };
     case UPDATE_UNREAD_COUNT:
       console.log('action', action, 'state', state);
+      return state;
+    default:
       return state;
   }
 };
