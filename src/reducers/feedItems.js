@@ -3,7 +3,8 @@ import {
   FETCH_FEEDITEMS_REQUEST,
   FETCH_FEEDITEMS_SUCCESS,
   FETCH_FEEDITEMS_FAILURE,
-  DELETE_SUBSCRIPTION
+  DELETE_SUBSCRIPTION,
+  UPDATE_UNREAD_COUNT
 } from '../actions';
 
 const feedItems = (state = {}, action) => {
@@ -35,6 +36,9 @@ const feedItems = (state = {}, action) => {
     case DELETE_SUBSCRIPTION:
       return omit(action.subscriptionId)(state);
     default:
+      return state;
+    case UPDATE_UNREAD_COUNT:
+      console.log('action', action, 'state', state);
       return state;
   }
 };
