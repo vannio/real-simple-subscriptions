@@ -1,11 +1,19 @@
 import fetchData from '../helpers/fetchData';
 
+// SETTINGS
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 export const updateSettings = settings => ({
   type: UPDATE_SETTINGS,
   settings
 });
 
+export const saveSettings = settings =>
+  dispatch => {
+    dispatch(updateSettings(settings));
+    window.document.documentElement.dataset.colour = settings.accentColour.toLowerCase();
+  };
+
+// SUBSCRIPTIONS
 export const ADD_SUBSCRIPTION = 'ADD_SUBSCRIPTION';
 export const addSubscription = subscription => ({
   type: ADD_SUBSCRIPTION,
@@ -24,10 +32,17 @@ export const deleteSubscription = subscriptionId => ({
   subscriptionId
 });
 
+// FEED ITEMS
 export const MARK_FEEDITEM_READ = 'MARK_FEEDITEM_READ';
 export const markAsRead = ids => ({
   type: MARK_FEEDITEM_READ,
   ids
+});
+
+export const UPDATE_UNREAD_COUNT = 'UPDATE_UNREAD_COUNT';
+export const updatedUnreadCount = readItems => ({
+  type: UPDATE_UNREAD_COUNT,
+  readItems
 });
 
 export const FETCH_FEEDITEMS_REQUEST = 'FETCH_FEEDITEMS_REQUEST';
@@ -50,12 +65,6 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
   subscriptionId,
   error
 });
-
-export const saveSettings = settings =>
-  dispatch => {
-    dispatch(updateSettings(settings));
-    window.document.documentElement.dataset.colour = settings.accentColour.toLowerCase();
-  };
 
 export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
