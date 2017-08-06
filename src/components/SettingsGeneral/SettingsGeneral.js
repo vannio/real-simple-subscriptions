@@ -55,7 +55,7 @@ const SettingsForm = props => (
       <form onSubmit={props.onSubmitForm}>
         <ul className="unstyled-list">
           <li>
-            <label htmlFor="maxCount"><strong>Front Page items per feed</strong></label>
+            <label htmlFor="maxCount"><strong>Maximum items to display</strong></label>
             <input type="number"
               id="maxCount"
               onChange={props.onMaxCountChange}
@@ -63,21 +63,12 @@ const SettingsForm = props => (
               className="text-input" />
           </li>
           <li>
-            <label htmlFor="fetchInterval"><strong>Fetch interval (minutes)</strong></label>
+            <label htmlFor="fetchInterval"><strong>Background fetch interval (minutes)</strong></label>
             <input type="number"
               id="fetchInterval"
               onChange={props.onFetchIntervalChange}
               value={props.fetchInterval} min={1}
               className="text-input" />
-          </li>
-          <li>
-            <label htmlFor="readOnOpen"><strong>Show unread count</strong></label>
-            <select>
-              <option>Toolbar & Tab</option>
-              <option>Toolbar only</option>
-              <option>Tab only</option>
-              <option>None</option>
-            </select>
           </li>
           <li>
             <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
@@ -88,39 +79,43 @@ const SettingsForm = props => (
             </select>
           </li>
           <li>
-            <label htmlFor="readOnOpen"><strong>Mark read after title click</strong></label>
+            <label htmlFor="readOnOpen"><strong>Mark as read after viewing</strong></label>
             <input type="checkbox"
               id="readOnOpen"
               onChange={props.onToggleReadOnOpen}
               checked={props.readOnOpen} />
           </li>
           <li>
-            <label htmlFor="readOnOpen"><strong>Remove when viewed</strong></label>
+            <label htmlFor="readOnOpen"><strong>Remove from list when viewed</strong></label>
             <input type="checkbox"
               id="readOnOpen"
               onChange={props.onToggleReadOnOpen}
               checked={props.readOnOpen} />
           </li>
-          <li>
-            <label htmlFor="showSummary"><strong>Show summary</strong></label>
-            <input type="checkbox"
-              id="showSummary"
-              onChange={props.onToggleShowSummary}
-              checked={props.showSummary} />
-          </li>
-          <li>
-            <label htmlFor="showContent"><strong>Show content</strong></label>
-            <input type="checkbox"
-              id="showContent"
-              onChange={props.onToggleShowContent}
-              checked={props.showContent} />
-          </li>
-          <li>
-            <label htmlFor="showImages"><strong>Show images</strong></label>
-            <input type="checkbox"
-              id="showImages"
-              onChange={props.onToggleShowImages}
-              checked={props.showImages} />
+          <li><strong>Articles display:</strong>
+            <ul>
+              <li>
+                <label htmlFor="showSummary"><strong>Summary</strong></label>
+                <input type="checkbox"
+                  id="showSummary"
+                  onChange={props.onToggleShowSummary}
+                  checked={props.showSummary} />
+              </li>
+              <li>
+                <label htmlFor="showContent"><strong>Content</strong></label>
+                <input type="checkbox"
+                  id="showContent"
+                  onChange={props.onToggleShowContent}
+                  checked={props.showContent} />
+              </li>
+              <li>
+                <label htmlFor="showImages"><strong>Images</strong></label>
+                <input type="checkbox"
+                  id="showImages"
+                  onChange={props.onToggleShowImages}
+                  checked={props.showImages} />
+              </li>
+            </ul>
           </li>
         </ul>
         <button className="button" type="submit">Update</button>
@@ -129,15 +124,18 @@ const SettingsForm = props => (
     ) : (
       <ul onClick={props.onToggleEdit}
         className="unstyled-list">
-        <li><strong>Front Page items per feed</strong>{props.maxCount}</li>
-        <li><strong>Fetch interval</strong>{props.fetchInterval} minutes</li>
-        <li><strong>Show unread count</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Maximum items to display</strong>{props.maxCount}</li>
+        <li><strong>Background fetch interval</strong>{props.fetchInterval} minutes</li>
         <li><strong>Accent Colour</strong>{props.accentColour}</li>
-        <li><strong>Mark read after title click</strong>{props.readOnOpen ? '✔' : '✘'}</li>
-        <li><strong>Remove when viewed</strong>{props.readOnOpen ? '✔' : '✘'}</li>
-        <li><strong>Show summary</strong>{props.showSummary ? '✔' : '✘'}</li>
-        <li><strong>Show content</strong>{props.showContent ? '✔' : '✘'}</li>
-        <li><strong>Show images</strong>{props.showImages ? '✔' : '✘'}</li>
+        <li><strong>Mark as read after viewing</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Remove from list when viewed</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Articles display:</strong>
+          <ul>
+            <li><strong>Summary</strong>{props.showSummary ? '✔' : '✘'}</li>
+            <li><strong>Content</strong>{props.showContent ? '✔' : '✘'}</li>
+            <li><strong>Images</strong>{props.showImages ? '✔' : '✘'}</li>
+          </ul>
+        </li>
       </ul>
     )}
   </div>

@@ -56,14 +56,14 @@ export const ListItem = props => (
         dangerouslySetInnerHTML={{__html: props.item.content}} />
     )}
     <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
-      <Icon name="check" size="small" />
+      <Icon name="check" size="small" title="Mark all as read" />
     </button>
     <a href={props.item.url}
       target="_blank"
       rel="noreferrer noopener"
       className="list-item__link"
       onClick={props.onClickLink}>
-      <Icon name="link" size="small" />
+      <Icon name="link" size="small" title={props.item.title} />
     </a>
   </li>
 );

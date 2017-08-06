@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import data from './data';
 import './styles.css';
 
-export const SimpleIcon = ({ name, size = 'large' }) => {
+export const SimpleIcon = ({ name, size = 'large', title }) => {
   var iconData = data[name] ? data[name] : {};
 
   return (
@@ -13,6 +13,7 @@ export const SimpleIcon = ({ name, size = 'large' }) => {
       width={iconData.width}
       height={iconData.height}
       viewBox={`0 0 ${iconData.width} ${iconData.height}`}>
+      <title>{title || name}</title>
       <path d={iconData.path}/>
     </svg>
   );
@@ -20,6 +21,7 @@ export const SimpleIcon = ({ name, size = 'large' }) => {
 
 SimpleIcon.propTypes = {
   name: PropTypes.string.isRequired,
+  title: PropTypes.string,
   size: PropTypes.oneOf(['small', 'large'])
 };
 
