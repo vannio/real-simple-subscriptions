@@ -6,6 +6,5 @@ export const COLOURS = [
   'Yellow',
   'Orange',
   'Red',
-  'Black',
-  'White'
+  'Black'
 ];

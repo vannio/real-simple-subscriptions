@@ -12,44 +12,21 @@ import './styles.css';
 const enhance = compose(
   connect(null, { addSubscription: actions.addSubscription }),
   withState('isFormNewExpanded', 'setIsFormNewExpanded', false),
-  withState('isFormBookmarkExpanded', 'setIsFormBookmarkExpanded', false),
   withHandlers({
     onToggleFormNewExpanded: props => () => props.setIsFormNewExpanded(!props.isFormNewExpanded),
-    onToggleBookmarkFormExpanded: props => () => props.setIsFormBookmarkExpanded(!props.isFormBookmarkExpanded),
     onFeedTitleChange: props => e => props.setFeedTitle(e.target.value),
     onFeedUrlChange: props => e => props.setFeedUrl(e.target.value),
     onAddSubscription: props => subscription => {
       props.addSubscription(subscription);
       props.setIsFormNewExpanded(false);
     },
-    onUpdateSubscription: props => subscription => props.updateSubscription(subscription),
-    onSaveBookmarksFolder: props => () => {
-      props.setIsFormBookmarkExpanded(false);
-    }
+    onUpdateSubscription: props => subscription => props.updateSubscription(subscription)
   })
 );
 
 export const SettingsSubscriptions = props => (
   <div className="settings-subscriptions">
     <h1>Subscriptions</h1>
-    <div className="settings-subscriptions__group">
-      {props.isFormBookmarkExpanded ? (
-        <div>
-          <strong>Import from bookmarks folder</strong>
-          <select onChange={props.onSaveBookmarksFolder}>
-            <option>---</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </select>
-        </div>
-      ) : (
-        <div onClick={props.onToggleBookmarkFormExpanded}>
-          <strong>Import from bookmarks folder</strong>
-          folder name
-        </div>
-      )}
-    </div>
     <div className="settings-subscriptions__group">
       {props.isFormNewExpanded ? (
         <Form handleSubmit={props.onAddSubscription} />
@@ -69,8 +46,6 @@ SettingsSubscriptions.propTypes = {
   isFormNewExpanded: PropTypes.bool,
   onToggleFormNewExpanded: PropTypes.func,
   onToggleBookmarkFormExpanded: PropTypes.func,
-  isFormBookmarkExpanded: PropTypes.bool,
-  onSaveBookmarksFolder: PropTypes.func
 };
 
 export default enhance(SettingsSubscriptions);

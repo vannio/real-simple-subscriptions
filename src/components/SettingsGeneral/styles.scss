@@ -14,4 +14,9 @@
   label + textarea {
     display: block;
   }
+
+  li > ul {
+    list-style: none;
+    padding-left: 1.2rem;
+  }
 }

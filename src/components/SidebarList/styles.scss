@@ -3,18 +3,20 @@
 @include accent-colour('.sidebar-list a:hover', color);
 
 .sidebar-list {
-  margin-right: $base-spacer * 2;
+  margin: 0;
 
   li {
     white-space: nowrap;
 
     &:first-child {
       margin-bottom: $base-spacer * 2;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
   .icon {
-    display: inline-block;
+    display: block;
   }
 
   .home-link,
@@ -22,12 +24,17 @@
   .check-button,
   .reload-button {
     margin-bottom: $base-spacer;
-    margin-right: $base-spacer;
     display: inline-block;
 
     &::after {
       display: none;
     }
+  }
+
+  .home-link,
+  .check-button,
+  .reload-button {
+    margin-right: $base-spacer;
   }
 
   .navigation-link {

@@ -1,19 +1,21 @@
 @import 'styles/variables/_base-values';
+@import 'styles/variables/_colours';
 
 .app {
-  background-color: white;
+  background-color: $base-background-color;
   display: flex;
   height: 100%;
 }
 
 .app-sidebar,
 .app-content {
-  padding: $base-spacer ($base-spacer * 2);
+  padding: $base-spacer * 3 $base-spacer * 2;
 }
 
 .app-sidebar {
   font-family: $base-heading-font;
   font-weight: 700;
+  // border-right: solid 1px map-get($colours, light-grey);
 }
 
 .app-content {

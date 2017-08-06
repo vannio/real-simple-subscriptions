@@ -34,7 +34,7 @@ export const SubscriptionPreview = props => (
     <h1>
       {props.subscription.title}
       <button className="unstyled-button check-button" onClick={props.onMarkAsReadClick}>
-        <Icon name="check" />
+        <Icon name="check" title="Mark all as read" />
       </button>
     </h1>
     <div className="notifications">

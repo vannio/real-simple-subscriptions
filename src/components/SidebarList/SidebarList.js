@@ -36,18 +36,18 @@ const Sidebar = props => (
   <ul className="sidebar-list unstyled-list">
     <li>
       <NavLink exact to="/subscriptions" className="home-link" activeClassName="active">
-        <Icon name="home" />
+        <Icon name="home" title="Home" />
       </NavLink>
       <button className="unstyled-button check-button" onClick={props.onMarkAsReadClick}>
-        <Icon name="check" />
+        <Icon name="check" title="Mark all as read" />
       </button>
       <button
         onClick={props.fetchAllFeedItems}
         className="unstyled-button reload-button">
-        <Icon name="reload" />
+        <Icon name="reload" title="Fetch new data" />
       </button>
       <NavLink exact to="/settings" className="settings-link" activeClassName="active">
-        <Icon name="settings" />
+        <Icon name="settings" title="Settings" />
       </NavLink>
     </li>
     {props.subscriptionIds.map(id => (

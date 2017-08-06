@@ -9,13 +9,14 @@ $colours: (
   indigo-light: #5C6BC0,
   green: #81C784,
   yellow: #FFB300,
-  orange: orange,
-  red: red,
+  orange: #EC774A,
+  red: #C70039,
   black: #424242,
-  grey: #424242,
-  white: white
+  light-grey: darken(white, 15%),
+  grey: darken(white, 25%),
+  white: #FFFFFF
 );
 
-$base-color: map-get($colours, grey);
+$base-color: map-get($colours, black);
 $base-text-color: $base-color;
 $base-background-color: map-get($colours, white);
