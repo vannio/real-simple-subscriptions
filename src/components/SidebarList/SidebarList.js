@@ -17,7 +17,10 @@ const enhance = compose(
       subscriptionIds: getSubscriptionKeys(state.subscriptions),
       allFeedItems: state.feedItems
     }),
-    { markAsRead: actions.markAsRead }
+    {
+      markAsRead: actions.markAsRead,
+      updateUnreadCount: actions.updateUnreadCount
+    }
   ),
   withHandlers({
     fetchAllFeedItems: () => () => fetchAllFeedItems(),
@@ -27,6 +30,7 @@ const enhance = compose(
           if (!props.subscriptions[subscriptionId].error) {
             const itemIDs = props.allFeedItems[subscriptionId].items.map(item => item.id);
             props.markAsRead(subscriptionId, itemIDs);
+            props.updateUnreadCount(subscriptionId);
           }
         }
       );
@@ -57,12 +61,14 @@ const Sidebar = props => (
         <NavLink to={`/subscriptions/${id.toLowerCase()}`} className="navigation-link" activeClassName="active">
           {props.subscriptions[id].title}
         </NavLink>
+        <span className="unread-count">{props.allFeedItems[id] && props.allFeedItems[id].unreadCount}</span>
       </li>
     ))}
   </ul>
 );
 
 Sidebar.propTypes = {
+  allFeedItems: PropTypes.object,
   subscriptions: PropTypes.object,
   subscriptionIds: PropTypes.array,
   fetchAllFeedItems: PropTypes.func,

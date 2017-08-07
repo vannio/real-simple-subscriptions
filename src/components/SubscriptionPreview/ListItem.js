@@ -15,11 +15,22 @@ const enhance = compose(
       showContent: state.settings.showContent,
       showImages: state.settings.showImages
     }),
-    { markAsRead: actions.markAsRead }
+    {
+      markAsRead: actions.markAsRead,
+      updateUnreadCount: actions.updateUnreadCount
+    }
   ),
   withHandlers({
-    onMarkAsReadClick: props => () => props.markAsRead(props.subscriptionId, props.item.id),
-    onClickLink: props => e => props.readOnOpen && props.markAsRead(props.item.id),
+    onMarkAsReadClick: props => () => {
+      props.markAsRead(props.subscriptionId, props.item.id);
+      props.updateUnreadCount(props.subscriptionId);
+    },
+    onClickLink: props => e => {
+      if (props.readOnOpen) {
+        props.markAsRead(props.item.id);
+        props.updateUnreadCount(props.item.id);
+      }
+    },
     onOpenLinksInNewTab: props => e => {
       e.preventDefault();
 

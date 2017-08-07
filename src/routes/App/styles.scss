@@ -12,12 +12,6 @@
   padding: $base-spacer * 3 $base-spacer * 2;
 }
 
-.app-sidebar {
-  font-family: $base-heading-font;
-  font-weight: 700;
-  // border-right: solid 1px map-get($colours, light-grey);
-}
-
 .app-content {
   flex-grow: 1;
   overflow-y: scroll;

@@ -22,11 +22,16 @@ const enhance = compose(
       isFetching: isFeedItemsFetching(state, ownProps.id),
       fetchError: getFeedItemsFetchError(state, ownProps.id)
     }),
-    { markAsRead: actions.markAsRead }
+    {
+      markAsRead: actions.markAsRead,
+      updateUnreadCount: actions.updateUnreadCount
+    }
   ),
   withHandlers({
-    onMarkAsReadClick: props => () =>
-      props.markAsRead(props.id, props.feedItems.map(feedItem => feedItem.id))
+    onMarkAsReadClick: props => () => {
+      props.markAsRead(props.id, props.feedItems.map(feedItem => feedItem.id));
+      props.updateUnreadCount(props.id);
+    }
   })
 );
 

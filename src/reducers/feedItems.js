@@ -38,17 +38,27 @@ const feedItems = (state = {}, action) => {
     case DELETE_SUBSCRIPTION:
       return omit(action.subscriptionId)(state);
     case MARK_FEEDITEM_READ:
-      const readItems = state[action.subscriptionId].markedAsRead || [];
+      var readItems = state[action.subscriptionId].markedAsRead || [];
+      var markedAsRead = uniq(readItems.concat(action.ids));
       return {
         ...state,
         [action.subscriptionId]: {
           ...state[action.subscriptionId],
-          markedAsRead: uniq(readItems.concat(action.ids))
+          markedAsRead
         }
       };
     case UPDATE_UNREAD_COUNT:
-      console.log('action', action, 'state', state);
-      return state;
+      var items = state[action.subscriptionId].items || [];
+      var itemIds = items.map(item => item.id);
+      readItems = state[action.subscriptionId].markedAsRead || [];
+      const unreadItemIds = itemIds.filter(entry => !readItems.includes(entry));
+      return {
+        ...state,
+        [action.subscriptionId]: {
+          ...state[action.subscriptionId],
+          unreadCount: unreadItemIds.length
+        }
+      };
     default:
       return state;
   }

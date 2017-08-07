@@ -11,6 +11,19 @@ export const fetchAllFeedItems = () => {
   });
 };
 
+// export const updateChromeBadge = () => {
+//   if (typeof window.chrome.browserAction !== 'undefined') {
+//     const feedItems = loadState('data').feedItems;
+//     const unreadCount = Object.keys(feedItems).reduce(
+//       (count, key) => count + (feedItems[key].unreadCount || 0), 0
+//     ).toString();
+//
+//     window.chrome.browserAction.setBadgeText({
+//       text: unreadCount
+//     });
+//   }
+// };
+
 export default () => {
   fetchAllFeedItems();
 
@@ -38,8 +51,10 @@ export default () => {
       'periodInMinutes': loadState().settings.fetchInterval
     });
 
-    chrome.alarms.onAlarm.addListener(
-      alarm => alarm.name === 'updatedFeedItems' && fetchAllFeedItems()
-    );
+    chrome.alarms.onAlarm.addListener(alarm => {
+      if (alarm.name === 'updatedFeedItems') {
+        fetchAllFeedItems();
+      }
+    });
   }
 };

@@ -1,5 +1,5 @@
 export const defaultState = {
-  state: {
+  config: {
     subscriptions: {
       '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
         title: 'BBC',
@@ -25,6 +25,7 @@ export const defaultState = {
     settings: {
       maxCount: 3,
       readOnOpen: true,
+      hideRead: true,
       fetchInterval: 30,
       accentColour: 'Pink',
       showSummary: false,
@@ -32,11 +33,10 @@ export const defaultState = {
       showImages: false
     }
   },
-  cachedData: {},
-  markedFeedItems: []
+  data: {},
 };
 
-export const loadState = (key = 'state') => {
+export const loadState = (key = 'config') => {
   try {
     const serializedState = localStorage.getItem(key);
     if (serializedState === null) {
@@ -48,7 +48,7 @@ export const loadState = (key = 'state') => {
   }
 };
 
-export const saveState = (state, key = 'state') => {
+export const saveState = (state, key = 'config') => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(key, serializedState);
