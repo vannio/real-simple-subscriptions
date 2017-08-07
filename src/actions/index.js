@@ -41,9 +41,9 @@ export const markAsRead = (subscriptionId, ids) => ({
 });
 
 export const UPDATE_UNREAD_COUNT = 'UPDATE_UNREAD_COUNT';
-export const updatedUnreadCount = readItems => ({
+export const updateUnreadCount = subscriptionId => ({
   type: UPDATE_UNREAD_COUNT,
-  readItems
+  subscriptionId
 });
 
 export const FETCH_FEEDITEMS_REQUEST = 'FETCH_FEEDITEMS_REQUEST';
@@ -71,9 +71,10 @@ export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
     dispatch(fetchFeedItemsRequest(subscriptionId));
     return fetchData(url)
-      .then(items =>
-        dispatch(fetchFeedItemsSuccess(subscriptionId, items))
-      )
+      .then(items => {
+        dispatch(fetchFeedItemsSuccess(subscriptionId, items));
+        dispatch(updateUnreadCount(subscriptionId));
+      })
       .catch(error => {
         var err = error.toString();
         dispatch(fetchFeedItemsFailure(subscriptionId, err));

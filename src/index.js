@@ -21,8 +21,8 @@ const configureStore = () => {
   const store = createStore(
     reducers,
     {
-      ...loadState(),
-      ...loadState('cachedData')
+      ...loadState('config'),
+      ...loadState('data')
     },
     composeEnhancers(
       applyMiddleware(thunk),
@@ -35,11 +35,11 @@ const configureStore = () => {
           settings: store.getState().settings,
           archived: store.getState().archived,
           subscriptions: store.getState().subscriptions,
-        });
+        }, 'config');
 
         saveState({
           feedItems: store.getState().feedItems
-        }, 'cachedData');
+        }, 'data');
       }
     )
   );

@@ -15,6 +15,11 @@
     }
   }
 
+  a {
+    font-weight: 700;
+    font-family: $base-heading-font;
+  }
+
   .icon {
     display: block;
   }
@@ -39,5 +44,9 @@
 
   .navigation-link {
     margin-right: $base-spacer;
+  }
+
+  .unread-count {
+    font-size: 80%;
   }
 }
