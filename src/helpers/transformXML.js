@@ -38,7 +38,7 @@ const getFeedLink = entryNode => {
       return childNodes[0].nodeValue;
     }
   }
-  
+
   return '';
 };
 
@@ -55,5 +55,8 @@ const transformXML = xml => {
     date: getNodeText(entryNode, 'pubDate, updated')
   }));
 };
+
+export const getFirstParagraph = text =>
+	text.match(/.+?(<\/p>)/) ? text.match(/.+?(<\/p>)/)[0] : text;
 
 export default transformXML;

@@ -20,3 +20,6 @@ export const isFeedItemsFetching = (state, subscriptionId) =>
 
 export const getFeedItemsFetchError = (state, subscriptionId) =>
   getFeedItemObject(state, subscriptionId).error;
+
+export const isFeedItemRead = (state, subscriptionId, feedItemId) =>
+  (state.feedItems[subscriptionId].markedAsRead || []).indexOf(feedItemId) > -1;

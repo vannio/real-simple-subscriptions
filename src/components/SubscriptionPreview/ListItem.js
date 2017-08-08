@@ -5,15 +5,18 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Icon from '../Icon/Icon';
 import formatDate from '../../helpers/formatDate';
+import { getFirstParagraph } from '../../helpers/transformXML';
 import * as actions from '../../actions';
+import { isFeedItemRead } from '../../ducks';
 
 const enhance = compose(
   connect(
-    state => ({
+    (state, ownProps) => ({
       readOnOpen: state.settings.readOnOpen,
       showSummary: state.settings.showSummary,
       showContent: state.settings.showContent,
-      showImages: state.settings.showImages
+      showImages: state.settings.showImages,
+      isMarkedRead: isFeedItemRead(state, ownProps.subscriptionId, ownProps.item.id)
     }),
     {
       markAsRead: actions.markAsRead,
@@ -46,7 +49,10 @@ const enhance = compose(
 );
 
 export const ListItem = props => (
-  <li className="list-item">
+  <li className={`list-item
+    ${props.isMarkedRead ? 'list-item--marked-read' : ''}
+    ${props.showImages ? '' : 'list-item--hide-images'}`
+  }>
     <span className="list-item__date">{formatDate(props.item.date)}</span>
     <h3 className="list-item__title">
       <a href={props.item.url}
@@ -56,15 +62,17 @@ export const ListItem = props => (
         dangerouslySetInnerHTML={{__html: props.item.title}}
       />
     </h3>
-    {props.showSummary && (
+    {!props.isMarkedRead && props.showSummary && (
       <p className="list-item__description"
         onClick={props.onOpenLinksInNewTab}
         dangerouslySetInnerHTML={{__html: props.item.description}} />
     )}
-    {props.showContent && (
+    {!props.isMarkedRead && props.showContent !== 'None' && (
       <p className="list-item__content"
         onClick={props.onOpenLinksInNewTab}
-        dangerouslySetInnerHTML={{__html: props.item.content}} />
+        dangerouslySetInnerHTML={{__html:
+          props.showContent === 'Full' ? props.item.content : getFirstParagraph(props.item.content)
+        }} />
     )}
     <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
       <Icon name="check" size="small" title="Mark all as read" />
@@ -91,7 +99,9 @@ ListItem.propTypes = {
     url: PropTypes.string
   }),
   showSummary: PropTypes.bool,
-  showContent: PropTypes.bool
+  showContent: PropTypes.string,
+  showImages: PropTypes.bool,
+  isMarkedRead: PropTypes.bool
 };
 
 export default enhance(ListItem);

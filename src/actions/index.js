@@ -1,4 +1,4 @@
-import fetchData from '../helpers/fetchData';
+import transformXML from '../helpers/transformXML';
 
 // SETTINGS
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
@@ -70,13 +70,21 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
 export const fetchFeedItems = (subscriptionId, url) =>
   dispatch => {
     dispatch(fetchFeedItemsRequest(subscriptionId));
-    return fetchData(url)
+    return fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.text();
+      })
+      .then(xml => transformXML(xml))
       .then(items => {
         dispatch(fetchFeedItemsSuccess(subscriptionId, items));
         dispatch(updateUnreadCount(subscriptionId));
+        return items;
       })
       .catch(error => {
-        var err = error.toString();
+        var err = error.message;
         dispatch(fetchFeedItemsFailure(subscriptionId, err));
       });
   };

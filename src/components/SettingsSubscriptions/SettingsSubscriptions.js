@@ -29,7 +29,9 @@ export const SettingsSubscriptions = props => (
     <h1>Subscriptions</h1>
     <div className="settings-subscriptions__group">
       {props.isFormNewExpanded ? (
-        <Form handleSubmit={props.onAddSubscription} />
+        <Form handleSubmit={props.onAddSubscription}>
+          <button type="button" className="button" onClick={props.onToggleFormNewExpanded}>Close</button>
+        </Form>
       ) : (
         <button className="button" onClick={props.onToggleFormNewExpanded}>
           Add subscription
