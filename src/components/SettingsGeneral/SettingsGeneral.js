@@ -13,9 +13,10 @@ const enhance = compose(
   connect(
     state => ({
       maxCount: state.settings.maxCount,
-      readOnOpen: state.settings.readOnOpen,
       fetchInterval: state.settings.fetchInterval,
       accentColour: state.settings.accentColour,
+      readOnOpen: state.settings.readOnOpen,
+      hideRead: state.settings.hideRead,
       showSummary: state.settings.showSummary,
       showContent: state.settings.showContent,
       showImages: state.settings.showImages,
@@ -28,17 +29,19 @@ const enhance = compose(
   withState('fetchInterval', 'setFetchInterval', props => props.fetchInterval),
   withState('accentColour', 'setAccentColour', props => props.accentColour),
   withState('readOnOpen', 'setReadOnOpen', props => props.readOnOpen),
+  withState('hideRead', 'setHideRead', props => props.hideRead),
   withState('showSummary', 'setShowSummary', props => props.showSummary),
   withState('showContent', 'setShowContent', props => props.showContent),
   withState('showImages', 'setShowImages', props => props.showImages),
   withHandlers({
     onToggleEdit: props => () => props.setIsEditable(!props.isEditable),
     onMaxCountChange: props => e => props.setMaxCount(parseInt(e.target.value, 10)),
-    onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
-    onAccentColourChange: props => e => props.setAccentColour(e.target.value),
     onFetchIntervalChange: props => e => props.setFetchInterval(parseInt(e.target.value, 10)),
+    onAccentColourChange: props => e => props.setAccentColour(e.target.value),
+    onToggleReadOnOpen: props => e => props.setReadOnOpen(e.target.checked),
+    onToggleHideRead: props => e => props.setHideRead(e.target.checked),
     onToggleShowSummary: props => e => props.setShowSummary(e.target.checked),
-    onToggleShowContent: props => e => props.setShowContent(e.target.checked),
+    onShowContentChange: props => e => props.setShowContent(e.target.value),
     onToggleShowImages: props => e => props.setShowImages(e.target.checked),
     onSubmitForm: props => e => {
       e.preventDefault();
@@ -86,11 +89,11 @@ const SettingsForm = props => (
               checked={props.readOnOpen} />
           </li>
           <li>
-            <label htmlFor="readOnOpen"><strong>Remove from list when viewed</strong></label>
+            <label htmlFor="hideRead"><strong>Remove from list when viewed</strong></label>
             <input type="checkbox"
-              id="readOnOpen"
-              onChange={props.onToggleReadOnOpen}
-              checked={props.readOnOpen} />
+              id="hideRead"
+              onChange={props.onToggleHideRead}
+              checked={props.hideRead} />
           </li>
           <li><strong>Articles display:</strong>
             <ul>
@@ -103,10 +106,11 @@ const SettingsForm = props => (
               </li>
               <li>
                 <label htmlFor="showContent"><strong>Content</strong></label>
-                <input type="checkbox"
-                  id="showContent"
-                  onChange={props.onToggleShowContent}
-                  checked={props.showContent} />
+                <select id="showContent" onChange={props.onShowContentChange} value={props.showContent}>
+                  {['Full', 'First paragraph', 'None'].map(content =>
+                    <option key={content} value={content}>{content}</option>
+                  )}
+                </select>
               </li>
               <li>
                 <label htmlFor="showImages"><strong>Images</strong></label>
@@ -128,11 +132,11 @@ const SettingsForm = props => (
         <li><strong>Background fetch interval</strong>{props.fetchInterval} minutes</li>
         <li><strong>Accent Colour</strong>{props.accentColour}</li>
         <li><strong>Mark as read after viewing</strong>{props.readOnOpen ? '✔' : '✘'}</li>
-        <li><strong>Remove from list when viewed</strong>{props.readOnOpen ? '✔' : '✘'}</li>
+        <li><strong>Remove from list when viewed</strong>{props.hideRead ? '✔' : '✘'}</li>
         <li><strong>Articles display:</strong>
           <ul>
             <li><strong>Summary</strong>{props.showSummary ? '✔' : '✘'}</li>
-            <li><strong>Content</strong>{props.showContent ? '✔' : '✘'}</li>
+            <li><strong>Content</strong>{props.showContent}</li>
             <li><strong>Images</strong>{props.showImages ? '✔' : '✘'}</li>
           </ul>
         </li>
@@ -146,18 +150,20 @@ SettingsForm.propTypes = {
   onToggleEdit: PropTypes.func,
   onSubmitForm: PropTypes.func,
   onMaxCountChange: PropTypes.func,
-  onToggleReadOnOpen: PropTypes.func,
   onFetchIntervalChange: PropTypes.func,
   onAccentColourChange: PropTypes.func,
+  onToggleReadOnOpen: PropTypes.func,
+  onToggleHideRead: PropTypes.func,
   onToggleShowSummary: PropTypes.func,
-  onToggleShowContent: PropTypes.func,
+  onShowContentChange: PropTypes.func,
   onToggleShowImages: PropTypes.func,
   maxCount: PropTypes.number,
-  readOnOpen: PropTypes.bool,
   fetchInterval: PropTypes.number,
   accentColour: PropTypes.oneOf(COLOURS),
+  readOnOpen: PropTypes.bool,
+  hideRead: PropTypes.bool,
   showSummary: PropTypes.bool,
-  showContent: PropTypes.bool,
+  showContent: PropTypes.string,
   showImages: PropTypes.bool
 };
 

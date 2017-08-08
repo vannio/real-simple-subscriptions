@@ -1,5 +1,6 @@
 @import 'styles/variables/_breakpoints';
 @import 'styles/variables/_base-values';
+@import 'styles/variables/_colours';
 
 .subscription-preview {
   margin-bottom: $base-spacer * 2;
@@ -39,6 +40,24 @@
 
       &:nth-last-child(-n+4) {
         margin-bottom: 0;
+      }
+    }
+
+    &.list-item--marked-read {
+      color: map-get($colours, grey);
+
+      a {
+        color: map-get($colours, grey);
+      }
+
+      a:after {
+        border-color: map-get($colours, grey);
+      }
+    }
+
+    &.list-item--hide-images {
+      img {
+        display: none;
       }
     }
 
