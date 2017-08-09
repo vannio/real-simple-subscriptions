@@ -9,6 +9,7 @@ import {
   FETCH_FEEDITEMS_FAILURE,
   DELETE_SUBSCRIPTION,
   MARK_FEEDITEM_READ,
+  UNMARK_FEEDITEM_READ,
   UPDATE_UNREAD_COUNT
 } from '../actions';
 
@@ -56,6 +57,15 @@ const feedItems = (state = {}, action) => {
         [action.subscriptionId]: {
           ...getObj(action.subscriptionId)(state),
           markedAsRead: uniq(readItems.concat(action.ids))
+        }
+      };
+    case UNMARK_FEEDITEM_READ:
+      readItems = getObj([action.subscriptionId, 'markedAsRead'])(state) || [];
+      return {
+        ...state,
+        [action.subscriptionId]: {
+          ...getObj(action.subscriptionId)(state),
+          markedAsRead: readItems.filter(item => item !== action.id)
         }
       };
     case UPDATE_UNREAD_COUNT:
