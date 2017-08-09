@@ -1,16 +1,18 @@
 {
   "manifest_version": 2,
-  "name": "Really Simple Subscriptions",
-  "version": "0.0.1",
-  "description": "Lightweight RSS feed for new tabs",
+  "name": "Real Simple Subscriptions",
+  "short_name": "RSS",
+  "version": "0.0.4",
+  "description": "An RSS reader fully managed and contained within Chrome",
   "icons": {
-    "240": "icons/icon-240.png",
-    "32": "icons/icon-32.png"
+    "128": "icons/icon-128.png",
+    "48": "icons/icon-48.png",
+    "16": "icons/icon-16.png"
   },
-    "browser_action": {
+  "browser_action": {
     "default_title": "RSS"
   },
-    "background": {
+  "background": {
     "page": "index.html",
     "persistent": false
   },
@@ -18,7 +20,6 @@
   "permissions": [
     "<all_urls>",
     "tabs",
-    "history",
     "alarms"
   ],
   "chrome_url_overrides": {

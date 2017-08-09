@@ -33,7 +33,7 @@ export default () => {
         chrome.tabs.query(
           {
             url: 'chrome://newtab/',
-            title: 'RSS | Really Simple Subscriptions',
+            title: 'RSS | Real Simple Subscriptions',
             lastFocusedWindow: true
           },
           tabs => {

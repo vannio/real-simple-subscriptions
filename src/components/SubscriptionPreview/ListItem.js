@@ -30,8 +30,8 @@ const enhance = compose(
     },
     onClickLink: props => e => {
       if (props.readOnOpen) {
-        props.markAsRead(props.item.id);
-        props.updateUnreadCount(props.item.id);
+        props.markAsRead(props.subscriptionId, props.item.id);
+        props.updateUnreadCount(props.subscriptionId);
       }
     },
     onOpenLinksInNewTab: props => e => {
@@ -74,9 +74,11 @@ export const ListItem = props => (
           props.showContent === 'Full' ? props.item.content : getFirstParagraph(props.item.content)
         }} />
     )}
-    <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
-      <Icon name="check" size="small" title="Mark all as read" />
-    </button>
+    {!props.isMarkedRead && 
+      <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
+        <Icon name="check" size="small" title="Mark all as read" />
+      </button>
+    }
     <a href={props.item.url}
       target="_blank"
       rel="noreferrer noopener"
