@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Subscriptions from '../Subscriptions';
 import Settings from '../Settings/Settings';
 import SidebarList from '../../components/SidebarList/SidebarList';
-import { COLOURS } from '../../data';
+import { COLOUR_MAP } from '../../data';
 import './styles.css';
 import * as actions from '../../actions';
 
@@ -42,7 +42,7 @@ const App = ({ accentColour }) => (
 );
 
 App.propTypes = {
-  accentColour: PropTypes.oneOf(COLOURS)
+  accentColour: PropTypes.oneOf(COLOUR_MAP)
 };
 
 export default enhance(App);

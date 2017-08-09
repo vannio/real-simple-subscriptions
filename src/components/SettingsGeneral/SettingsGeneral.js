@@ -5,7 +5,7 @@ import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { COLOURS } from '../../data';
+import { COLOUR_MAP, SHOW_CONTENT_MAP } from '../../data';
 import pick from 'lodash/fp/pick';
 import './styles.css';
 
@@ -76,7 +76,7 @@ const SettingsForm = props => (
           <li>
             <label htmlFor="accentColour"><strong>Accent Colour</strong></label>
             <select id="accentColour" onChange={props.onAccentColourChange} value={props.accentColour}>
-              {COLOURS.map(colour => (
+              {COLOUR_MAP.map(colour => (
                 <option value={colour} key={colour}>{colour}</option>
               ))}
             </select>
@@ -107,8 +107,8 @@ const SettingsForm = props => (
               <li>
                 <label htmlFor="showContent"><strong>Content</strong></label>
                 <select id="showContent" onChange={props.onShowContentChange} value={props.showContent}>
-                  {['Full', 'First paragraph', 'None'].map(content =>
-                    <option key={content} value={content}>{content}</option>
+                  {Object.keys(SHOW_CONTENT_MAP).map(key =>
+                    <option key={key} value={key}>{SHOW_CONTENT_MAP[key]}</option>
                   )}
                 </select>
               </li>
@@ -159,7 +159,7 @@ SettingsForm.propTypes = {
   onToggleShowImages: PropTypes.func,
   maxCount: PropTypes.number,
   fetchInterval: PropTypes.number,
-  accentColour: PropTypes.oneOf(COLOURS),
+  accentColour: PropTypes.oneOf(COLOUR_MAP),
   readOnOpen: PropTypes.bool,
   hideRead: PropTypes.bool,
   showSummary: PropTypes.bool,
