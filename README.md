@@ -22,6 +22,7 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Unmark as read
 - [ ] Bookmark items to read later<sup>* ^1</sup>
 - [ ] Memoize
+- [ ] Clear items after a week
 
 **Config Options**
 

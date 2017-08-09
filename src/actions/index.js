@@ -47,6 +47,20 @@ export const unmarkAsRead = (subscriptionId, id) => ({
   id
 });
 
+export const BOOKMARK_FEEDITEM = 'BOOKMARK_FEEDITEM';
+export const bookmarkFeedItem = (subscriptionId, id) => ({
+  type: BOOKMARK_FEEDITEM,
+  subscriptionId,
+  id
+});
+
+export const UNBOOKMARK_FEEDITEM = 'UNBOOKMARK_FEEDITEM';
+export const unbookmarkFeedItem = (subscriptionId, id) => ({
+  type: UNBOOKMARK_FEEDITEM,
+  subscriptionId,
+  id
+});
+
 export const UPDATE_UNREAD_COUNT = 'UPDATE_UNREAD_COUNT';
 export const updateUnreadCount = subscriptionId => ({
   type: UPDATE_UNREAD_COUNT,

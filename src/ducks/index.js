@@ -13,6 +13,9 @@ export const getFeedItems = (state, subscriptionId) =>
 export const isFeedItemRead = (state, subscriptionId, feedItemId) =>
   (getFeedItemObject(state, subscriptionId).markedAsRead || []).indexOf(feedItemId) > -1;
 
+export const isFeedItemBookmarked = (state, subscriptionId, feedItemId) =>
+  (getFeedItemObject(state, subscriptionId).bookmarked || []).indexOf(feedItemId) > -1;
+
 export const filterFeedItems = (state, subscriptionId) =>
   getFeedItems(state, subscriptionId).filter(item => !isFeedItemRead(state, subscriptionId, item.id)
 );
