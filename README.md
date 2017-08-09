@@ -19,7 +19,7 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Filter by subscription
 - [x] Mark individual items as 'read'
 - [x] Mark _all_ items as read
-- [ ] Unmark as read<sup>^1</sup>
+- [x] Unmark as read<sup>^1</sup>
 - [ ] Bookmark items to read later<sup>* ^3</sup>
 - [ ] Memoize
 
