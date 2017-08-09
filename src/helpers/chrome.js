@@ -6,7 +6,7 @@ import { getSubscriptionKeys } from '../ducks';
 
 export const fetchAllFeedItems = () => {
   const subscriptions = loadState().subscriptions;
-  getSubscriptionKeys(subscriptions).forEach(id => {
+  getSubscriptionKeys(loadState()).forEach(id => {
     fetchFeedItems(id, subscriptions[id].url)(store.dispatch);
   });
 };

@@ -18,8 +18,8 @@ body {
 hr {
   text-align: left;
   border: none;
-  width: 75%;
+  width: 100%;
   height: 1px;
-  background-color: $base-text-color;
-  margin: ($base-spacer * 6) auto ($base-spacer * 6) 0;
+  background-color: map-get($colours, light-grey);
+  margin: ($base-spacer * 3) auto ($base-spacer * 4) 0;
 }

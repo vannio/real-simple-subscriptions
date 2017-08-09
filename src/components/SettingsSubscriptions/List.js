@@ -12,7 +12,7 @@ const enhance = compose(
   connect(
     state => ({
       subscriptions: state.subscriptions,
-      subscriptionIds: getSubscriptionKeys(state.subscriptions)
+      subscriptionIds: getSubscriptionKeys(state)
     }),
     {
       updateSubscription: actions.updateSubscription,

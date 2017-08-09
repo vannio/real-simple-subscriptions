@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SubscriptionPreview from '../SubscriptionPreview/SubscriptionPreview';
+import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
 import { getSubscriptionKeys } from '../../ducks';
 
 const enhance = connect(
   state => ({
     subscriptions: state.subscriptions,
     subscriptionIds: getSubscriptionKeys(state),
-    maxCount: state.settings.maxCount
+    maxCount: state.settings.maxCount,
+    hideRead: state.settings.hideRead
   })
 );
 
-export const SubscriptionList = ({ subscriptions, subscriptionIds, maxCount }) => (
+export const Home = ({ subscriptions, subscriptionIds, maxCount }) => (
   <div className="subscription-list">
     {subscriptionIds.length > 0 ? (
       subscriptionIds.map(id => (
@@ -27,10 +28,10 @@ export const SubscriptionList = ({ subscriptions, subscriptionIds, maxCount }) =
   </div>
 );
 
-SubscriptionList.propTypes = {
+Home.propTypes = {
   subscriptions: PropTypes.object,
   subscriptionIds: PropTypes.array,
   maxCount: PropTypes.number
 };
 
-export default enhance(SubscriptionList);
+export default enhance(Home);

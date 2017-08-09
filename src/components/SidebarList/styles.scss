@@ -13,6 +13,10 @@
       display: flex;
       justify-content: space-between;
     }
+
+    &.list-item--bookmarked {
+      margin-bottom: $base-spacer * 2;
+    }
   }
 
   a {
@@ -46,6 +50,7 @@
     margin-right: $base-spacer;
   }
 
+  .bookmarked-count,
   .unread-count {
     font-size: 80%;
   }

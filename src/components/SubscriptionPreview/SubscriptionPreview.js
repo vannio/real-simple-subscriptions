@@ -5,10 +5,9 @@ import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
 import Icon, { LoadingIcon } from '../Icon/Icon';
+import { getFeedItems } from '../../ducks';
 import {
   getSubscription,
-  getFeedItems,
-  filterFeedItems,
   isFeedItemsFetching,
   getFeedItemsFetchError
 } from '../../ducks';
@@ -19,9 +18,10 @@ const enhance = compose(
   connect(
     (state, ownProps) => ({
       subscription: getSubscription(state, ownProps.id),
-      feedItems: state.settings.hideRead ? filterFeedItems(state, ownProps.id) : getFeedItems(state, ownProps.id),
+      title: ownProps.title || getSubscription(state, ownProps.id).title,
       isFetching: isFeedItemsFetching(state, ownProps.id),
-      fetchError: getFeedItemsFetchError(state, ownProps.id)
+      fetchError: getFeedItemsFetchError(state, ownProps.id),
+      feedItems: ownProps.feedItems || getFeedItems(state, ownProps.id),
     }),
     {
       markAsRead: actions.markAsRead,
@@ -39,7 +39,7 @@ const enhance = compose(
 export const SubscriptionPreview = props => (
   <div className="subscription-preview">
     <h1>
-      {props.subscription.title}
+      {props.title}
       <button className="unstyled-button check-button" onClick={props.onMarkAsReadClick}>
         <Icon name="check" title="Mark all as read" />
       </button>
@@ -58,10 +58,6 @@ export const SubscriptionPreview = props => (
 );
 
 SubscriptionPreview.propTypes = {
-  subscription: PropTypes.shape({
-    title: PropTypes.string,
-    url: PropTypes.string
-  }),
   feedItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -71,6 +67,11 @@ SubscriptionPreview.propTypes = {
       url: PropTypes.string
     })
   ),
+  subscription: PropTypes.shape({
+    title: PropTypes.string,
+    url: PropTypes.string
+  }),
+  title: PropTypes.string,
   maxCount: PropTypes.number,
   isFetching: PropTypes.bool,
   fetchError: PropTypes.string,
