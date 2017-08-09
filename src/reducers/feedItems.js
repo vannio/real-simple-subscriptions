@@ -10,6 +10,8 @@ import {
   DELETE_SUBSCRIPTION,
   MARK_FEEDITEM_READ,
   UNMARK_FEEDITEM_READ,
+  BOOKMARK_FEEDITEM,
+  UNBOOKMARK_FEEDITEM,
   UPDATE_UNREAD_COUNT
 } from '../actions';
 
@@ -79,6 +81,24 @@ const feedItems = (state = {}, action) => {
           unreadCount: unreadItems.length
         }
       };
+      case BOOKMARK_FEEDITEM:
+        var bookmarkedItems = getObj([action.subscriptionId, 'bookmarked'])(state) || [];
+        return {
+          ...state,
+          [action.subscriptionId]: {
+            ...getObj(action.subscriptionId)(state),
+            bookmarked: uniq(bookmarkedItems.concat(action.id))
+          }
+        };
+      case UNBOOKMARK_FEEDITEM:
+        bookmarkedItems = getObj([action.subscriptionId, 'bookmarked'])(state) || [];
+        return {
+          ...state,
+          [action.subscriptionId]: {
+            ...getObj(action.subscriptionId)(state),
+            bookmarked: bookmarkedItems.filter(item => item !== action.id)
+          }
+        };
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import Icon from '../Icon/Icon';
 import formatDate from '../../helpers/formatDate';
 import { getFirstParagraph } from '../../helpers/transformXML';
 import * as actions from '../../actions';
-import { isFeedItemRead } from '../../ducks';
+import { isFeedItemRead, isFeedItemBookmarked } from '../../ducks';
 
 const enhance = compose(
   connect(
@@ -16,23 +16,34 @@ const enhance = compose(
       showSummary: state.settings.showSummary,
       showContent: state.settings.showContent,
       showImages: state.settings.showImages,
+      isBookmarked: isFeedItemBookmarked(state, ownProps.subscriptionId, ownProps.item.id),
       isMarkedRead: isFeedItemRead(state, ownProps.subscriptionId, ownProps.item.id)
     }),
     {
       markAsRead: actions.markAsRead,
       unmarkAsRead: actions.unmarkAsRead,
-      updateUnreadCount: actions.updateUnreadCount
+      updateUnreadCount: actions.updateUnreadCount,
+      unbookmarkFeedItem: actions.unbookmarkFeedItem,
+      bookmarkFeedItem: actions.bookmarkFeedItem
     }
   ),
   withHandlers({
-    onMarkAsReadClick: props => () => {
-      props.markAsRead(props.subscriptionId, props.item.id);
+    onToggleMarkedAsRead: props => () => {
+      if (props.isMarkedRead) {
+        props.unmarkAsRead(props.subscriptionId, props.item.id);
+      } else {
+        props.markAsRead(props.subscriptionId, props.item.id);
+      }
       props.updateUnreadCount(props.subscriptionId);
     },
-    onUnmarkAsReadClick: props => () => {
-      props.unmarkAsRead(props.subscriptionId, props.item.id);
+    onToggleBookmarked: props => () => {
+      if (props.isBookmarked) {
+        props.unbookmarkFeedItem(props.subscriptionId, props.item.id);
+      } else {
+        props.bookmarkFeedItem(props.subscriptionId, props.item.id);
+      }
     },
-    onClickLink: props => e => {
+    onOpenItemLink: props => e => {
       if (props.readOnOpen) {
         props.markAsRead(props.subscriptionId, props.item.id);
         props.updateUnreadCount(props.subscriptionId);
@@ -62,7 +73,7 @@ export const ListItem = props => (
       <a href={props.item.url}
         target="_blank"
         rel="noreferrer noopener"
-        onClick={props.onClickLink}
+        onClick={props.onOpenItemLink}
         dangerouslySetInnerHTML={{__html: props.item.title}}
       />
     </h3>
@@ -78,30 +89,39 @@ export const ListItem = props => (
           props.showContent === 'full' ? props.item.content : getFirstParagraph(props.item.content)
         }} />
     )}
-    {props.isMarkedRead ? (
-      <button className="unstyled-button" onClick={props.onUnmarkAsReadClick}>
-        <Icon name="cross" size="small" title="Unmark as read" />
-      </button>
-    ) : (
-      <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
-        <Icon name="check" size="small" title="Mark as read" />
-      </button>
-    )}
     <a href={props.item.url}
       target="_blank"
       rel="noreferrer noopener"
       className="list-item__link"
-      onClick={props.onClickLink}>
+      onClick={props.onOpenItemLink}>
       <Icon name="link" size="small" title={props.item.title} />
     </a>
+    {props.isBookmarked ? (
+      <button className="unstyled-button" onClick={props.onToggleBookmarked}>
+        <Icon name="bookmark" size="small" title="Un-bookmark" />
+      </button>
+    ) : (
+      <button className="unstyled-button" onClick={props.onToggleBookmarked}>
+        <Icon name="unbookmark" size="small" title="Bookmark" />
+      </button>
+    )}
+    {props.isMarkedRead ? (
+      <button className="unstyled-button" onClick={props.onToggleMarkedAsRead}>
+        <Icon name="cross" size="small" title="Unmark as read" />
+      </button>
+    ) : (
+      <button className="unstyled-button" onClick={props.onToggleMarkedAsRead}>
+        <Icon name="check" size="small" title="Mark as read" />
+      </button>
+    )}
   </li>
 );
 
 ListItem.propTypes = {
-  onUnmarkAsReadClick: PropTypes.func,
-  onMarkAsReadClick: PropTypes.func,
+  onOpenItemLink: PropTypes.func,
   onOpenLinksInNewTab: PropTypes.func,
-  onClickLink: PropTypes.func,
+  onToggleMarkedAsRead: PropTypes.func,
+  onToggleBookmarked: PropTypes.func,
   item: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -112,7 +132,8 @@ ListItem.propTypes = {
   showSummary: PropTypes.bool,
   showContent: PropTypes.string,
   showImages: PropTypes.bool,
-  isMarkedRead: PropTypes.bool
+  isMarkedRead: PropTypes.bool,
+  isBookmarked: PropTypes.bool
 };
 
 export default enhance(ListItem);

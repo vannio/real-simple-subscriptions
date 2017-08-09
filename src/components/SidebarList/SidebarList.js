@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import Icon from '../Icon/Icon';
-import { getSubscriptionKeys } from '../../ducks';
+import { getSubscriptionKeys, getBookmarkedItemsCount } from '../../ducks';
 import './styles.css';
 import { fetchAllFeedItems } from '../../helpers/chrome';
 import * as actions from '../../actions';
@@ -14,8 +14,9 @@ const enhance = compose(
   connect(
     state => ({
       subscriptions: state.subscriptions,
-      subscriptionIds: getSubscriptionKeys(state.subscriptions),
-      allFeedItems: state.feedItems
+      subscriptionIds: getSubscriptionKeys(state),
+      allFeedItems: state.feedItems,
+      bookmarkedItemCount: getBookmarkedItemsCount(state)
     }),
     {
       markAsRead: actions.markAsRead,
@@ -56,6 +57,12 @@ const Sidebar = props => (
         <Icon name="settings" title="Settings" />
       </NavLink>
     </li>
+    <li className="list-item list-item--bookmarked">
+      <NavLink to="/bookmarked" className="navigation-link navigation-link--bookmarked" activeClassName="active">
+        Saved for later
+      </NavLink>
+      <span className="bookmarked-count">{props.bookmarkedItemCount}</span>
+    </li>
     {props.subscriptionIds.map(id => (
       <li key={id}>
         <NavLink to={`/subscriptions/${id.toLowerCase()}`} className="navigation-link" activeClassName="active">
@@ -72,7 +79,8 @@ Sidebar.propTypes = {
   subscriptions: PropTypes.object,
   subscriptionIds: PropTypes.array,
   fetchAllFeedItems: PropTypes.func,
-  onMarkAsReadClick: PropTypes.func
+  onMarkAsReadClick: PropTypes.func,
+  bookmarkedItemCount: PropTypes.number
 };
 
 export default enhance(Sidebar);
