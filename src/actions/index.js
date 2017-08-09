@@ -40,6 +40,13 @@ export const markAsRead = (subscriptionId, ids) => ({
   ids
 });
 
+export const UNMARK_FEEDITEM_READ = 'UNMARK_FEEDITEM_READ';
+export const unmarkAsRead = (subscriptionId, id) => ({
+  type: UNMARK_FEEDITEM_READ,
+  subscriptionId,
+  id
+});
+
 export const UPDATE_UNREAD_COUNT = 'UPDATE_UNREAD_COUNT';
 export const updateUnreadCount = subscriptionId => ({
   type: UPDATE_UNREAD_COUNT,
