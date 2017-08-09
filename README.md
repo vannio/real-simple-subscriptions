@@ -19,8 +19,8 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Filter by subscription
 - [x] Mark individual items as 'read'
 - [x] Mark _all_ items as read
-- [x] Unmark as read<sup>^1</sup>
-- [ ] Bookmark items to read later<sup>* ^3</sup>
+- [x] Unmark as read
+- [ ] Bookmark items to read later<sup>* ^1</sup>
 - [ ] Memoize
 
 **Config Options**
@@ -31,8 +31,8 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Accent colour
 - [x] Interval to fetch data
 - [ ] Sort / Choose order of subscriptions<sup>^2</sup>
-- [ ] Custom date formats<sup>* ^4</sup>
-- [ ] Textbox input to add multiple subscriptions, separated by newlines/whitespace/commas<sup>^5</sup>
+- [ ] Custom date formats<sup>* ^3</sup>
+- [ ] Textbox input to add multiple subscriptions, separated by newlines/whitespace/commas<sup>^4</sup>
 - [x] Choose to hide images from display<sup>*</sup>
 - [x] Grey out _or_ hide read items<sup>*</sup>
 - [ ] Per subscription config for displaying images, summary, content etc.
