@@ -19,10 +19,8 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Filter by subscription
 - [x] Mark individual items as 'read'
 - [x] Mark _all_ items as read
-- [ ] Bookmark items to read later *
-- [ ] Chrome badge with unread items count *
-- [ ] Unmark as read
-- [ ] Look for `type="application/rss+xml"` in a website to pull its _actual_ feed address
+- [ ] Unmark as read<sup>^1</sup>
+- [ ] Bookmark items to read later<sup>* ^3</sup>
 - [ ] Memoize
 
 **Config Options**
@@ -32,11 +30,11 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [x] Mark as read upon clicking link
 - [x] Accent colour
 - [x] Interval to fetch data
-- [ ] Custom date formats *
-- [ ] Sort / Choose order of subscriptions
-- [ ] Group / Tag subscriptions
-- [ ] Block images and iframes from being displayed *
-- [ ] Grey out _or_ hide read items *
+- [ ] Sort / Choose order of subscriptions<sup>^2</sup>
+- [ ] Custom date formats<sup>* ^4</sup>
+- [ ] Textbox input to add multiple subscriptions, separated by newlines/whitespace/commas<sup>^5</sup>
+- [x] Choose to hide images from display<sup>*</sup>
+- [x] Grey out _or_ hide read items<sup>*</sup>
 - [ ] Per subscription config for displaying images, summary, content etc.
 - [ ] Random accent colour
 
@@ -44,9 +42,13 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 
 **Maybe TODO**
 
-- [ ] Imports/Exports OPML files into the manager, or your bookmark folder *
-- [ ] Manage subscriptions with a bookmark folder *
+- [ ] Imports/Exports OPML files into the manager, or your bookmark folder<sup>*</sup>
+- [ ] Manage subscriptions with a bookmark folder<sup>*</sup>
 - [ ] Social media share links
-- [ ] Discover both RSS and Atom feeds within pages (with finder installed) *
+- [ ] Discover both RSS and Atom feeds within pages (with finder installed)<sup>*</sup>
+- [ ] Chrome badge with unread items count<sup>*</sup>
+- [ ] Group / Tag subscriptions
 
-\* features from the original app
+<sup>*</sup> features from the original app
+<br>
+<sup>^</sup> Order of priority
