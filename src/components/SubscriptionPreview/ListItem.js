@@ -89,6 +89,13 @@ export const ListItem = props => (
           props.showContent === 'full' ? props.item.content : getFirstParagraph(props.item.content)
         }} />
     )}
+    <a href={props.item.url}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="list-item__link"
+      onClick={props.onOpenItemLink}>
+      <Icon name="link" size="small" title={props.item.title} />
+    </a>
     {props.isBookmarked ? (
       <button className="unstyled-button" onClick={props.onToggleBookmarked}>
         <Icon name="bookmark" size="small" title="Un-bookmark" />
@@ -98,13 +105,6 @@ export const ListItem = props => (
         <Icon name="unbookmark" size="small" title="Bookmark" />
       </button>
     )}
-    <a href={props.item.url}
-      target="_blank"
-      rel="noreferrer noopener"
-      className="list-item__link"
-      onClick={props.onOpenItemLink}>
-      <Icon name="link" size="small" title={props.item.title} />
-    </a>
     {props.isMarkedRead ? (
       <button className="unstyled-button" onClick={props.onToggleMarkedAsRead}>
         <Icon name="cross" size="small" title="Unmark as read" />

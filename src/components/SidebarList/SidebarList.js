@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import Icon from '../Icon/Icon';
-import { getSubscriptionKeys, getBookmarkedItems } from '../../ducks';
+import { getSubscriptionKeys, getBookmarkedItemsCount } from '../../ducks';
 import './styles.css';
 import { fetchAllFeedItems } from '../../helpers/chrome';
 import * as actions from '../../actions';
@@ -14,9 +14,9 @@ const enhance = compose(
   connect(
     state => ({
       subscriptions: state.subscriptions,
-      subscriptionIds: getSubscriptionKeys(state.subscriptions),
+      subscriptionIds: getSubscriptionKeys(state),
       allFeedItems: state.feedItems,
-      bookmarkedItemCount: getBookmarkedItems(state).length
+      bookmarkedItemCount: getBookmarkedItemsCount(state)
     }),
     {
       markAsRead: actions.markAsRead,
@@ -57,9 +57,9 @@ const Sidebar = props => (
         <Icon name="settings" title="Settings" />
       </NavLink>
     </li>
-    <li>
-      <NavLink to="/bookmarked" className="navigation-link" activeClassName="active">
-        Bookmarked
+    <li className="list-item list-item--bookmarked">
+      <NavLink to="/bookmarked" className="navigation-link navigation-link--bookmarked" activeClassName="active">
+        Saved for later
       </NavLink>
       <span className="bookmarked-count">{props.bookmarkedItemCount}</span>
     </li>

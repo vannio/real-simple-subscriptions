@@ -7,7 +7,7 @@ import { getSubscriptionKeys } from '../../ducks';
 const enhance = connect(
   state => ({
     subscriptions: state.subscriptions,
-    subscriptionIds: getSubscriptionKeys(state.subscriptions),
+    subscriptionIds: getSubscriptionKeys(state),
     maxCount: state.settings.maxCount
   })
 );

@@ -13,6 +13,10 @@
       display: flex;
       justify-content: space-between;
     }
+
+    &.list-item--bookmarked {
+      margin-bottom: $base-spacer * 2;
+    }
   }
 
   a {
