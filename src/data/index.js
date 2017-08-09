@@ -34,12 +34,12 @@ export const DEFAULT_STATE = {
       }
     },
     settings: {
-      maxCount: 3,
+      maxCount: 6,
       readOnOpen: true,
       hideRead: true,
       fetchInterval: 30,
-      accentColour: 'Pink',
-      showSummary: false,
+      accentColour: 'Blue',
+      showSummary: true,
       showContent: 'First paragraph',
       showImages: false
     }

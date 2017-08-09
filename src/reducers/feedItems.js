@@ -1,5 +1,8 @@
+import pipe from 'lodash/fp/pipe';
 import omit from 'lodash/fp/omit';
 import uniq from 'lodash/fp/uniq';
+import getObj from 'lodash/fp/get';
+
 import {
   FETCH_FEEDITEMS_REQUEST,
   FETCH_FEEDITEMS_SUCCESS,
@@ -15,7 +18,10 @@ const feedItems = (state = {}, action) => {
       return {
         ...state,
         [action.subscriptionId]: {
-          ...omit('error')(state[action.subscriptionId]),
+          ...pipe(
+            getObj(action.subscriptionId),
+            omit('error')
+          )(state),
           fetching: true
         }
       };
@@ -23,7 +29,10 @@ const feedItems = (state = {}, action) => {
       return {
         ...state,
         [action.subscriptionId]: {
-          ...omit(['error', 'fetching'])(state[action.subscriptionId]),
+          ...pipe(
+            getObj(action.subscriptionId),
+            omit(['error', 'fetching'])
+          )(state),
           items: action.items
         }
       };
@@ -31,32 +40,33 @@ const feedItems = (state = {}, action) => {
       return {
         ...state,
         [action.subscriptionId]: {
-          ...omit('fetching')(state[action.subscriptionId]),
+          ...pipe(
+            getObj(action.subscriptionId),
+            omit('fetching')
+          )(state),
           error: action.error
         }
       };
     case DELETE_SUBSCRIPTION:
       return omit(action.subscriptionId)(state);
     case MARK_FEEDITEM_READ:
-      var readItems = state[action.subscriptionId].markedAsRead || [];
-      var markedAsRead = uniq(readItems.concat(action.ids));
+      var readItems = getObj([action.subscriptionId, 'markedAsRead'])(state) || [];
       return {
         ...state,
         [action.subscriptionId]: {
-          ...state[action.subscriptionId],
-          markedAsRead
+          ...getObj(action.subscriptionId)(state),
+          markedAsRead: uniq(readItems.concat(action.ids))
         }
       };
     case UPDATE_UNREAD_COUNT:
-      var items = state[action.subscriptionId].items || [];
-      var itemIds = items.map(item => item.id);
-      readItems = state[action.subscriptionId].markedAsRead || [];
-      const unreadItemIds = itemIds.filter(entry => !readItems.includes(entry));
+      var items = getObj([action.subscriptionId, 'items'])(state) || [];
+      readItems = getObj([action.subscriptionId, 'markedAsRead'])(state) || [];
+      const unreadItems = items.filter(entry => !readItems.includes(entry.id));
       return {
         ...state,
         [action.subscriptionId]: {
-          ...state[action.subscriptionId],
-          unreadCount: unreadItemIds.length
+          ...getObj(action.subscriptionId)(state),
+          unreadCount: unreadItems.length
         }
       };
     default:
