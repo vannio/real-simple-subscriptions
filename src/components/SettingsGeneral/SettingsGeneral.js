@@ -136,7 +136,7 @@ const SettingsForm = props => (
         <li><strong>Articles display:</strong>
           <ul>
             <li><strong>Summary</strong>{props.showSummary ? '✔' : '✘'}</li>
-            <li><strong>Content</strong>{props.showContent}</li>
+            <li><strong>Content</strong>{SHOW_CONTENT_MAP[props.showContent]}</li>
             <li><strong>Images</strong>{props.showImages ? '✔' : '✘'}</li>
           </ul>
         </li>

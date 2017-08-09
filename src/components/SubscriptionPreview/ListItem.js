@@ -91,11 +91,11 @@ export const ListItem = props => (
     )}
     {props.isBookmarked ? (
       <button className="unstyled-button" onClick={props.onToggleBookmarked}>
-        <Icon name="unbookmark" size="small" title="Un-bookmark" />
+        <Icon name="bookmark" size="small" title="Un-bookmark" />
       </button>
     ) : (
       <button className="unstyled-button" onClick={props.onToggleBookmarked}>
-        <Icon name="bookmark" size="small" title="Bookmark" />
+        <Icon name="unbookmark" size="small" title="Bookmark" />
       </button>
     )}
     <a href={props.item.url}

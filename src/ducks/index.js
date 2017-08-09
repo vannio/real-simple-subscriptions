@@ -20,8 +20,17 @@ export const filterFeedItems = (state, subscriptionId) =>
   getAllFeedItems(state, subscriptionId).filter(item => !isFeedItemRead(state, subscriptionId, item.id)
 );
 
-export const getFeedItems = (state, subscriptionId) => 
+export const getFeedItems = (state, subscriptionId) =>
   state.settings.hideRead ? filterFeedItems(state, subscriptionId) : getAllFeedItems(state, subscriptionId);
+
+export const getBookmarkedItems = state =>
+  getSubscriptionKeys(state.subscriptions).reduce(
+    (arr, subscriptionId) => arr.concat(
+      getAllFeedItems(state, subscriptionId).filter(
+        item => isFeedItemBookmarked(state, subscriptionId, item.id)
+      )
+    ), []
+  );
 
 export const isFeedItemsFetching = (state, subscriptionId) =>
   getFeedItemObject(state, subscriptionId).fetching;

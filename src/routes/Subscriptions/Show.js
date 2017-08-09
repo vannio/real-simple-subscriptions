@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
-import { getFeedItems } from '../../ducks';
-
-const enhance = connect(
-  (state, ownProps) => ({
-    feedItems: getFeedItems(state, ownProps.id)
-  })
-);
 
 const Show = ({ feedItems, match }) => (
-  <SubscriptionPreview id={match.params.id} feedItems={feedItems} />
+  <SubscriptionPreview id={match.params.id} />
 );
 
 Show.propTypes = {
@@ -23,4 +15,4 @@ Show.propTypes = {
   })
 };
 
-export default enhance(Show);
+export default Show;

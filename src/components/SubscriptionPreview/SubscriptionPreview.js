@@ -18,6 +18,7 @@ const enhance = compose(
   connect(
     (state, ownProps) => ({
       subscription: getSubscription(state, ownProps.id),
+      title: ownProps.title || getSubscription(state, ownProps.id).title,
       isFetching: isFeedItemsFetching(state, ownProps.id),
       fetchError: getFeedItemsFetchError(state, ownProps.id),
       feedItems: ownProps.feedItems || getFeedItems(state, ownProps.id),
@@ -38,7 +39,7 @@ const enhance = compose(
 export const SubscriptionPreview = props => (
   <div className="subscription-preview">
     <h1>
-      {props.subscription.title}
+      {props.title}
       <button className="unstyled-button check-button" onClick={props.onMarkAsReadClick}>
         <Icon name="check" title="Mark all as read" />
       </button>
@@ -70,6 +71,7 @@ SubscriptionPreview.propTypes = {
     title: PropTypes.string,
     url: PropTypes.string
   }),
+  title: PropTypes.string,
   maxCount: PropTypes.number,
   isFetching: PropTypes.bool,
   fetchError: PropTypes.string,
