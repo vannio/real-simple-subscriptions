@@ -30,6 +30,7 @@ const App = ({ accentColour }) => (
       <div className="app-content">
         <div className="container">
           <Switch>
+            <Route exact path="/bookmarked" component={Subscriptions.index} />
             <Route exact path="/subscriptions" component={Subscriptions.index} />
             <Route path="/subscriptions/:id" component={Subscriptions.show} />
             <Route path="/settings" component={Settings} />

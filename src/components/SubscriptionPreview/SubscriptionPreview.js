@@ -5,10 +5,9 @@ import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import ListItem from './ListItem';
 import Icon, { LoadingIcon } from '../Icon/Icon';
+import { getFeedItems } from '../../ducks';
 import {
   getSubscription,
-  getFeedItems,
-  filterFeedItems,
   isFeedItemsFetching,
   getFeedItemsFetchError
 } from '../../ducks';
@@ -19,9 +18,9 @@ const enhance = compose(
   connect(
     (state, ownProps) => ({
       subscription: getSubscription(state, ownProps.id),
-      feedItems: state.settings.hideRead ? filterFeedItems(state, ownProps.id) : getFeedItems(state, ownProps.id),
       isFetching: isFeedItemsFetching(state, ownProps.id),
-      fetchError: getFeedItemsFetchError(state, ownProps.id)
+      fetchError: getFeedItemsFetchError(state, ownProps.id),
+      feedItems: ownProps.feedItems || getFeedItems(state, ownProps.id),
     }),
     {
       markAsRead: actions.markAsRead,
@@ -58,10 +57,6 @@ export const SubscriptionPreview = props => (
 );
 
 SubscriptionPreview.propTypes = {
-  subscription: PropTypes.shape({
-    title: PropTypes.string,
-    url: PropTypes.string
-  }),
   feedItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -71,6 +66,10 @@ SubscriptionPreview.propTypes = {
       url: PropTypes.string
     })
   ),
+  subscription: PropTypes.shape({
+    title: PropTypes.string,
+    url: PropTypes.string
+  }),
   maxCount: PropTypes.number,
   isFetching: PropTypes.bool,
   fetchError: PropTypes.string,

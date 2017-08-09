@@ -7,7 +7,7 @@ export const getSubscription = (state, subscriptionId) =>
 export const getFeedItemObject = (state, subscriptionId) =>
   state.feedItems[subscriptionId] || {};
 
-export const getFeedItems = (state, subscriptionId) =>
+export const getAllFeedItems = (state, subscriptionId) =>
   getFeedItemObject(state, subscriptionId).items || [];
 
 export const isFeedItemRead = (state, subscriptionId, feedItemId) =>
@@ -17,8 +17,11 @@ export const isFeedItemBookmarked = (state, subscriptionId, feedItemId) =>
   (getFeedItemObject(state, subscriptionId).bookmarked || []).indexOf(feedItemId) > -1;
 
 export const filterFeedItems = (state, subscriptionId) =>
-  getFeedItems(state, subscriptionId).filter(item => !isFeedItemRead(state, subscriptionId, item.id)
+  getAllFeedItems(state, subscriptionId).filter(item => !isFeedItemRead(state, subscriptionId, item.id)
 );
+
+export const getFeedItems = (state, subscriptionId) => 
+  state.settings.hideRead ? filterFeedItems(state, subscriptionId) : getAllFeedItems(state, subscriptionId);
 
 export const isFeedItemsFetching = (state, subscriptionId) =>
   getFeedItemObject(state, subscriptionId).fetching;

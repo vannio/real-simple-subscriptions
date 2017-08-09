@@ -56,6 +56,11 @@ const Sidebar = props => (
         <Icon name="settings" title="Settings" />
       </NavLink>
     </li>
+    <li>
+      <NavLink to="/bookmarked" className="navigation-link" activeClassName="active">
+        Bookmarked
+      </NavLink>
+    </li>
     {props.subscriptionIds.map(id => (
       <li key={id}>
         <NavLink to={`/subscriptions/${id.toLowerCase()}`} className="navigation-link" activeClassName="active">

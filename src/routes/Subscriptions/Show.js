@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
 import { connect } from 'react-redux';
+import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
+import { getFeedItems } from '../../ducks';
 
 const enhance = connect(
-  state => ({
-    subscriptions: state.subscriptions
+  (state, ownProps) => ({
+    feedItems: getFeedItems(state, ownProps.id)
   })
 );
 
-const Show = ({ subscriptions, match }) => (
-  <SubscriptionPreview id={match.params.id} />
+const Show = ({ feedItems, match }) => (
+  <SubscriptionPreview id={match.params.id} feedItems={feedItems} />
 );
 
 Show.propTypes = {
-  subscriptions: PropTypes.object,
+  feedItems: PropTypes.array,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string
