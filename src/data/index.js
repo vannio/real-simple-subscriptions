@@ -1,4 +1,4 @@
-export const COLOURS = [
+export const COLOUR_MAP = [
   'Pink',
   'Purple',
   'Blue',
@@ -9,7 +9,13 @@ export const COLOURS = [
   'Black'
 ];
 
-export const DEFAULT_STATE = {
+export const SHOW_CONTENT_MAP = {
+  full: 'Full',
+  firstParagraph: 'First paragraph',
+  none: 'None'
+};
+
+export const INITIAL_STATE = {
   config: {
     subscriptions: {
       '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
@@ -36,13 +42,34 @@ export const DEFAULT_STATE = {
     settings: {
       maxCount: 6,
       readOnOpen: true,
-      hideRead: true,
+      hideRead: false,
       fetchInterval: 30,
       accentColour: 'Blue',
       showSummary: true,
-      showContent: 'First paragraph',
+      showContent: 'firstParagraph',
       showImages: false
     }
   },
-  data: {},
+  data: {
+    '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
+      items: [],
+      markedAsRead: [],
+      unreadCount: 0
+    },
+    '62f6b37a-eeed-4289-9533-194e510d94ab': {
+      items: [],
+      markedAsRead: [],
+      unreadCount: 0
+    },
+    '0a65455f-c4cd-42c0-85ba-b596a68c07d4': {
+      items: [],
+      markedAsRead: [],
+      unreadCount: 0
+    },
+    '56a031d8-ab02-41dc-aea0-eb1951166b97': {
+      items: [],
+      markedAsRead: [],
+      unreadCount: 0
+    }
+  },
 };

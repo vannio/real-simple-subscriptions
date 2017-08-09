@@ -67,14 +67,14 @@ export const ListItem = props => (
         onClick={props.onOpenLinksInNewTab}
         dangerouslySetInnerHTML={{__html: props.item.description}} />
     )}
-    {!props.isMarkedRead && props.showContent !== 'None' && (
+    {!props.isMarkedRead && props.showContent !== 'none' && (
       <p className="list-item__content"
         onClick={props.onOpenLinksInNewTab}
         dangerouslySetInnerHTML={{__html:
-          props.showContent === 'Full' ? props.item.content : getFirstParagraph(props.item.content)
+          props.showContent === 'full' ? props.item.content : getFirstParagraph(props.item.content)
         }} />
     )}
-    {!props.isMarkedRead && 
+    {!props.isMarkedRead &&
       <button className="unstyled-button" onClick={props.onMarkAsReadClick}>
         <Icon name="check" size="small" title="Mark all as read" />
       </button>

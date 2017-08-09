@@ -1,14 +1,14 @@
-import { DEFAULT_STATE } from '../data';
+import { INITIAL_STATE } from '../data';
 
 export const loadState = (key = 'config') => {
   try {
     const serializedState = localStorage.getItem(key);
     if (serializedState === null) {
-      return DEFAULT_STATE[key];
+      return INITIAL_STATE[key];
     }
     return JSON.parse(serializedState);
   } catch (err) {
-    return DEFAULT_STATE[key];
+    return INITIAL_STATE[key];
   }
 };
 
