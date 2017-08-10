@@ -1,4 +1,4 @@
-# Really Simple Subscriptions
+# Really Simple Subscriptions [![Build Status](https://api.travis-ci.com/vannio/real-simple-subscriptions.svg?token=eXoHprHMqp2pBHRzYi5E&branch=master)](https://travis-ci.com/vannio/real-simple-subscriptions)
 
 I've been using the [Slick RSS](https://chrome.google.com/webstore/detail/slick-rss/ealjoljnibpdkocmldliaoojpgdkcdob?hl=en) Chrome extension for ages because I like how simple, unobtrusive and self-contained it is, BUT it hasn't been updated since 2012! This is my attempt to build a similarly useful extension.
 
