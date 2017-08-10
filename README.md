@@ -1,18 +1,25 @@
-# Really Simple Subscriptions [![Build Status](https://api.travis-ci.com/vannio/real-simple-subscriptions.svg?token=eXoHprHMqp2pBHRzYi5E&branch=master)](https://travis-ci.com/vannio/real-simple-subscriptions)
+# Real Simple Subscriptions [![Build Status](https://api.travis-ci.com/vannio/real-simple-subscriptions.svg?token=eXoHprHMqp2pBHRzYi5E&branch=master)](https://travis-ci.com/vannio/real-simple-subscriptions)
 
-I've been using the [Slick RSS](https://chrome.google.com/webstore/detail/slick-rss/ealjoljnibpdkocmldliaoojpgdkcdob?hl=en) Chrome extension for ages because I like how simple, unobtrusive and self-contained it is, BUT it hasn't been updated since 2012! This is my attempt to build a similarly useful extension.
+I've been using the [Slick RSS](https://chrome.google.com/webstore/detail/slick-rss/ealjoljnibpdkocmldliaoojpgdkcdob?hl=en) Chrome extension because I like how simple, unobtrusive and self-contained it is, but it hasn't been updated since 2012!
 
-**Setup**
+This is my attempt to build a similarly useful extension more suited to me, and if anyone else happens to find it useful, then that's a bonus.
+
+![Homepage](screenshots/home.png)
+![Settings](screenshots/settings.png)
+
+---
+
+##### Setup
 
 Clone, then run `yarn install` to install dependencies. Serve the app with `yarn start`.
 
-**Build**
+##### Build
 
 Run `yarn build`, then load the `/build` directory as an unpacked extension in Chrome.
 
 ---
 
-**Features**
+##### Features
 
 - [x] Replace the default newtab
 - [x] View all subscriptions on homepage
@@ -24,7 +31,7 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [ ] Memoize
 - [ ] Clear items after a week<sup>^3</sup>
 
-**Config Options**
+##### Config Options
 
 - [x] RSS Subscriptions (obviously)
 - [x] Limit item count on homepage
@@ -41,7 +48,7 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 
 ---
 
-**Maybe TODO**
+##### Maybe TODO
 
 - [ ] Imports/Exports OPML files into the manager, or your bookmark folder<sup>*</sup>
 - [ ] Manage subscriptions with a bookmark folder<sup>*</sup>
@@ -49,6 +56,7 @@ Run `yarn build`, then load the `/build` directory as an unpacked extension in C
 - [ ] Discover both RSS and Atom feeds within pages (with finder installed)<sup>*</sup>
 - [ ] Chrome badge with unread items count<sup>*</sup>
 - [ ] Group / Tag subscriptions
+
 
 <sup>*</sup> features from the original app
 <br>
