@@ -51,29 +51,31 @@ export const INITIAL_STATE = {
     }
   },
   data: {
-    '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
-      items: [],
-      markedAsRead: [],
-      bookMarked: [],
-      unreadCount: 0
-    },
-    '62f6b37a-eeed-4289-9533-194e510d94ab': {
-      items: [],
-      markedAsRead: [],
-      bookMarked: [],
-      unreadCount: 0
-    },
-    '0a65455f-c4cd-42c0-85ba-b596a68c07d4': {
-      items: [],
-      markedAsRead: [],
-      bookMarked: [],
-      unreadCount: 0
-    },
-    '56a031d8-ab02-41dc-aea0-eb1951166b97': {
-      items: [],
-      markedAsRead: [],
-      bookMarked: [],
-      unreadCount: 0
+    feedItems: {
+      '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
+        items: [],
+        markedAsRead: [],
+        bookMarked: [],
+        unreadCount: 0
+      },
+      '62f6b37a-eeed-4289-9533-194e510d94ab': {
+        items: [],
+        markedAsRead: [],
+        bookMarked: [],
+        unreadCount: 0
+      },
+      '0a65455f-c4cd-42c0-85ba-b596a68c07d4': {
+        items: [],
+        markedAsRead: [],
+        bookMarked: [],
+        unreadCount: 0
+      },
+      '56a031d8-ab02-41dc-aea0-eb1951166b97': {
+        items: [],
+        markedAsRead: [],
+        bookMarked: [],
+        unreadCount: 0
+      }
     }
   },
 };
