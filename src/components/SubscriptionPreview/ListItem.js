@@ -4,8 +4,8 @@ import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Icon from '../Icon/Icon';
-import formatDate from '../../helpers/formatDate';
-import { getFirstParagraph } from '../../helpers/transformXML';
+import formatDate from '../../utils/formatDate';
+import { getFirstParagraph } from '../../utils/transformXML';
 import * as actions from '../../actions';
 import { isFeedItemRead, isFeedItemBookmarked } from '../../ducks';
 

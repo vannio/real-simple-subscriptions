@@ -8,11 +8,11 @@ import {
 } from 'redux';
 import reducers from './reducers';
 import App from './routes/App/App';
-import registerServiceWorker from './helpers/registerServiceWorker';
-import { loadState, saveState } from './helpers/localStorage';
+import registerServiceWorker from './utils/registerServiceWorker';
+import { loadState, saveState } from './utils/localStorage';
 import throttle from 'lodash/fp/throttle';
 import thunk from 'redux-thunk';
-import registerChromeListeners from './helpers/chrome';
+import registerChromeListeners from './utils/chrome';
 import './styles/manifest.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

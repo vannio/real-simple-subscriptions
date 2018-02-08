@@ -7,7 +7,7 @@ import withHandlers from 'recompose/withHandlers';
 import Icon from '../Icon/Icon';
 import { getSubscriptionKeys, getBookmarkedItemsCount } from '../../ducks';
 import './styles.css';
-import { fetchAllFeedItems } from '../../helpers/chrome';
+import { fetchAllFeedItems } from '../../utils/chrome';
 import * as actions from '../../actions';
 
 const enhance = compose(
