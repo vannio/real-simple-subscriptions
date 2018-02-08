@@ -1,4 +1,4 @@
-import transformXML from '../helpers/transformXML';
+import transformXML from '../utils/transformXML';
 
 // SETTINGS
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';

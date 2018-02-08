@@ -1,5 +1,5 @@
 import { INITIAL_STATE } from '../data';
-import { loadState } from '../helpers/localStorage';
+import { loadState } from './localStorage';
 
 describe('localStorage helper', () => {
   it('loads an initial state', () => {
