@@ -1,11 +1,11 @@
 import React from 'react';
-import SettingsGeneral from '../../components/SettingsGeneral/SettingsGeneral';
-import SettingsSubscriptions from '../../components/SettingsSubscriptions/SettingsSubscriptions';
+import SettingsConfig from '../../components/SettingsConfig';
+import SettingsSubscriptions from '../../components/SettingsSubscriptions';
 
 const Settings = () => (
   <div>
     <h1>Settings</h1>
-    <SettingsGeneral />
+    <SettingsConfig />
     <hr />
     <SettingsSubscriptions />
   </div>

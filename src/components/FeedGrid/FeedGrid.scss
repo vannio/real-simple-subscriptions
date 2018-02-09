@@ -2,7 +2,7 @@
 @import 'styles/variables/_base-values';
 @import 'styles/variables/_colours';
 
-.subscription-preview {
+.feed-grid {
   margin-bottom: $base-spacer * 2;
 
   .check-button {
@@ -14,7 +14,7 @@
     flex-wrap: wrap;
   }
 
-  .list-item {
+  .feed-grid-item {
     width: 100%;
     margin-bottom: $base-spacer * 4;
 
@@ -43,7 +43,7 @@
       }
     }
 
-    &.list-item--marked-read {
+    &.feed-grid-item--marked-read {
       color: map-get($colours, grey);
 
       a {
@@ -55,13 +55,13 @@
       }
     }
 
-    &.list-item--hide-images {
+    &.feed-grid-item--hide-images {
       img {
         display: none;
       }
     }
 
-    .list-item__title {
+    .feed-grid-item__title {
       line-height: 1.6;
       font-size: 1.2em;
       display: block;
@@ -73,17 +73,17 @@
       }
     }
 
-    .list-item__description {
+    .feed-grid-item__description {
       margin: 0.5rem auto;
     }
 
-    .list-item__link {
+    .feed-grid-item__link {
       &::after {
         display: none;
       }
     }
 
-    .list-item__date {
+    .feed-grid-item__date {
       font-size: 80%;
       display: inline-block;
     }

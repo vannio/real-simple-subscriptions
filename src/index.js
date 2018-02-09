@@ -7,7 +7,7 @@ import {
   compose
 } from 'redux';
 import reducers from './reducers';
-import App from './routes/App/App';
+import App from './routes/App';
 import registerServiceWorker from './utils/registerServiceWorker';
 import { loadState, saveState } from './utils/localStorage';
 import throttle from 'lodash/fp/throttle';

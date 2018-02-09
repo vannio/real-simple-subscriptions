@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
+import FeedGrid from '../../components/FeedGrid';
 import { getSubscriptionKeys } from '../../ducks';
 
 const enhance = connect(
@@ -17,7 +17,7 @@ export const Home = ({ subscriptions, subscriptionIds, maxCount }) => (
   <div className="subscription-list">
     {subscriptionIds.length > 0 ? (
       subscriptionIds.map(id => (
-        <SubscriptionPreview key={id} id={id} maxCount={maxCount} />
+        <FeedGrid key={id} id={id} maxCount={maxCount} />
       ))
     ) : (
       <div>

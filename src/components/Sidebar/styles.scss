@@ -1,8 +1,8 @@
 @import 'styles/mixins/_accent-colour';
 @import 'styles/variables/_base-values';
-@include accent-colour('.sidebar-list a:hover', color);
+@include accent-colour('.sidebar a:hover', color);
 
-.sidebar-list {
+.sidebar {
   margin: 0;
 
   li {

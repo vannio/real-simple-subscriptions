@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SubscriptionPreview from '../../components/SubscriptionPreview/SubscriptionPreview';
+import FeedGrid from '../../components/FeedGrid';
 
 const Show = ({ feedItems, match }) => (
-  <SubscriptionPreview id={match.params.id} />
+  <FeedGrid id={match.params.id} />
 );
 
 Show.propTypes = {
