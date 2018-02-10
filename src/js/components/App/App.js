@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { COLOUR_MAP } from '../../../config';
 import Sidebar from '../Sidebar';
 import Settings from '../../routes/Settings';
 import Bookmarked from '../../routes/Subscriptions/Bookmarked';
@@ -10,7 +8,7 @@ import Show from '../../routes/Subscriptions/Show';
 
 import './App.css';
 
-const App = ({ accentColour }) => (
+const App = () => (
   <Router>
     <div className="app">
       <div className="app-sidebar">
@@ -29,9 +27,5 @@ const App = ({ accentColour }) => (
     </div>
   </Router>
 );
-
-App.propTypes = {
-  accentColour: PropTypes.oneOf(COLOUR_MAP),
-};
 
 export default App;

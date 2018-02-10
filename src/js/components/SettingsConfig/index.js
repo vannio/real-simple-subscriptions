@@ -2,7 +2,7 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import { saveConfig } from '../../store/actions/config';
 import pick from 'lodash/fp/pick';
 import { getConfig } from '../../store/selectors/config';
 
@@ -17,7 +17,7 @@ const enhance = compose(
         settingsFields: Object.keys(config),
       };
     },
-    { saveSettings: actions.saveSettings },
+    { saveConfig },
   ),
   withState('isEditable', 'setIsEditable', false),
   withState('maxCount', 'setMaxCount', props => props.maxCount),
@@ -42,8 +42,8 @@ const enhance = compose(
     onToggleShowImages: props => e => props.setShowImages(e.target.checked),
     onSubmitForm: props => e => {
       e.preventDefault();
-      const settings = pick(props.settingsFields)(props);
-      props.saveSettings(settings);
+      const config = pick(props.settingsFields)(props);
+      props.saveConfig(config);
       props.setIsEditable(false);
     },
   }),

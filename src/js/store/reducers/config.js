@@ -1,4 +1,5 @@
-import { UPDATE_SETTINGS, FETCH_FEEDITEMS_SUCCESS } from '../actions';
+import { UPDATE_SETTINGS } from '../actions/config';
+import { FETCH_FEEDITEMS_SUCCESS } from '../actions/subscriptions';
 
 const settings = (state = {}, action) => {
   switch (action.type) {

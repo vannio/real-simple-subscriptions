@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FeedGrid from '../../components/FeedGrid';
-import { getSubscriptionKeys } from '../../store/selectors';
+import { getSubscriptionKeys } from '../../store/selectors/subscriptions';
 import { getConfig } from '../../store/selectors/config';
 
 const enhance = connect(state => ({

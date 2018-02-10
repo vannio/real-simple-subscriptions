@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getSubscriptionKeys } from '../../store/selectors';
+import { getSubscriptionKeys } from '../../store/selectors/subscriptions';
 
 import FeedGridList from './FeedGridList';
 

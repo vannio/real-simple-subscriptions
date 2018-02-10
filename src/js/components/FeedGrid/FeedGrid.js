@@ -31,18 +31,8 @@ export const FeedGrid = props => (
 
 FeedGrid.propTypes = {
   feedItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      content: PropTypes.string,
-      date: PropTypes.string,
-      url: PropTypes.string,
-    }),
+    PropTypes.object.isRequired,
   ),
-  subscription: PropTypes.shape({
-    title: PropTypes.string,
-    url: PropTypes.string,
-  }),
   title: PropTypes.string,
   maxCount: PropTypes.number,
   isFetching: PropTypes.bool,

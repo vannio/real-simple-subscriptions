@@ -1,37 +1,43 @@
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
-import { getSubscriptionKeys, getBookmarkedItemsCount } from '../../store/selectors';
+import lifecycle from 'recompose/lifecycle';
+import isEqual from 'lodash/isEqual';
+import {
+  getSubscriptions,
+  getSubscriptionKeys,
+  getBookmarkedItemsCount,
+} from '../../store/selectors/subscriptions';
+import { markAllAsRead } from '../../store/actions/subscriptions';
 import { fetchAllFeedItems } from '../../utils/chrome';
-import * as actions from '../../store/actions';
-
 import Sidebar from './Sidebar';
 
 const enhance = compose(
   connect(
     state => ({
-      subscriptions: state.subscriptions,
+      subscriptions: getSubscriptions(state),
       subscriptionIds: getSubscriptionKeys(state),
-      allFeedItems: state.feedItems,
       bookmarkedItemCount: getBookmarkedItemsCount(state),
     }),
-    {
-      markAsRead: actions.markAsRead,
-      updateUnreadCount: actions.updateUnreadCount,
-    },
+    { markAllAsRead },
   ),
   withHandlers({
     fetchAllFeedItems: () => () => fetchAllFeedItems(true),
     onMarkAsReadClick: props => () => {
       props.subscriptionIds.forEach(subscriptionId => {
-        if (!props.subscriptions[subscriptionId].error) {
-          const itemIDs = props.allFeedItems[subscriptionId].items.map(
-            item => item.id,
-          );
-          props.markAsRead(subscriptionId, itemIDs);
-          props.updateUnreadCount(subscriptionId);
-        }
+        props.markAllAsRead(subscriptionId);
       });
+    },
+  }),
+  lifecycle({
+    componentWillReceiveProps(nextProps) {
+      const hasSubscriptionChanged = !isEqual(
+        this.props.subscriptionIds,
+        nextProps.subscriptionIds,
+      );
+      if (hasSubscriptionChanged) {
+        this.props.fetchAllFeedItems(true);
+      }
     },
   }),
 );

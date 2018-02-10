@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FeedGrid from '../../components/FeedGrid';
 import {
-  getBookmarkedItemObj,
+  getAllBookmarkedItems,
   getSubscriptionKeys,
-} from '../../store/selectors';
+} from '../../store/selectors/subscriptions';
 
 const enhance = connect(state => ({
-  bookmarkedItems: getBookmarkedItemObj(state),
+  bookmarkedItems: getAllBookmarkedItems(state),
   subscriptionIds: getSubscriptionKeys(state),
 }));
 

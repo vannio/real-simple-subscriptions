@@ -58,7 +58,6 @@ const Sidebar = props => (
 );
 
 Sidebar.propTypes = {
-  allFeedItems: PropTypes.object,
   subscriptions: PropTypes.object,
   subscriptionIds: PropTypes.array,
   fetchAllFeedItems: PropTypes.func,

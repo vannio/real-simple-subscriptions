@@ -5,8 +5,8 @@ import compose from 'recompose/compose';
 import {
   toggleMarkedAsRead,
   toggleBookmarkFeedItem,
-} from '../../store/actions';
-import { isFeedItemRead, isFeedItemBookmarked } from '../../store/selectors';
+} from '../../store/actions/subscriptions';
+import { isFeedItemRead, isFeedItemBookmarked } from '../../store/selectors/subscriptions';
 import { getConfig } from '../../store/selectors/config';
 import { getFirstParagraph } from '../../utils/getFirstParagraph';
 import formatDate from '../../utils/formatDate';
@@ -46,7 +46,6 @@ const enhance = compose(
     onOpenItemLink: props => e => {
       if (props.readOnOpen) {
         props.markAsRead(props.subscriptionId, props.item.id);
-        props.updateUnreadCount(props.subscriptionId);
       }
     },
     onOpenLinksInNewTab: props => e => {

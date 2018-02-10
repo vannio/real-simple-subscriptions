@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './js/store/reducers';
-import App from './js/components/App/App';
+import App from './js/components/App';
 import registerServiceWorker from './js/utils/registerServiceWorker';
 import { loadState, saveState } from './js/utils/localStorage';
 import throttle from 'lodash/fp/throttle';
