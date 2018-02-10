@@ -1,8 +1,7 @@
-// SETTINGS
-export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
-export const updateSettings = settings => ({
-  type: UPDATE_SETTINGS,
-  settings,
+export const UPDATE_CONFIG = 'UPDATE_CONFIG';
+export const updateSettings = config => ({
+  type: UPDATE_CONFIG,
+  config,
 });
 
 export const saveConfig = config => dispatch => {

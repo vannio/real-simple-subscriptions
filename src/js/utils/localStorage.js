@@ -36,16 +36,24 @@ export const loadState = (key = 'config') => {
       if (!v1subscriptions) {
         return INITIAL_STATE[key];
       }
+      localStorage.removeItem('data');
       return v1subscriptions;
     }
-    return JSON.parse(serializedState);
+    const parsed = JSON.parse(serializedState);
+    if (key === 'config' && parsed.settings) {
+      return {
+        ...INITIAL_STATE[key],
+        ...parsed.settings,
+        latestFetch: 0,
+      };
+    }
+    return parsed;
   } catch (err) {
     return INITIAL_STATE[key];
   }
 };
 
 export const saveState = (state, key = 'config') => {
-  console.log(state);
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(key, serializedState);

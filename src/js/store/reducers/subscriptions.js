@@ -56,7 +56,7 @@ const subscriptions = (state = {}, action) => {
           items: uniq(
             [
               ...state[action.subscriptionId].items,
-              action.items.map(item => ({
+              ...action.items.map(item => ({
                 ...item,
                 id: uuid(item.link || item.guid, uuid.URL),
               })),

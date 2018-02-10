@@ -1,12 +1,12 @@
-import { UPDATE_SETTINGS } from '../actions/config';
+import { UPDATE_CONFIG } from '../actions/config';
 import { FETCH_FEEDITEMS_SUCCESS } from '../actions/subscriptions';
 
-const settings = (state = {}, action) => {
+const config = (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_SETTINGS:
+    case UPDATE_CONFIG:
       return {
         ...state,
-        ...action.settings,
+        ...action.config,
       };
     case FETCH_FEEDITEMS_SUCCESS:
       return {
@@ -18,4 +18,4 @@ const settings = (state = {}, action) => {
   }
 };
 
-export default settings;
+export default config;
