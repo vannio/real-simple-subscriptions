@@ -1,47 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {
-  createStore,
-  applyMiddleware,
-  compose
-} from 'redux';
-import reducers from './reducers';
-import App from './routes/App';
-import registerServiceWorker from './utils/registerServiceWorker';
-import { loadState, saveState } from './utils/localStorage';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reducers from './js/store/reducers';
+import App from './js/components/App/App';
+import registerServiceWorker from './js/utils/registerServiceWorker';
+import { loadState, saveState } from './js/utils/localStorage';
 import throttle from 'lodash/fp/throttle';
 import thunk from 'redux-thunk';
-import registerChromeListeners from './utils/chrome';
+import registerChromeListeners from './js/utils/chrome';
 import './styles/manifest.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = () => {
+  const initialState = {
+    config: loadState('config'),
+    subscriptions: loadState('subscriptions'),
+  };
+  console.log('initial state', initialState);
   const store = createStore(
     reducers,
-    {
-      ...loadState('config'),
-      ...loadState('data')
-    },
-    composeEnhancers(
-      applyMiddleware(thunk),
-    )
+    initialState,
+    composeEnhancers(applyMiddleware(thunk)),
   );
   store.subscribe(
-    throttle(1000)(
-      () => {
-        saveState({
-          settings: store.getState().settings,
-          archived: store.getState().archived,
-          subscriptions: store.getState().subscriptions,
-        }, 'config');
-
-        saveState({
-          feedItems: store.getState().feedItems
-        }, 'data');
-      }
-    )
+    throttle(1000)(() => {
+      saveState(store.getState().config, 'config');
+      saveState(store.getState().subscriptions, 'subscriptions');
+    }),
   );
   return store;
 };
@@ -52,7 +39,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 registerServiceWorker();
