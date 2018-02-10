@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FeedGrid from '../../components/FeedGrid';
-import { getSubscriptionKeys } from '../../store/selectors/index';
+import { getSubscriptionKeys } from '../../store/selectors';
+import { getConfig } from '../../store/selectors/config';
 
-const enhance = connect(
-  state => ({
-    subscriptions: state.subscriptions,
-    subscriptionIds: getSubscriptionKeys(state),
-    maxCount: state.config.maxCount,
-    hideRead: state.config.hideRead
-  })
-);
+const enhance = connect(state => ({
+  subscriptions: state.subscriptions,
+  subscriptionIds: getSubscriptionKeys(state),
+  config: getConfig(state),
+}));
 
-export const Home = ({ subscriptions, subscriptionIds, maxCount }) => (
+export const Home = ({
+  subscriptions,
+  subscriptionIds,
+  config: { maxCount },
+}) => (
   <div className="subscriptions-home">
     {subscriptionIds.length > 0 ? (
       subscriptionIds.map(id => (
@@ -31,7 +33,9 @@ export const Home = ({ subscriptions, subscriptionIds, maxCount }) => (
 Home.propTypes = {
   subscriptions: PropTypes.object,
   subscriptionIds: PropTypes.array,
-  maxCount: PropTypes.number
+  config: PropTypes.shape({
+    maxCount: PropTypes.number,
+  }),
 };
 
 export default enhance(Home);

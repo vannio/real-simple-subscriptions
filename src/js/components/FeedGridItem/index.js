@@ -1,60 +1,47 @@
 import withHandlers from 'recompose/withHandlers';
-import withProps from 'recompose/withProps';
+import mapProps from 'recompose/mapProps';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {
-  markAsRead,
-  unmarkAsRead,
-  updateUnreadCount,
-  unbookmarkFeedItem,
-  bookmarkFeedItem,
+  toggleMarkedAsRead,
+  toggleBookmarkFeedItem,
 } from '../../store/actions';
 import { isFeedItemRead, isFeedItemBookmarked } from '../../store/selectors';
+import { getConfig } from '../../store/selectors/config';
 import { getFirstParagraph } from '../../utils/getFirstParagraph';
+import formatDate from '../../utils/formatDate';
 
 import FeedGridItem from './FeedGridItem';
 
 const enhance = compose(
   connect(
-    (state, props) => ({
-      readOnOpen: state.config.readOnOpen,
-      showSummary: state.config.showSummary,
-      showContent: state.config.showContent,
-      showImages: state.config.showImages,
-      isBookmarked: isFeedItemBookmarked(
-        state,
-        props.subscriptionId,
-        props.item.id,
-      ),
-      isMarkedRead: isFeedItemRead(
-        state,
-        props.subscriptionId,
-        props.item.id,
-      ),
-    }),
+    (state, props) => {
+      const config = getConfig(state);
+      return {
+        ...config,
+        isBookmarked: isFeedItemBookmarked(
+          state,
+          props.subscriptionId,
+          props.item.id,
+        ),
+        isMarkedRead: isFeedItemRead(
+          state,
+          props.subscriptionId,
+          props.item.id,
+        ),
+      };
+    },
     {
-      markAsRead,
-      unmarkAsRead,
-      updateUnreadCount,
-      unbookmarkFeedItem,
-      bookmarkFeedItem,
+      toggleMarkedAsRead,
+      toggleBookmarkFeedItem,
     },
   ),
   withHandlers({
     onToggleMarkedAsRead: props => () => {
-      if (props.isMarkedRead) {
-        props.unmarkAsRead(props.subscriptionId, props.item.id);
-      } else {
-        props.markAsRead(props.subscriptionId, props.item.id);
-      }
-      props.updateUnreadCount(props.subscriptionId);
+      props.toggleMarkedAsRead(props.subscriptionId, props.item.id);
     },
     onToggleBookmarked: props => () => {
-      if (props.isBookmarked) {
-        props.unbookmarkFeedItem(props.subscriptionId, props.item.id);
-      } else {
-        props.bookmarkFeedItem(props.subscriptionId, props.item.id);
-      }
+      props.toggleBookmarkFeedItem(props.subscriptionId, props.item.id);
     },
     onOpenItemLink: props => e => {
       if (props.readOnOpen) {
@@ -74,13 +61,21 @@ const enhance = compose(
       }
     },
   }),
-  withProps(props => ({
+  mapProps(({ isBookmarked, isMarkedRead, showImages, ...props }) => ({
+    ...props,
+    pubDate: formatDate(props.item.pubDate),
     content:
       props.showContent === 'full'
         ? props.item.content
         : getFirstParagraph(props.item.content),
-    isSummaryVisible: !props.isMarkedRead && props.showSummary,
-    isContentVisible: !props.isMarkedRead && props.showContent !== 'none',
+    isSummaryVisible: !isMarkedRead && props.showSummary,
+    isContentVisible: !isMarkedRead && props.showContent !== 'none',
+    bookmarkedLabel: isBookmarked ? 'Un-bookmark' : 'Bookmark',
+    bookmarkedIcon: isBookmarked ? 'bookmark' : 'unbookmark',
+    markedReadIcon: isMarkedRead ? 'cross' : 'check',
+    markedReadLabel: isMarkedRead ? 'Unmark as read' : 'Mark as read',
+    classNames: `${isMarkedRead ? 'feed-grid-item--marked-read' : ''}
+    ${showImages ? '' : 'feed-grid-item--hide-images'}`,
   })),
 );
 

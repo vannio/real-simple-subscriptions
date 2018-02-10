@@ -2,7 +2,7 @@ import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import withState from 'recompose/withState';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
+import * as actions from '../../store/actions';
 
 import SettingsSubscriptions from './SettingsSubscriptions';
 

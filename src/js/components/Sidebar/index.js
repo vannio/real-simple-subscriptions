@@ -21,7 +21,7 @@ const enhance = compose(
     },
   ),
   withHandlers({
-    fetchAllFeedItems: () => () => fetchAllFeedItems(),
+    fetchAllFeedItems: () => () => fetchAllFeedItems(true),
     onMarkAsReadClick: props => () => {
       props.subscriptionIds.forEach(subscriptionId => {
         if (!props.subscriptions[subscriptionId].error) {

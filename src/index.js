@@ -18,18 +18,20 @@ const configureStore = () => {
     config: loadState('config'),
     subscriptions: loadState('subscriptions'),
   };
-  console.log('initial state', initialState);
+
   const store = createStore(
     reducers,
     initialState,
     composeEnhancers(applyMiddleware(thunk)),
   );
+
   store.subscribe(
     throttle(1000)(() => {
       saveState(store.getState().config, 'config');
       saveState(store.getState().subscriptions, 'subscriptions');
     }),
   );
+
   return store;
 };
 

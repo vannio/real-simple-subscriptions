@@ -34,7 +34,7 @@ export const INITIAL_STATE = {
       dateAdded: 1501778672712,
       items: [],
       markedAsRead: [],
-      bookMarked: [],
+      bookmarked: [],
     },
     '62f6b37a-eeed-4289-9533-194e510d94ab': {
       title: '/r/programming',
@@ -42,7 +42,7 @@ export const INITIAL_STATE = {
       dateAdded: 1501778702624,
       items: [],
       markedAsRead: [],
-      bookMarked: [],
+      bookmarked: [],
     },
     '0a65455f-c4cd-42c0-85ba-b596a68c07d4': {
       title: '/r/frontpage',
@@ -50,7 +50,7 @@ export const INITIAL_STATE = {
       dateAdded: 1501778714008,
       items: [],
       markedAsRead: [],
-      bookMarked: [],
+      bookmarked: [],
     },
     '56a031d8-ab02-41dc-aea0-eb1951166b97': {
       title: 'Hackernews',
@@ -58,7 +58,7 @@ export const INITIAL_STATE = {
       dateAdded: 1501778721764,
       items: [],
       markedAsRead: [],
-      bookMarked: [],
+      bookmarked: [],
     },
   },
 };

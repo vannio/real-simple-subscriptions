@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from '../../config/index';
+import { INITIAL_STATE } from '../../config';
 import { loadState } from './localStorage';
 
 describe('localStorage', () => {

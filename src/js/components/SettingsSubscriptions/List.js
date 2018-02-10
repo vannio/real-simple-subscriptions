@@ -4,9 +4,9 @@ import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
+import * as actions from '../../store/actions';
 import Form from './Form';
-import { getSubscriptionKeys } from '../../store/selectors/index';
+import { getSubscriptionKeys } from '../../store/selectors';
 
 const enhance = compose(
   connect(

@@ -1,4 +1,4 @@
-import * as selectors from './index';
+import * as selectors from './';
 
 describe('selectors', () => {
   it('get subscription keys from the state', () => {

@@ -7,7 +7,7 @@ import './SettingsSubscriptions.css';
 
 export const SettingsSubscriptions = props => (
   <div className="settings-subscriptions">
-    <h1>SettingsSubscriptions</h1>
+    <h1>Subscriptions</h1>
     <div className="settings-subscriptions__group">
       {props.isFormNewExpanded ? (
         <Form handleSubmit={props.onAddSubscription}>

@@ -33,6 +33,14 @@ export const deleteSubscription = subscriptionId => ({
 });
 
 // FEED ITEMS
+
+export const TOGGLE_FEEDITEM_READ = 'TOGGLE_FEEDITEM_READ';
+export const toggleMarkedAsRead = (subscriptionId, feedItemId) => ({
+  type: TOGGLE_FEEDITEM_READ,
+  subscriptionId,
+  feedItemId,
+});
+
 export const MARK_FEEDITEM_READ = 'MARK_FEEDITEM_READ';
 export const markAsRead = (subscriptionId, ids) => ({
   type: MARK_FEEDITEM_READ,
@@ -45,6 +53,13 @@ export const unmarkAsRead = (subscriptionId, id) => ({
   type: UNMARK_FEEDITEM_READ,
   subscriptionId,
   id,
+});
+
+export const TOGGLE_BOOKMARK_FEEDITEM = 'TOGGLE_BOOKMARK_FEEDITEM';
+export const toggleBookmarkFeedItem = (subscriptionId, feedItemId) => ({
+    type: TOGGLE_BOOKMARK_FEEDITEM,
+    subscriptionId,
+    feedItemId,
 });
 
 export const BOOKMARK_FEEDITEM = 'BOOKMARK_FEEDITEM';
@@ -90,10 +105,9 @@ export const fetchFeedItemsFailure = (subscriptionId, error) => ({
 
 export const fetchFeedItems = (subscriptionId, url) => dispatch => {
   dispatch(fetchFeedItemsRequest(subscriptionId));
-  (async function asyncCall() {
+  (async function() {
     try {
       const result = await parser.parseURL(url);
-      console.log(result);
       dispatch(fetchFeedItemsSuccess(subscriptionId, result.items));
       dispatch(updateUnreadCount(subscriptionId));
     } catch (error) {

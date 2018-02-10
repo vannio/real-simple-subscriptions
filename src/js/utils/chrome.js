@@ -1,14 +1,18 @@
 /* global chrome */
-import { fetchFeedItems } from '../store/actions/index';
+import { fetchFeedItems } from '../store/actions';
 import { loadState } from './localStorage';
-import { store } from '../../index';
-// import { getSubscriptionKeys } from '../store/selectors/index';
+import { store } from '../../';
 
-export const fetchAllFeedItems = () => {
+export const fetchAllFeedItems = (forceFetch = false) => {
+  const config = loadState('config');
   const subscriptions = loadState('subscriptions');
-  Object.keys(subscriptions).forEach(id => {
-    fetchFeedItems(id, subscriptions[id].url)(store.dispatch);
-  });
+  const fetchIntervalMS = config.fetchInterval * 60000;
+
+  if (forceFetch || Date.now() >= config.latestFetch + fetchIntervalMS) {
+    Object.keys(subscriptions).forEach(id => {
+      fetchFeedItems(id, subscriptions[id].url)(store.dispatch);
+    });
+  }
 };
 
 // export const updateChromeBadge = () => {
