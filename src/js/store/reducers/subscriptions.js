@@ -14,13 +14,15 @@ import {
 } from '../actions/subscriptions';
 
 const subscriptions = (state = {}, action) => {
+  let subscription, itemId;
+
   switch (action.type) {
     case ADD_SUBSCRIPTION:
       return {
         ...state,
         [uuid(action.subscription.url, uuid.URL)]: {
           ...action.subscription,
-          dateAdded: Date.now(),
+          dateAdded: action.timestamp,
           items: [],
           markedAsRead: [],
           bookmarked: [],
@@ -81,8 +83,8 @@ const subscriptions = (state = {}, action) => {
       };
 
     case TOGGLE_FEEDITEM_READ:
-      let itemId = action.feedItemId;
-      let subscription = state[action.subscriptionId];
+      itemId = action.feedItemId;
+      subscription = state[action.subscriptionId];
       return {
         ...state,
         [action.subscriptionId]: {

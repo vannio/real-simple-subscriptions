@@ -6,7 +6,10 @@ import {
   toggleMarkedAsRead,
   toggleBookmarkFeedItem,
 } from '../../store/actions/subscriptions';
-import { isFeedItemRead, isFeedItemBookmarked } from '../../store/selectors/subscriptions';
+import {
+  isFeedItemRead,
+  isFeedItemBookmarked,
+} from '../../store/selectors/subscriptions';
 import { getConfig } from '../../store/selectors/config';
 import { getFirstParagraph } from '../../utils/getFirstParagraph';
 import formatDate from '../../utils/formatDate';
@@ -31,21 +34,18 @@ const enhance = compose(
         ),
       };
     },
-    {
-      toggleMarkedAsRead,
-      toggleBookmarkFeedItem,
-    },
+    (dispatch, props) => ({
+      toggleMarkedAsRead: () => dispatch(toggleMarkedAsRead(props.subscriptionId, props.item.id)),
+      toggleBookmarkFeedItem: () => dispatch(toggleBookmarkFeedItem(props.subscriptionId, props.item.id)),
+    }),
   ),
   withHandlers({
-    onToggleMarkedAsRead: props => () => {
-      props.toggleMarkedAsRead(props.subscriptionId, props.item.id);
-    },
     onToggleBookmarked: props => () => {
-      props.toggleBookmarkFeedItem(props.subscriptionId, props.item.id);
+      props.toggleBookmarkFeedItem();
     },
     onOpenItemLink: props => e => {
-      if (props.readOnOpen) {
-        props.markAsRead(props.subscriptionId, props.item.id);
+      if (props.readOnOpen && !props.isMarkedRead) {
+        props.toggleMarkedAsRead();
       }
     },
     onOpenLinksInNewTab: props => e => {

@@ -6,6 +6,7 @@ export const ADD_SUBSCRIPTION = 'ADD_SUBSCRIPTION';
 export const addSubscription = subscription => ({
   type: ADD_SUBSCRIPTION,
   subscription,
+  timestamp: Date.now(),
 });
 
 export const UPDATE_SUBSCRIPTION = 'UPDATE_SUBSCRIPTION';
@@ -53,6 +54,7 @@ export const fetchFeedItemsSuccess = (subscriptionId, items) => ({
   type: FETCH_FEEDITEMS_SUCCESS,
   subscriptionId,
   items,
+  timestamp: Date.now(),
 });
 
 export const FETCH_FEEDITEMS_FAIL = 'FETCH_FEEDITEMS_FAIL';

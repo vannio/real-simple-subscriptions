@@ -29,8 +29,8 @@ export const INITIAL_STATE = {
   subscriptions: {
     '57cd1a69-5fab-48f7-a9bf-8a38b31612fd': {
       title: 'BBC News',
-      url: 'http://localhost:4000/xml/bbc.xml',
-      // url: 'http://feeds.bbci.co.uk/news/rss.xml',
+      // url: 'http://localhost:4000/xml/bbc.xml',
+      url: 'http://feeds.bbci.co.uk/news/rss.xml',
       dateAdded: 1501778672712,
       items: [],
       markedAsRead: [],

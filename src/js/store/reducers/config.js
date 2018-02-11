@@ -11,7 +11,7 @@ const config = (state = {}, action) => {
     case FETCH_FEEDITEMS_SUCCESS:
       return {
         ...state,
-        latestFetch: Date.now(),
+        latestFetch: action.timestamp,
       };
     default:
       return state;

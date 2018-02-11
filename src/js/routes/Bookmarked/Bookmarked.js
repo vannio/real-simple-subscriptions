@@ -1,16 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import FeedGrid from '../../components/FeedGrid';
-import {
-  getAllBookmarkedItems,
-  getSubscriptionKeys,
-} from '../../store/selectors/subscriptions';
-
-const enhance = connect(state => ({
-  bookmarkedItems: getAllBookmarkedItems(state),
-  subscriptionIds: getSubscriptionKeys(state),
-}));
 
 const Bookmarked = props => (
   <div className="subscriptions-bookmarked">
@@ -28,4 +18,4 @@ Bookmarked.propTypes = {
   bookmarkedItems: PropTypes.object,
 };
 
-export default enhance(Bookmarked);
+export default Bookmarked;

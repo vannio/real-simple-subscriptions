@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import Icon from '../SimpleIcon/SimpleIcon';
+import SimpleIcon from '../SimpleIcon';
+import SideBarItem from './SidebarItem';
+
 import './Sidebar.css';
 
 const Sidebar = props => (
@@ -12,24 +14,24 @@ const Sidebar = props => (
         to="/subscriptions"
         className="home-link"
         activeClassName="active">
-        <Icon name="home" title="Home" />
+        <SimpleIcon name="home" title="Home" />
       </NavLink>
       <button
         className="unstyled-button check-button"
         onClick={props.onMarkAsReadClick}>
-        <Icon name="check" title="Mark all as read" />
+        <SimpleIcon name="check" title="Mark all as read" />
       </button>
       <button
         onClick={props.fetchAllFeedItems}
         className="unstyled-button reload-button">
-        <Icon name="reload" title="Fetch new data" />
+        <SimpleIcon name="reload" title="Fetch new data" />
       </button>
       <NavLink
         exact
         to="/settings"
         className="settings-link"
         activeClassName="active">
-        <Icon name="settings" title="Settings" />
+        <SimpleIcon name="settings" title="Settings" />
       </NavLink>
     </li>
     <li className="list-item list-item--bookmarked">
@@ -41,18 +43,12 @@ const Sidebar = props => (
       </NavLink>
       <span className="bookmarked-count">{props.bookmarkedItemCount}</span>
     </li>
-    {props.subscriptionIds.map(id => (
-      <li key={id}>
-        <NavLink
-          to={`/subscriptions/${id.toLowerCase()}`}
-          className="navigation-link"
-          activeClassName="active">
-          {props.subscriptions[id].title}
-        </NavLink>
-        <span className="unread-count">
-          {props.subscriptions[id].items.length /* && props.allFeedItems[id].unreadCount */}
-        </span>
-      </li>
+    {props.subscriptionIds.map(subscriptionId => (
+      <SideBarItem
+        key={subscriptionId}
+        subscriptionId={subscriptionId}
+        subscription={props.subscriptions[subscriptionId]}
+      />
     ))}
   </ul>
 );

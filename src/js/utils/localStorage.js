@@ -19,37 +19,52 @@ const mapv1Subscriptions = subscriptions => {
   );
 };
 
-export const loadState = (key = 'config') => {
+const getLS = (localStorage = {}, key) => {
+  const data = localStorage[key];
   try {
-    const serializedState = localStorage.getItem(key);
-    if (!serializedState && key !== 'subscriptions') {
-      return INITIAL_STATE[key];
-    }
-    if (key === 'subscriptions') {
-      const v1config = localStorage.getItem('config');
-      if (!v1config) {
-        return INITIAL_STATE[key];
-      }
-      const v1subscriptions = mapv1Subscriptions(
-        JSON.parse(v1config).subscriptions,
-      );
-      if (!v1subscriptions) {
-        return INITIAL_STATE[key];
-      }
-      localStorage.removeItem('data');
-      return v1subscriptions;
-    }
-    const parsed = JSON.parse(serializedState);
-    if (key === 'config' && parsed.settings) {
+    return JSON.parse(data);
+  } catch (error) {
+    return {};
+  }
+};
+
+export const migrate = (key, localStorage = {}) => {
+  if (!localStorage.config) {
+    throw new Error('No config found');
+  }
+
+  const currentStorage = getLS(localStorage, key);
+
+  if (key === 'config') {
+    const isv1 = !!currentStorage.settings;
+    if (isv1) {
       return {
         ...INITIAL_STATE[key],
-        ...parsed.settings,
-        latestFetch: 0,
+        ...currentStorage.settings,
       };
     }
-    return parsed;
+  }
+
+  if (key === 'subscriptions') {
+    const isv1 = !currentStorage.subscriptions;
+    const v1subscriptions = getLS(localStorage, 'config').subscriptions;
+    const hasv2subscriptions = Object.keys(currentStorage).length > 0;
+
+    if (isv1 && !hasv2subscriptions) {
+      if (!v1subscriptions) {
+        throw new Error('No subscriptions found');
+      }
+      return mapv1Subscriptions(v1subscriptions);
+    }
+  }
+  return currentStorage;
+};
+
+export const loadState = (key = 'config') => {
+  try {
+    return migrate(key, window.localStorage);
   } catch (err) {
-    return INITIAL_STATE[key];
+    return INITIAL_STATE[key] || {};
   }
 };
 
@@ -58,6 +73,6 @@ export const saveState = (state, key = 'config') => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(key, serializedState);
   } catch (err) {
-    console.log(err);
+    console.log('ERROR', err);
   }
 };

@@ -1,15 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import FeedGrid from '../../components/FeedGrid';
-import { getSubscriptionKeys } from '../../store/selectors/subscriptions';
-import { getConfig } from '../../store/selectors/config';
-
-const enhance = connect(state => ({
-  subscriptions: state.subscriptions,
-  subscriptionIds: getSubscriptionKeys(state),
-  config: getConfig(state),
-}));
 
 export const Home = ({
   subscriptions,
@@ -38,4 +29,4 @@ Home.propTypes = {
   }),
 };
 
-export default enhance(Home);
+export default Home;

@@ -20,7 +20,7 @@ export const ListItem = props => (
       <p
         className="feed-grid-item__description"
         onClick={props.onOpenLinksInNewTab}
-        dangerouslySetInnerHTML={{ __html: props.item.description }}
+        dangerouslySetInnerHTML={{ __html: props.item.contentSnippet }}
       />
     )}
     {props.isContentVisible && (
@@ -40,14 +40,14 @@ export const ListItem = props => (
       onClick={props.onOpenItemLink}>
       <Icon name="link" size="small" title={props.item.title} />
     </a>
-    <button className="unstyled-button" onClick={props.onToggleBookmarked}>
+    <button className="unstyled-button" onClick={props.toggleBookmarkFeedItem}>
       <Icon
         size="small"
         name={props.bookmarkedIcon}
         title={props.bookmarkedLabel}
       />
     </button>
-    <button className="unstyled-button" onClick={props.onToggleMarkedAsRead}>
+    <button className="unstyled-button" onClick={props.toggleMarkedAsRead}>
       <Icon
         name={props.markedReadIcon}
         size="small"
@@ -61,13 +61,13 @@ ListItem.propTypes = {
   classNames: PropTypes.string.isRequired,
   onOpenItemLink: PropTypes.func,
   onOpenLinksInNewTab: PropTypes.func,
-  onToggleMarkedAsRead: PropTypes.func,
-  onToggleBookmarked: PropTypes.func,
+  toggleMarkedAsRead: PropTypes.func,
+  toggleBookmarkFeedItem: PropTypes.func,
   pubDate: PropTypes.string,
   content: PropTypes.string,
   item: PropTypes.shape({
     title: PropTypes.string,
-    description: PropTypes.string,
+    contentSnippet: PropTypes.string,
     link: PropTypes.string,
   }),
   markedReadIcon: PropTypes.string.isRequired,

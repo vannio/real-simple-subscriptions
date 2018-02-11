@@ -1,6 +1,6 @@
 import React from 'react';
-import SettingsConfig from '../components/SettingsConfig';
-import SettingsSubscriptions from '../components/SettingsSubscriptions';
+import SettingsConfig from '../../components/SettingsConfig/index';
+import SettingsSubscriptions from '../../components/SettingsSubscriptions/index';
 
 const Settings = () => (
   <div className="settings">

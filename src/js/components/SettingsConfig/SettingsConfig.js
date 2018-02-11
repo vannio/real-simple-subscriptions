@@ -7,7 +7,7 @@ import './SettingsConfig.css';
 const SettingsConfig = props => (
   <div className="settings-config">
     {props.isEditable ? (
-      <form onSubmit={props.onSubmitForm}>
+      <form onSubmit={props.handleSubmit}>
         <ul className="unstyled-list">
           <li>
             <label htmlFor="maxCount">
@@ -16,8 +16,9 @@ const SettingsConfig = props => (
             <input
               type="number"
               id="maxCount"
-              onChange={props.onMaxCountChange}
-              value={props.maxCount}
+              onChange={props.handleChange}
+              name="maxCount"
+              value={props.values.maxCount}
               min={1}
               className="text-input"
             />
@@ -29,8 +30,9 @@ const SettingsConfig = props => (
             <input
               type="number"
               id="fetchInterval"
-              onChange={props.onFetchIntervalChange}
-              value={props.fetchInterval}
+              onChange={props.handleChange}
+              name="fetchInterval"
+              value={props.values.fetchInterval}
               min={1}
               className="text-input"
             />
@@ -41,8 +43,9 @@ const SettingsConfig = props => (
             </label>
             <select
               id="accentColour"
-              onChange={props.onAccentColourChange}
-              value={props.accentColour}>
+              onChange={props.handleChange}
+              name="accentColour"
+              value={props.values.accentColour}>
               {COLOUR_MAP.map(colour => (
                 <option value={colour} key={colour}>
                   {colour}
@@ -57,8 +60,9 @@ const SettingsConfig = props => (
             <input
               type="checkbox"
               id="readOnOpen"
-              onChange={props.onToggleReadOnOpen}
-              checked={props.readOnOpen}
+              onChange={props.handleChange}
+              name="readOnOpen"
+              checked={props.values.readOnOpen}
             />
           </li>
           <li>
@@ -68,8 +72,9 @@ const SettingsConfig = props => (
             <input
               type="checkbox"
               id="hideRead"
-              onChange={props.onToggleHideRead}
-              checked={props.hideRead}
+              onChange={props.handleChange}
+              name="hideRead"
+              checked={props.values.hideRead}
             />
           </li>
           <li>
@@ -82,8 +87,9 @@ const SettingsConfig = props => (
                 <input
                   type="checkbox"
                   id="showSummary"
-                  onChange={props.onToggleShowSummary}
-                  checked={props.showSummary}
+                  onChange={props.handleChange}
+                  name="showSummary"
+                  checked={props.values.showSummary}
                 />
               </li>
               <li>
@@ -92,8 +98,9 @@ const SettingsConfig = props => (
                 </label>
                 <select
                   id="showContent"
-                  onChange={props.onShowContentChange}
-                  value={props.showContent}>
+                  onChange={props.handleChange}
+                  name="showContent"
+                  value={props.values.showContent}>
                   {Object.keys(SHOW_CONTENT_MAP).map(key => (
                     <option key={key} value={key}>
                       {SHOW_CONTENT_MAP[key]}
@@ -108,8 +115,9 @@ const SettingsConfig = props => (
                 <input
                   type="checkbox"
                   id="showImages"
-                  onChange={props.onToggleShowImages}
-                  checked={props.showImages}
+                  onChange={props.handleChange}
+                  name="showImages"
+                  checked={props.values.showImages}
                 />
               </li>
             </ul>
@@ -126,38 +134,38 @@ const SettingsConfig = props => (
       <ul onClick={props.onToggleEdit} className="unstyled-list">
         <li>
           <strong>Maximum items to display</strong>
-          {props.maxCount}
+          {props.values.maxCount}
         </li>
         <li>
           <strong>Background fetch interval</strong>
-          {props.fetchInterval} minutes
+          {props.values.fetchInterval} minutes
         </li>
         <li>
           <strong>Accent Colour</strong>
-          {props.accentColour}
+          {props.values.accentColour}
         </li>
         <li>
           <strong>Mark as read after viewing</strong>
-          {props.readOnOpen ? '✔' : '✘'}
+          {props.values.readOnOpen ? '✔' : '✘'}
         </li>
         <li>
           <strong>Remove from list when viewed</strong>
-          {props.hideRead ? '✔' : '✘'}
+          {props.values.hideRead ? '✔' : '✘'}
         </li>
         <li>
           <strong>Articles display:</strong>
           <ul>
             <li>
               <strong>Summary</strong>
-              {props.showSummary ? '✔' : '✘'}
+              {props.values.showSummary ? '✔' : '✘'}
             </li>
             <li>
               <strong>Content</strong>
-              {SHOW_CONTENT_MAP[props.showContent]}
+              {SHOW_CONTENT_MAP[props.values.showContent]}
             </li>
             <li>
               <strong>Images</strong>
-              {props.showImages ? '✔' : '✘'}
+              {props.values.showImages ? '✔' : '✘'}
             </li>
           </ul>
         </li>
@@ -167,25 +175,20 @@ const SettingsConfig = props => (
 );
 
 SettingsConfig.propTypes = {
-  isEditable: PropTypes.bool,
-  onToggleEdit: PropTypes.func,
-  onSubmitForm: PropTypes.func,
-  onMaxCountChange: PropTypes.func,
-  onFetchIntervalChange: PropTypes.func,
-  onAccentColourChange: PropTypes.func,
-  onToggleReadOnOpen: PropTypes.func,
-  onToggleHideRead: PropTypes.func,
-  onToggleShowSummary: PropTypes.func,
-  onShowContentChange: PropTypes.func,
-  onToggleShowImages: PropTypes.func,
-  maxCount: PropTypes.number,
-  fetchInterval: PropTypes.number,
-  accentColour: PropTypes.oneOf(COLOUR_MAP),
-  readOnOpen: PropTypes.bool,
-  hideRead: PropTypes.bool,
-  showSummary: PropTypes.bool,
-  showContent: PropTypes.string,
-  showImages: PropTypes.bool,
+  isEditable: PropTypes.bool.isRequired,
+  onToggleEdit: PropTypes.func.isRequired,
+  values: PropTypes.shape({
+    maxCount: PropTypes.number.isRequired,
+    fetchInterval: PropTypes.number.isRequired,
+    accentColour: PropTypes.oneOf(COLOUR_MAP).isRequired,
+    readOnOpen: PropTypes.bool.isRequired,
+    hideRead: PropTypes.bool.isRequired,
+    showSummary: PropTypes.bool.isRequired,
+    showContent: PropTypes.string.isRequired,
+    showImages: PropTypes.bool.isRequired,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default SettingsConfig;
