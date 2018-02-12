@@ -1,0 +1,57 @@
+@import 'styles/mixins/_accent-colour';
+@import 'styles/variables/_base-values';
+@include accent-colour('.sidebar a:hover', color);
+
+.sidebar {
+  margin: 0;
+
+  li {
+    white-space: nowrap;
+
+    &:first-child {
+      margin-bottom: $base-spacer * 2;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &.list-item--bookmarked {
+      margin-bottom: $base-spacer * 2;
+    }
+  }
+
+  a {
+    font-weight: 700;
+    font-family: $base-heading-font;
+  }
+
+  .icon {
+    display: block;
+  }
+
+  .home-link,
+  .settings-link,
+  .check-button,
+  .reload-button {
+    margin-bottom: $base-spacer;
+    display: inline-block;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .home-link,
+  .check-button,
+  .reload-button {
+    margin-right: $base-spacer;
+  }
+
+  .navigation-link {
+    margin-right: $base-spacer;
+  }
+
+  .bookmarked-count,
+  .unread-count {
+    font-size: 80%;
+  }
+}

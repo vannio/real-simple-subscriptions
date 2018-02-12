@@ -1,4 +1,4 @@
-# Real Simple Subscriptions [![Build Status](https://api.travis-ci.com/vannio/real-simple-subscriptions.svg?token=eXoHprHMqp2pBHRzYi5E&branch=master)](https://travis-ci.com/vannio/real-simple-subscriptions)
+# Real Simple Subscriptions [![Build Status](https://travis-ci.org/vannio/real-simple-subscriptions.svg?branch=master)](https://travis-ci.org/vannio/real-simple-subscriptions)
 
 A Chrome extension that replaces your 'new tab' pages with the latest news from your chosen RSS feeds.
 
